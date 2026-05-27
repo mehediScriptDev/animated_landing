@@ -46,6 +46,10 @@ button, a, [role="button"] {
 @media (min-width: 1280px) { .hero-text { font-size: 3.5rem;   } }
 .dark-theme .hero-text { color: #fff; }
 
+/* Animated scroll indicator line */
+.hero-line { background: #000; }
+.dark-theme .hero-line { background: #fff; }
+
 /* Dark theme overrides — toggled via .dark-theme class on wrapper */
 .dark-theme {
   --text: rgba(255, 255, 255, 0.55);
