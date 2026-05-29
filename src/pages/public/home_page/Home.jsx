@@ -3,6 +3,7 @@ import HeroBanner from './components/HeroBanner';
 import ClientsGrid from './components/ClientsGrid';
 import LendersCarousel from './components/LendersCarousel';
 import AboutSection from './components/AboutSection';
+import ReviewsSection from './components/ReviewsSection';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <ClientsGrid />
         <LendersCarousel />
         <AboutSection />
+        <ReviewsSection />
       </main>
     </>
   );
