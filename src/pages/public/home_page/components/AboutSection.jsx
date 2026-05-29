@@ -4,7 +4,7 @@ export default function AboutSection() {
   return (
     <section
       aria-label="About Traikos Finance"
-      className="bg-black py-20 "
+      className="relative z-10 py-20 "
     >
       <div className="w-[90%] md:w-[75%] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16">
 

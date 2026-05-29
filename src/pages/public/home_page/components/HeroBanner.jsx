@@ -26,7 +26,7 @@ export default function HeroBanner() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative w-full h-[95vh] flex flex-col justify-center pl-8 md:pl-10 lg:pl-24 xl:pl-24 2xl:pl-48 pr-6"
+      className="relative z-10 w-full h-[95vh] flex flex-col justify-center pl-8 md:pl-10 lg:pl-24 xl:pl-24 2xl:pl-48 pr-6"
     >
       <h1
         id="hero-heading"

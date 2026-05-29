@@ -110,7 +110,7 @@ export default function LendersCarousel() {
   }, []);
 
   return (
-    <section aria-label="Leading lenders" className="bg-black py-16 w-[90%] md:w-[75%] mx-auto">
+    <section aria-label="Leading lenders" className="relative z-10 py-16 w-[90%] md:w-[75%] mx-auto">
       <p className="text-center text-white text-xs md:text-xl font-semibold tracking-[0.25em] uppercase opacity-70 mb-8 px-4" style={{ marginBottom: '20px' }}>
         Access to competitive rates from leading lenders
       </p>
