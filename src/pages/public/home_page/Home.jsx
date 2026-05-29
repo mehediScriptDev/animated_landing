@@ -2,6 +2,7 @@ import SEO from '../../../components/SEO';
 import HeroBanner from './components/HeroBanner';
 import ClientsGrid from './components/ClientsGrid';
 import LendersCarousel from './components/LendersCarousel';
+import AboutSection from './components/AboutSection';
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <HeroBanner />
         <ClientsGrid />
         <LendersCarousel />
+        <AboutSection />
       </main>
     </>
   );
