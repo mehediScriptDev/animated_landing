@@ -26,15 +26,15 @@ export default function HeroBanner() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative w-full h-[85vh] flex flex-col justify-center pl-8 md:pl-10 lg:pl-24 xl:pl-24 2xl:pl-48 pr-6"
+      className="relative w-full h-[95vh] flex flex-col justify-center pl-8 md:pl-10 lg:pl-24 xl:pl-24 2xl:pl-48 pr-6"
     >
       <h1
         id="hero-heading"
         ref={textRef}
-        className="hero-text uppercase transition-colors duration-200"
+        className="hero-text uppercase transition-colors duration-200 max-w-6xl"
       >
-        Making Cents of Real Estate<br />
-        and Sense of Your Finance.
+        Making Cents Real Estate and Sense of Your<br />
+        Finance.
       </h1>
 
       {/* Animated vertical scroll indicator */}

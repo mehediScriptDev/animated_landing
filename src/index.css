@@ -37,18 +37,52 @@ button, a, [role="button"] {
   color: #000;
   font-weight: 900;
   font-variation-settings: 'wght' 900;
-  letter-spacing: -0.05em;
+  letter-spacing: 0.1em;
   line-height: 0.9;
   font-size: 2rem;
 }
 @media (min-width: 768px)  { .hero-text { font-size: 1rem; } }
 @media (min-width: 1024px) { .hero-text { font-size: 2.5rem;   } }
-@media (min-width: 1280px) { .hero-text { font-size: 3.5rem;   } }
+@media (min-width: 1280px) { .hero-text { font-size: 3rem;   } }
 .dark-theme .hero-text { color: #fff; }
 
 /* Animated scroll indicator line */
 .hero-line { background: #000; }
 .dark-theme .hero-line { background: #fff; }
+
+/* Client portfolio cards */
+.client-card {
+  background-color: #181818;
+  transition: background-color 0.35s ease;
+}
+/* When grid has a hovered card — all cards get subtle dark tint (card shapes visible over overlay) */
+.clients-grid:has(.client-card:hover) .client-card {
+  background-color: rgba(0, 0, 0, 0.18);
+}
+/* The specifically hovered card — transparent so GSAP image shows */
+.clients-grid .client-card:hover {
+  background-color: transparent;
+}
+
+/* ClientsGrid section background — slow fade to black on dark-theme, fast reset on light */
+.clients-section {
+  background-color: #ffffff;
+  transition: background-color 0.25s ease;
+}
+.dark-theme .clients-section {
+  background-color: #000000;
+  transition: background-color 1.4s ease;
+}
+
+/* Cards 1–5: hidden by default, reveal with section bg (delay matches bg fade) */
+.client-card-reveal {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.dark-theme .client-card-reveal {
+  opacity: 1;
+  transition: opacity 0.6s ease 0.8s;
+}
 
 /* Dark theme overrides — toggled via .dark-theme class on wrapper */
 .dark-theme {
