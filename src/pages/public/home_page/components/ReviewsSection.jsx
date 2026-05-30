@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import logoImg from "@/assets/logo_dark_1.png";
 
 // ─── Hardcoded Google reviews ────────────────────────────────────────────────
@@ -106,9 +106,8 @@ function ReviewCard({ review }) {
 
   return (
     <div
-      className="flex-shrink-0 flex flex-col justify-between rounded-xl p-5 relative"
+      className="w-full shrink-0 flex flex-col justify-between rounded-xl p-5"
       style={{
-        width: "260px",
         minHeight: "200px",
         background: "#1c1c1c",
         border: "1px solid #c9a84c55",
@@ -121,11 +120,11 @@ function ReviewCard({ review }) {
             <img
               src={review.avatar}
               alt={review.name}
-              className="w-9 h-9 rounded-full object-cover flex-shrink-0"
+              className="w-9 h-9 rounded-full object-cover shrink-0"
             />
           ) : (
             <div
-              className="w-9 h-9 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-white font-semibold text-sm shrink-0"
               style={{ background: review.color }}
             >
               {initial}
@@ -181,69 +180,158 @@ function ReviewCard({ review }) {
   );
 }
 
-export default function ReviewsSection() {
-  const trackRef = useRef(null);
-
-  const scroll = (dir) => {
-    if (!trackRef.current) return;
-    trackRef.current.scrollBy({ left: dir * 280, behavior: "smooth" });
-  };
+// ─── Desktop-only scrollable card ───────────────────────────────────────────
+function DesktopReviewCard({ review }) {
+  const [expanded, setExpanded] = useState(false);
+  const initial = review.name.charAt(0).toUpperCase();
 
   return (
-    <section
-      aria-label="Google reviews"
-      className="bg-black py-16 px-6 md:px-12 overflow-hidden"
+    <div
+      className="shrink-0 w-65 flex flex-col justify-between rounded-xl p-5"
+      style={{
+        minHeight: "200px",
+        background: "#1c1c1c",
+        border: "1px solid #c9a84c55",
+      }}
     >
-      <div className="w-[90%] md:w-[75%] mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-        {/* Left — branding */}
-        <div className="flex-shrink-0 flex flex-col items-start gap-4 md:w-48">
-          <div className="bg-white rounded-xl p-3 w-14 h-14 flex items-center justify-center">
-            <img
-              src={logoImg}
-              alt="Traikos Finance"
-              className="w-full h-full object-contain"
-            />
-          </div>
+      <div className="flex items-start justify-between gap-2 mb-3">
+        <div className="flex items-center gap-2">
+          {review.avatar ? (
+            <img src={review.avatar} alt={review.name} className="w-9 h-9 rounded-full object-cover shrink-0" />
+          ) : (
+            <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-semibold text-sm shrink-0" style={{ background: review.color }}>
+              {initial}
+            </div>
+          )}
           <div>
-            <p className="text-white font-semibold text-sm">Traikos Finance</p>
-            <Stars />
-            <p className="text-white/50 text-xs mt-1">18 Google reviews</p>
+            <p className="text-white text-sm font-semibold leading-tight">{review.name}</p>
+            <p className="text-white/40 text-[0.65rem]">{review.ago}</p>
           </div>
-          <a
-            href={GOOGLE_REVIEW_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white text-xs font-medium border border-white/30 rounded-full px-4 py-2 hover:bg-white hover:text-black transition-colors duration-200"
+        </div>
+        <GoogleIcon />
+      </div>
+      <div className="flex items-center gap-2 mb-3">
+        <Stars />
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#4285F4" aria-label="Verified">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+        </svg>
+      </div>
+      <p className="text-white/70 text-xs leading-relaxed flex-1 mb-3">
+        {expanded ? review.text.replace("…", "") : review.text}
+      </p>
+      <div className="flex items-end justify-between">
+        {review.text.includes("…") && (
+          <button onClick={() => setExpanded(!expanded)} className="text-white/40 text-[0.65rem] hover:text-white/70 transition-colors">
+            {expanded ? "Show less" : "Read more"}
+          </button>
+        )}
+        <span className="text-[#c9a84c] text-2xl leading-none ml-auto" aria-hidden="true">"</span>
+      </div>
+    </div>
+  );
+}
+
+export default function ReviewsSection() {
+  const [mobileIdx, setMobileIdx] = useState(0);
+  const trackRef = useRef(null);
+  const total = REVIEWS.length;
+
+  const scrollDesktop = useCallback((dir) => {
+    if (!trackRef.current) return;
+    trackRef.current.scrollBy({ left: dir * 276, behavior: "smooth" });
+  }, []);
+
+  const Branding = (
+    <div className="shrink-0 flex flex-col items-start gap-4 md:w-48">
+      <div className="bg-white rounded-xl p-3 w-14 h-14 flex items-center justify-center">
+        <img src={logoImg} alt="Traikos Finance" className="w-full h-full object-contain" />
+      </div>
+      <div>
+        <p className="text-white font-semibold text-sm">Traikos Finance</p>
+        <Stars />
+        <p className="text-white/50 text-xs mt-1">18 Google reviews</p>
+      </div>
+      <a
+        href={GOOGLE_REVIEW_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-white text-xs font-medium border border-white/30 rounded-full px-4 py-2 hover:bg-white hover:text-black transition-colors duration-200"
+      >
+        Write a review
+      </a>
+    </div>
+  );
+
+  return (
+    <section aria-label="Google reviews" className="bg-black py-16 px-6 md:px-12">
+      {/* ── Mobile layout ── */}
+      <div className="flex flex-col gap-8 md:hidden">
+        {Branding}
+
+        {/* Single card + arrows */}
+        <div className="relative">
+          <ReviewCard review={REVIEWS[mobileIdx]} />
+          {/* Prev */}
+          <button
+            onClick={() => setMobileIdx((i) => Math.max(0, i - 1))}
+            disabled={mobileIdx === 0}
+            aria-label="Previous review"
+            className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-white/20 bg-black/70 flex items-center justify-center text-white text-lg disabled:opacity-30 hover:bg-white/10 transition-colors"
           >
-            Write a review
-          </a>
+            ‹
+          </button>
+          {/* Next */}
+          <button
+            onClick={() => setMobileIdx((i) => Math.min(total - 1, i + 1))}
+            disabled={mobileIdx === total - 1}
+            aria-label="Next review"
+            className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-white/20 bg-black/70 flex items-center justify-center text-white text-lg disabled:opacity-30 hover:bg-white/10 transition-colors"
+          >
+            ›
+          </button>
         </div>
 
-        {/* Right — reviews carousel */}
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-1.5">
+          {REVIEWS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setMobileIdx(i)}
+              aria-label={`Review ${i + 1}`}
+              className={`w-1.5 h-1.5 rounded-full transition-colors ${i === mobileIdx ? "bg-[#c9a84c]" : "bg-white/20"}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Desktop layout ── */}
+      <div className="hidden md:flex w-[75%] mx-auto flex-row gap-12 items-start">
+        {Branding}
+
         <div className="relative flex-1 min-w-0">
-          {/* Prev arrow */}
+          {/* Prev */}
           <button
-            onClick={() => scroll(-1)}
+            onClick={() => scrollDesktop(-1)}
             aria-label="Previous reviews"
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-8 h-8 rounded-full border border-white/20 bg-black flex items-center justify-center text-white hover:bg-white/10 transition-colors"
           >
             ‹
           </button>
 
-          {/* Cards track */}
+          {/* Track */}
           <div
             ref={trackRef}
-            className="flex gap-4 overflow-x-auto scroll-smooth pb-2"
+            className="flex gap-4 overflow-x-auto pb-2"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {REVIEWS.map((review) => (
-              <ReviewCard key={review.id} review={review} />
+              <DesktopReviewCard key={review.id} review={review} />
             ))}
           </div>
 
-          {/* Next arrow */}
+          {/* Next */}
           <button
-            onClick={() => scroll(1)}
+            onClick={() => scrollDesktop(1)}
             aria-label="Next reviews"
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-8 h-8 rounded-full border border-white/20 bg-black flex items-center justify-center text-white hover:bg-white/10 transition-colors"
           >
