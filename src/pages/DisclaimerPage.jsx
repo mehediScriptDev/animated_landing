@@ -15,8 +15,8 @@ export default function DisclaimerPage() {
         {/* ── Disclaimer section ────────────────────────────────────────────── */}
         <div className="flex-1 bg-white">
           <div className="w-[90%] md:w-[75%] mx-auto">
-            <div className="border-t border-gray-200 py-14 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10">
-              <h1 className="text-sm font-bold tracking-[0.22em] uppercase text-black leading-snug">
+            <div className="py-8 md:py-14 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 md:gap-10">
+              <h1 className="text-sm font-bold tracking-[0.22em] uppercase text-black! leading-snug">
                 DISCLAIMER
               </h1>
               <p className="text-sm text-gray-700 leading-relaxed">
@@ -39,7 +39,7 @@ export default function DisclaimerPage() {
             </p>
             <Link
               to="/contact"
-              className="shrink-0 bg-black text-white text-xs font-bold tracking-[0.18em] uppercase px-7 py-3 hover:bg-white/85 transition-colors"
+              className="shrink-0 bg-black text-white text-xs font-bold tracking-[0.18em] uppercase px-7 py-3 hover:bg-black/80 transition-colors"
             >
               CONTACT US
             </Link>

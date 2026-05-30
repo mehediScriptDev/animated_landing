@@ -272,7 +272,7 @@ export default function PrivacyPage() {
 
         {/* ── Intro section ─────────────────────────────────────────────────── */}
         <div className="w-[90%] md:w-[75%] mx-auto">
-          <div className=" py-14 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10">
+          <div className="py-8 md:py-14 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 md:gap-10">
             <h1 className="text-sm font-bold tracking-[0.22em] uppercase text-black! leading-snug">
               PRIVACY POLICY
             </h1>
@@ -303,7 +303,7 @@ export default function PrivacyPage() {
         {STATIC_SECTIONS.map((section, i) => (
           <div key={section.id} className="w-[90%] md:w-[75%] mx-auto">
             <div
-              className={`${i !== 0 ? "border-t border-gray-200" : ""} py-14 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10`}
+              className={`${i !== 0 ? "border-t border-gray-200" : ""} py-8 md:py-14 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 md:gap-10`}
             >
               <h2 className="text-sm font-bold tracking-[0.22em] uppercase text-black! leading-snug">
                 {section.heading}
@@ -325,7 +325,7 @@ export default function PrivacyPage() {
             </p>
             <Link
               to="/contact"
-              className="shrink-0 bg-black text-white text-xs font-bold tracking-[0.18em] uppercase px-7 py-3 hover:bg-white/85 transition-colors"
+              className="shrink-0 bg-black text-white text-xs font-bold tracking-[0.18em] uppercase px-7 py-3 hover:bg-black/80 transition-colors"
             >
               CONTACT US
             </Link>
