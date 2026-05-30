@@ -265,7 +265,11 @@ export default function PrivacyPage() {
         canonical="https://traikosfinance.com.au/privacy"
       />
 
-      <main id="main-content" tabIndex={-1} className="flex-1 bg-white">
+      <main id="main-content" tabIndex={-1} className="flex-1 flex flex-col">
+
+        {/* ── Content wrapper ───────────────────────────────────────────────── */}
+        <div className="flex-1 bg-white">
+
         {/* ── Intro section ─────────────────────────────────────────────────── */}
         <div className="w-[90%] md:w-[75%] mx-auto">
           <div className=" py-14 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10">
@@ -311,16 +315,17 @@ export default function PrivacyPage() {
           </div>
         ))}
 
+        </div>{/* end content wrapper */}
+
         {/* ── CTA bar ───────────────────────────────────────────────────────── */}
-        <div className="bg-black mt-4">
+        <div className="bg-[#eaeaea]">
           <div className="w-[90%] md:w-[75%] mx-auto py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-white/80 text-sm leading-relaxed">
-              Are you interested to book a free consultation or have any other
-              inquiries?
+            <p className="text-black text-sm leading-relaxed">
+              Are you interested to book a free consultation or have any other inquiries?
             </p>
             <Link
               to="/contact"
-              className="shrink-0 bg-white text-black text-xs font-bold tracking-[0.18em] uppercase px-7 py-3 hover:bg-white/85 transition-colors"
+              className="shrink-0 bg-black text-white text-xs font-bold tracking-[0.18em] uppercase px-7 py-3 hover:bg-white/85 transition-colors"
             >
               CONTACT US
             </Link>

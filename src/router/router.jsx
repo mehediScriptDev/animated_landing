@@ -4,6 +4,7 @@ import AboutPage from '../pages/AboutPage';
 import ContactPage from '../pages/ContactPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import PrivacyPage from '../pages/PrivacyPage';
+import DisclaimerPage from '../pages/DisclaimerPage';
 import RootLayout from '../layouts/RootLayout';
 
 const router = createBrowserRouter([
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
       { path: 'about', element: <AboutPage /> },
       { path: 'contact', element: <ContactPage /> },
       { path: 'privacy', element: <PrivacyPage /> },
+      { path: 'disclaimer', element: <DisclaimerPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
