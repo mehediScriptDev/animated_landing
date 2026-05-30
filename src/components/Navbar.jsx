@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import TransitionLink from './TransitionLink';
 import logo from '../assets/logo.png';
 import logoDark from '../assets/logo_dark.png';
 
@@ -12,6 +13,7 @@ const links = [
 export default function Navbar({ scrolled = false }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logoScrolled, setLogoScrolled] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (scrolled) {
@@ -31,17 +33,17 @@ export default function Navbar({ scrolled = false }) {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <NavLink
+        <TransitionLink
           to="/"
-          className="flex items-center"
-          aria-label="Home — MyApp"
+          wipeColor="#ffffff"
+          aria-label="Home — Traikos Finance"
         >
           <img
             src={logoScrolled ? logoDark : logo}
             alt="MyApp logo"
             className="h-8 w-auto object-contain transition-all duration-200"
           />
-        </NavLink>
+        </TransitionLink>
 
         {/* Right-side actions */}
         <div className="flex items-center gap-3">
@@ -120,26 +122,26 @@ export default function Navbar({ scrolled = false }) {
           className="px-3 pb-3"
         >
           <ul className="flex flex-col gap-1 list-none m-0 p-0" role="list">
-            {links.map(({ to, label }) => (
-              <li key={to}>
-                <NavLink
-                  to={to}
-                  end
-                  onClick={() => setMenuOpen(false)}
-                  className={({ isActive }) =>
-                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
+            {links.map(({ to, label }) => {
+              const isActive = pathname === to;
+              return (
+                <li key={to}>
+                  <TransitionLink
+                    to={to}
+                    onClick={() => setMenuOpen(false)}
+                    className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
                       isActive
-                        ? 'bg-[var(--accent-bg)] text-[var(--accent)]'
+                        ? 'bg-(--accent-bg) text-(--accent)'
                         : scrolled
                         ? 'text-white/80 hover:bg-white/10 hover:text-white'
-                        : 'text-[var(--text)] hover:bg-black/5 hover:text-[var(--text-h)]'
-                    }`
-                  }
-                >
-                  {label}
-                </NavLink>
-              </li>
-            ))}
+                        : 'text-(--text) hover:bg-black/5 hover:text-(--text-h)'
+                    }`}
+                  >
+                    {label}
+                  </TransitionLink>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

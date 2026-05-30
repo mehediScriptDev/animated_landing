@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import PageWipeOverlay, { pageRef } from '../components/PageWipeOverlay';
 import { useScrolled } from '../hooks/useScrolled';
 
 export default function RootLayout() {
@@ -16,7 +17,12 @@ export default function RootLayout() {
 
   return (
     <>
+      {/* Overlay is rendered OUTSIDE the page wrapper so it is never
+          unmounted during route changes — the GSAP timeline can safely
+          run its full two-phase sequence across every navigation. */}
+      <PageWipeOverlay />
       <div
+        ref={(el) => { pageRef.current = el; }}
         className={`min-h-screen flex flex-col transition-colors duration-200 ease-in-out ${bgClass}`}
       >
         <Navbar scrolled={navScrolled} />

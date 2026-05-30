@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import TransitionLink from './TransitionLink';
 import logoImg from '@/assets/logo_dark.png';
 
 // Instagram icon
@@ -56,13 +56,13 @@ export default function Footer() {
           <ul className="flex flex-col gap-3">
             {QUICK_LINKS.map((link) => (
               <li key={link.to}>
-                <Link
+                <TransitionLink
                   to={link.to}
                   className="text-white/60 text-sm hover:text-white transition-colors flex items-center gap-2"
                 >
                   <span className="text-white/30 text-xs">»</span>
                   {link.label}
-                </Link>
+                </TransitionLink>
               </li>
             ))}
           </ul>
@@ -126,9 +126,9 @@ export default function Footer() {
         <div className="w-[90%] md:w-[75%] mx-auto py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/40 text-xs">
           <p>&copy; {new Date().getFullYear()} Traikos Finance All Rights Reserved.</p>
           <div className="flex items-center gap-6">
-            <Link to="/disclaimer" className="hover:text-white transition-colors">Disclaimer</Link>
-            <Link to="/compliments" className="hover:text-white transition-colors">Compliments &amp; Concern</Link>
-            <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <TransitionLink to="/disclaimer" className="hover:text-white transition-colors">Disclaimer</TransitionLink>
+            <TransitionLink to="/compliments" className="hover:text-white transition-colors">Compliments &amp; Concern</TransitionLink>
+            <TransitionLink to="/privacy" className="hover:text-white transition-colors">Privacy Policy</TransitionLink>
           </div>
         </div>
       </div>

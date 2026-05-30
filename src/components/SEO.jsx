@@ -9,12 +9,12 @@
  *   ogImage     — Open Graph image URL
  */
 export default function SEO({
-  title = 'My App',
+  title = 'Traikos Finance',
   description = 'A fast, accessible and SEO-friendly React application.',
   canonical = 'https://example.com/',
   ogImage = 'https://example.com/og-image.jpg',
 }) {
-  const siteName = 'My App';
+  const siteName = 'Traikos Finance';
   const fullTitle = title !== siteName ? `${title} | ${siteName}` : title;
 
   // Update <title>

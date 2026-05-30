@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const DEFAULT_TITLE = 'My App';
+const DEFAULT_TITLE = 'Traikos Finance';
 const SEPARATOR = ' | ';
 
 /**
