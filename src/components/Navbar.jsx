@@ -35,14 +35,21 @@ export default function Navbar({ scrolled = false }) {
         {/* Logo */}
         <TransitionLink
           to="/"
-          wipeColor="#ffffff"
           aria-label="Home — Traikos Finance"
+          className="group flex items-center gap-3"
         >
           <img
             src={logoScrolled ? logoDark : logo}
-            alt="MyApp logo"
+            alt="Traikos Finance logo"
             className="h-8 w-auto object-contain transition-all duration-200"
           />
+          <span
+            className={`text-xs font-black uppercase tracking-widest overflow-hidden max-w-0 opacity-0 group-hover:max-w-xs group-hover:opacity-100 transition-all duration-300 ease-in-out whitespace-nowrap ${
+              scrolled ? 'text-white' : 'text-black'
+            }`}
+          >
+            Michael Traikos
+          </span>
         </TransitionLink>
 
         {/* Right-side actions */}
