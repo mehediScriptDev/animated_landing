@@ -4,6 +4,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import PrivacyPage from '../pages/public/privacy_policy_page/PrivacyPage';
 import DisclaimerPage from '../pages/public/disclaimer_page/DisclaimerPage';
 import ComplimentsPage from '../pages/public/compliments_page/ComplimentsPage';
+import ContactPage from '../pages/public/contact/ContactPage';
 import RootLayout from '../layouts/RootLayout';
 
 const router = createBrowserRouter([
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <Home /> },
+      { path: 'contact', element: <ContactPage /> },
       { path: 'privacy', element: <PrivacyPage /> },
       { path: 'disclaimer', element: <DisclaimerPage /> },
       { path: 'compliments', element: <ComplimentsPage /> },
