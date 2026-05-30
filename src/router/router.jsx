@@ -3,6 +3,7 @@ import Home from '../pages/public/home_page/Home';
 import AboutPage from '../pages/AboutPage';
 import ContactPage from '../pages/ContactPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import PrivacyPage from '../pages/PrivacyPage';
 import RootLayout from '../layouts/RootLayout';
 
 const router = createBrowserRouter([
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'about', element: <AboutPage /> },
       { path: 'contact', element: <ContactPage /> },
+      { path: 'privacy', element: <PrivacyPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
