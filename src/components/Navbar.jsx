@@ -47,11 +47,34 @@ export default function Navbar({ scrolled = false }) {
 
         {/* Right-side actions */}
         <div className="flex items-center gap-3">
+          {/* Desktop nav links */}
+          <ul className="hidden md:flex items-center gap-1 list-none m-0 p-0">
+            {links.map(({ to, label }) => {
+              const isActive = pathname === to;
+              return (
+                <li key={to}>
+                  <TransitionLink
+                    to={to}
+                    className={`block px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 border ${
+                      isActive
+                        ? scrolled
+                          ? 'border-white text-white'
+                          : 'border-black text-black'
+                        : 'border-transparent text-(--text) hover:text-(--text-h)'
+                    }`}
+                  >
+                    {label}
+                  </TransitionLink>
+                </li>
+              );
+            })}
+          </ul>
+
           {/* Call Now */}
           <a
             href="tel:+1234567890"
-            className={`flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full border transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
-              scrolled ? 'border-white text-white' : 'border-black text-black'
+            className={`flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
+              scrolled ? 'border-white text-white' : 'text-black'
             }`}
             aria-label="Call us now"
           >
@@ -73,11 +96,11 @@ export default function Navbar({ scrolled = false }) {
             </svg>
           </a>
 
-          {/* Menu button — circular */}
+          {/* Mobile-only menu button */}
           <button
             type="button"
             onClick={() => setMenuOpen((prev) => !prev)}
-            className={`flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
+            className={`md:hidden flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
               scrolled ? 'border-white text-white' : 'border-black text-black'
             }`}
             aria-expanded={menuOpen}
