@@ -26,13 +26,12 @@ export default function HeroBanner() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative z-10 w-full h-[95vh] flex flex-col justify-center pl-8 md:pl-10 lg:pl-24 xl:pl-24 2xl:pl-48 pr-6"
+      className="relative z-10 w-full h-[95vh] flex flex-col justify-center"
     >
       <h1
         id="hero-heading"
         ref={textRef}
-        className="hero-text font-sequel  uppercase transition-colors duration-200 max-w-6xl"
-        
+        className="hero-text font-sequel uppercase transition-colors duration-200 w-[90%] md:w-[75%] mx-auto"
       >
         Making Cents Real Estate and Sense of Your<br />
         Finance.
