@@ -13,6 +13,8 @@ const links = [
 export default function Navbar({ scrolled = false }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logoScrolled, setLogoScrolled] = useState(false);
+  const [logoIntroVisible, setLogoIntroVisible] = useState(false);
+  const [logoHoverMode, setLogoHoverMode] = useState(false);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -25,6 +27,22 @@ export default function Navbar({ scrolled = false }) {
       setLogoScrolled(false);
     }
   }, [scrolled]);
+
+  useEffect(() => {
+    let timeoutId;
+    const rafId = requestAnimationFrame(() => {
+      setLogoIntroVisible(true);
+      timeoutId = setTimeout(() => {
+        setLogoIntroVisible(false);
+        setLogoHoverMode(true);
+      }, 2000);
+    });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -44,11 +62,25 @@ export default function Navbar({ scrolled = false }) {
             className="h-8 w-auto object-contain transition-all duration-200"
           />
           <span
-            className={`text-xs font-black uppercase tracking-widest overflow-hidden max-w-0 opacity-0 group-hover:max-w-xs group-hover:opacity-100 transition-all duration-300 ease-in-out whitespace-nowrap ${
+            className={`text-xs font-black uppercase tracking-widest whitespace-nowrap flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out ${
               scrolled ? 'text-white' : 'text-black'
             }`}
           >
-            Michael Traikos
+            {['Michael', 'Traikos'].map((word, index) => (
+              <span
+                key={word}
+                className={`inline-block transition-all duration-500 ease-out motion-reduce:transition-none ${
+                  logoHoverMode
+                    ? 'opacity-0 translate-x-3 group-hover:opacity-100 group-hover:translate-x-0'
+                    : logoIntroVisible
+                    ? 'opacity-100 translate-x-0'
+                    : 'opacity-0 translate-x-3'
+                }`}
+                style={{ transitionDelay: `${index * 140}ms` }}
+              >
+                {word}
+              </span>
+            ))}
           </span>
         </TransitionLink>
 

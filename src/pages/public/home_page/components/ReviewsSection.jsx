@@ -241,32 +241,13 @@ export default function ReviewsSection() {
     trackRef.current.scrollBy({ left: dir * 276, behavior: "smooth" });
   }, []);
 
-  const Branding = (
-    <div className="shrink-0 flex flex-col items-start gap-4 md:w-48">
-      <div className="bg-white rounded-xl p-3 w-14 h-14 flex items-center justify-center">
-        <img src={logoImg} alt="Traikos Finance" className="w-full h-full object-contain" />
-      </div>
-      <div>
-        <p className="text-white font-semibold text-sm">Traikos Finance</p>
-        <Stars />
-        <p className="text-white/50 text-xs mt-1">18 Google reviews</p>
-      </div>
-      <a
-        href={GOOGLE_REVIEW_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-white text-xs font-medium border border-white/30 rounded-full px-4 py-2 hover:bg-white hover:text-black transition-colors duration-200"
-      >
-        Write a review
-      </a>
-    </div>
-  );
+  
 
   return (
-    <section aria-label="Google reviews" className="bg-black py-16 px-6 md:px-12">
+    <section aria-label="Google reviews" className="bg-black py-16 px-4">
       {/* ── Mobile layout ── */}
+
       <div className="flex flex-col gap-8 md:hidden">
-        {Branding}
 
         {/* Single card + arrows */}
         <div className="relative">
@@ -305,9 +286,7 @@ export default function ReviewsSection() {
       </div>
 
       {/* ── Desktop layout ── */}
-      <div className="hidden md:flex w-[75%] mx-auto flex-row gap-12 items-start">
-        {Branding}
-
+      <div className="hidden md:flex w-[75%] mx-auto items-start">
         <div className="relative flex-1 min-w-0">
           {/* Prev */}
           <button

@@ -125,7 +125,7 @@ export default function LendersCarousel() {
           <div
             key={i}
             aria-label={lender.name}
-            className="flex-shrink-0 bg-white rounded flex items-center justify-center "
+            className="shrink-0 bg-white rounded flex items-center justify-center "
             style={{ width: '320px', height: '200px', padding: '16px 24px' }}
           >
             <img
