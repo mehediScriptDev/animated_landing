@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import SEO from "../../../components/SEO";
 import { useScrolled } from "../../../hooks/useScrolled";
 import bgImage from "../../../assets/about/removebg.png";
@@ -11,6 +12,33 @@ import CtaSection from "./sections/CtaSection";
 
 export default function About() {
   const isDark = useScrolled(50);
+  const whiteSectionRef = useRef(null);
+
+  // Watch the white Expertise section — when it reaches the navbar area,
+  // dispatch an event so the RootLayout can flip the navbar back to dark logo/text
+  useEffect(() => {
+    const el = whiteSectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When white section is visible at the top → navbar should be dark (black logo)
+        window.dispatchEvent(
+          new CustomEvent('about-nav-theme', {
+            detail: { dark: !entry.isIntersecting },
+          })
+        );
+      },
+      {
+        // rootMargin: negative top = only trigger when section reaches navbar height (64px)
+        rootMargin: '-64px 0px -80% 0px',
+        threshold: 0,
+      }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -61,7 +89,10 @@ export default function About() {
       <main id="main-content" tabIndex={-1} className="relative z-1">
         <HeroSection isDark={isDark} />
         <BioSection isDark={isDark} />
-        <ExpertiseSection />
+        {/* Ref wraps the white section so IntersectionObserver can detect it */}
+        <div ref={whiteSectionRef}>
+          <ExpertiseSection />
+        </div>
         <ClientsSection />
         <AwardsSection />
         <CtaSection />

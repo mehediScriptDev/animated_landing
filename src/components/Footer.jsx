@@ -1,5 +1,5 @@
 import TransitionLink from './TransitionLink';
-import logoImg from '@/assets/logo_dark.png';
+import logoImg from '@/assets/logo_dark_1.png';
 
 // Instagram icon
 function IconInstagram() {

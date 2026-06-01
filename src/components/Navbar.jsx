@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import TransitionLink from './TransitionLink';
 import logo from '../assets/logo.png';
-import logoDark from '../assets/logo_dark.png';
+import logoDark from '../assets/logo_dark_1.png';
 
 const links = [
   { to: '/', label: 'Home' },

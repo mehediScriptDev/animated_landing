@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -8,11 +9,36 @@ export default function RootLayout() {
   const scrolled = useScrolled(50);
   const { pathname } = useLocation();
   const isHome = pathname === '/';
+  const isAbout = pathname === '/about';
 
-  // On non-home pages the navbar always stays in the light (unscrolled) state
-  const navScrolled = isHome ? scrolled : false;
+  // About page dispatches 'about-nav-theme' events when white sections
+  // enter/leave the viewport. This lets the navbar switch back to dark
+  // logo/text on white sections (e.g. Expertise).
+  const [aboutNavDark, setAboutNavDark] = useState(true);
 
-  // bg transition only applies on the home page
+  useEffect(() => {
+    if (!isAbout) return;
+    const handler = (e) => setAboutNavDark(e.detail.dark);
+    window.addEventListener('about-nav-theme', handler);
+    return () => window.removeEventListener('about-nav-theme', handler);
+  }, [isAbout]);
+
+  // Reset aboutNavDark when navigating away from the about page
+  useEffect(() => {
+    if (!isAbout) setAboutNavDark(true);
+  }, [isAbout]);
+
+  // Navbar color logic:
+  // - Home: follows scroll state
+  // - About: follows scroll state AND whether a dark section is behind the navbar
+  // - Other pages: always light (unscrolled)
+  const navScrolled = isHome
+    ? scrolled
+    : isAbout
+    ? scrolled && aboutNavDark
+    : false;
+
+  // bg transition only applies on the home page (about handles its own overlays)
   const bgClass = isHome && scrolled ? 'bg-black dark-theme' : 'bg-white';
 
   return (
