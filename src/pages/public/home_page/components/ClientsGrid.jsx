@@ -56,33 +56,30 @@ function ClientCard({ client, index, onEnter, onLeave }) {
   useEffect(() => () => { if (loopRef.current) loopRef.current.kill(); }, []);
 
   const startLoop = useCallback(() => {
-    if (loopRef.current) loopRef.current.kill();
+    if (loopRef.current) { loopRef.current.kill(); loopRef.current = null; }
+    if (!textRef.current || !imgRef.current) return;
 
-    const chars = textRef.current
-      ? Array.from(textRef.current.querySelectorAll('.char'))
-      : [];
+    const chars = Array.from(textRef.current.querySelectorAll('.char'));
 
-    const tl = gsap.timeline({ repeat: -1 });
-    // Typewriter erase: chars disappear right → left
+    // Single-run slide-out then slide-in animation. Keep image visible while hovered.
+    const tl = gsap.timeline();
+
+    // Slide chars left while fading out (staggered, end → start)
     tl.to(chars, {
-        opacity: 0,
-        duration: 0.03,
-        stagger: { each: 0.04, from: 'end' },
-        ease: 'none',
-      })
-      // Image fades in after text erased
-      .to(imgRef.current, { opacity: 1, duration: 0.4, ease: 'power1.out' }, '<0.1')
-      .to({}, { duration: 1 })
-      // Typewriter type: chars appear left → right WHILE image is still showing
-      .to(chars, {
-        opacity: 1,
-        duration: 0.03,
-        stagger: { each: 0.04, from: 'start' },
-        ease: 'none',
-      })
-      // Image fades out AFTER text is fully typed back
-      .to(imgRef.current, { opacity: 0, duration: 0.5, ease: 'power1.in' })
-      .to({}, { duration: 0.5 });
+      x: '-12px',
+      opacity: 0,
+      duration: 0.22,
+      stagger: { each: 0.02, from: 'end' },
+      ease: 'power2.in',
+    })
+      // Fade image in and keep it visible while hovering (start immediately)
+      .to(imgRef.current, { opacity: 1, duration: 0.22, ease: 'power1.out' }, '<0')
+      // Bring chars back from right while fading in (staggered, start → end)
+      .fromTo(
+        chars,
+        { x: '12px', opacity: 0 },
+        { x: '0px', opacity: 1, duration: 0.3, stagger: { each: 0.02, from: 'start' }, ease: 'power2.out' }
+      );
 
     loopRef.current = tl;
   }, []);
@@ -92,8 +89,10 @@ function ClientCard({ client, index, onEnter, onLeave }) {
     if (!textRef.current || !imgRef.current) return;
     const chars = Array.from(textRef.current.querySelectorAll('.char'));
     gsap.killTweensOf([...chars, imgRef.current]);
-    gsap.to(imgRef.current, { opacity: 0, duration: 0.3 });
-    gsap.to(chars, { opacity: 1, duration: 0.15, stagger: { each: 0.03, from: 'start' } });
+
+    // Fade image back out and reset chars to visible and aligned
+    gsap.to(imgRef.current, { opacity: 0, duration: 0.25, ease: 'power1.in' });
+    gsap.to(chars, { opacity: 1, x: 0, duration: 0.15, stagger: { each: 0.03, from: 'start' } });
   }, []);
 
   const handleEnter = useCallback(() => {
