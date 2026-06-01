@@ -1,4 +1,4 @@
-import aboutImg from '@/assets/description.webp';
+import aboutImg from '@/assets/simple.png';
 
 export default function AboutSection() {
   return (
@@ -9,7 +9,7 @@ export default function AboutSection() {
       <div className="w-[90%] md:w-[75%] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16">
 
         {/* Left — image with top-right rounded corner */}
-        <div className="w-full md:w-1/2 flex-shrink-0">
+        <div className="w-full md:w-1/2 shrink-0">
           <img
             src={aboutImg}
             alt="Modern apartment building"

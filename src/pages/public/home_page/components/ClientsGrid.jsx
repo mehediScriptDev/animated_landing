@@ -1,49 +1,49 @@
 import { useRef, useEffect, useCallback } from 'react';
 import { gsap } from 'gsap';
-import motivImg  from '@/assets/grid_image/motiv.webp';
-import acImg     from '@/assets/grid_image/ac.webp';
-import nesteaImg from '@/assets/grid_image/nestea.webp';
-import espnImg   from '@/assets/grid_image/espn.webp';
-import lafcImg   from '@/assets/grid_image/lafc.webp';
-import foxImg    from '@/assets/grid_image/fox.webp';
+import motivImg  from '@/assets/grid_image/firsthome.png';
+import acImg     from '@/assets/simple.png';
+import nesteaImg from '@/assets/grid_image/refinancing.png';
+import espnImg   from '@/assets/grid_image/nexthome.png';
+import lafcImg   from '@/assets/grid_image/loans.png';
+import foxImg    from '@/assets/grid_image/construction.png';
 
 const CLIENTS = [
   {
     id: 0,
-    name: 'MOTIV',
+    name: 'FIRST HOME',
     pageColor: '#2B2E2E',
     imgStyle: { backgroundImage: `url(${motivImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
   {
     id: 1,
-    name: 'AC Hotels',
+    name: 'NEXT HOME',
     sub: 'Marriott',
     pageColor: '#BFBDB2',
-    imgStyle: { backgroundImage: `url(${acImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
-  },
-  {
-    id: 2,
-    name: 'Nestea',
-    pageColor: '#069EDA',
-    imgStyle: { backgroundImage: `url(${nesteaImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
-  },
-  {
-    id: 3,
-    name: 'ESPN',
-    pageColor: '#941608',
     imgStyle: { backgroundImage: `url(${espnImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
   {
+    id: 2,
+    name: 'INVESTMENT',
+    pageColor: '#069EDA',
+    imgStyle: { backgroundImage: `url(${acImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
+  },
+  {
+    id: 3,
+    name: 'CONSTRUCTION',
+    pageColor: '#941608',
+    imgStyle: { backgroundImage: `url(${foxImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
+  },
+  {
     id: 4,
-    name: 'LA Football Club',
+    name: 'SMSF',
     pageColor: '#000000',
     imgStyle: { backgroundImage: `url(${lafcImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
   {
     id: 5,
-    name: 'FOX',
+    name: 'REFINANCING',
     pageColor: '#E6E147',
-    imgStyle: { backgroundImage: `url(${foxImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
+    imgStyle: { backgroundImage: `url(${nesteaImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
 ];
 
