@@ -95,7 +95,7 @@ export default function About() {
         </div>
         <ClientsSection />
         <AwardsSection />
-        <CtaSection />
+        {/* <CtaSection /> */}
       </main>
     </>
   );

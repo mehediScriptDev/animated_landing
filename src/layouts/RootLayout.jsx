@@ -28,14 +28,19 @@ export default function RootLayout() {
     if (!isAbout) setAboutNavDark(true);
   }, [isAbout]);
 
+  const isContact = pathname === '/contact';
+
   // Navbar color logic:
   // - Home: follows scroll state
   // - About: follows scroll state AND whether a dark section is behind the navbar
+  // - Contact: dark at top, white on scroll (hero image behind sticky nav)
   // - Other pages: always light (unscrolled)
   const navScrolled = isHome
     ? scrolled
     : isAbout
     ? scrolled && aboutNavDark
+    : isContact
+    ? scrolled
     : false;
 
   // bg transition only applies on the home page (about handles its own overlays)

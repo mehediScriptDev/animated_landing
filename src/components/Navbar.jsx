@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import TransitionLink from './TransitionLink';
-import logo from '../assets/logo.png';
-import logoDark from '../assets/logo_dark_1.png';
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import TransitionLink from "./TransitionLink";
+import logo from "../assets/logo.png";
+import logoDark from "../assets/logo_dark_1.png";
 
 const links = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export default function Navbar({ scrolled = false }) {
@@ -63,18 +63,18 @@ export default function Navbar({ scrolled = false }) {
           />
           <span
             className={`text-xs font-black uppercase tracking-widest whitespace-nowrap flex items-center gap-1.5 overflow-hidden transition-all duration-300 ease-in-out ${
-              scrolled ? 'text-white' : 'text-black'
+              scrolled ? "text-white" : "text-black"
             }`}
           >
-            {['Michael', 'Traikos'].map((word, index) => (
+            {["Michael", "Traikos"].map((word, index) => (
               <span
                 key={word}
                 className={`inline-block transition-all duration-500 ease-out motion-reduce:transition-none ${
                   logoHoverMode
-                    ? 'opacity-0 translate-x-3 group-hover:opacity-100 group-hover:translate-x-0'
+                    ? "opacity-0 translate-x-3 group-hover:opacity-100 group-hover:translate-x-0"
                     : logoIntroVisible
-                    ? 'opacity-100 translate-x-0'
-                    : 'opacity-0 translate-x-3'
+                      ? "opacity-100 translate-x-0"
+                      : "opacity-0 translate-x-3"
                 }`}
                 style={{ transitionDelay: `${index * 140}ms` }}
               >
@@ -97,9 +97,9 @@ export default function Navbar({ scrolled = false }) {
                     className={`block px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 border ${
                       isActive
                         ? scrolled
-                          ? 'border-white text-white'
-                          : 'border-black text-black'
-                        : 'border-transparent text-(--text) hover:text-(--text-h)'
+                          ? "border-white text-white"
+                          : "border-black text-black"
+                        : "border-transparent text-(--text) hover:text-(--text-h)"
                     }`}
                   >
                     {label}
@@ -113,7 +113,7 @@ export default function Navbar({ scrolled = false }) {
           <a
             href="tel:+1234567890"
             className={`flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
-              scrolled ? 'border-white text-white' : 'text-black'
+              scrolled ? "border-white text-white" : "text-black"
             }`}
             aria-label="Call us now"
           >
@@ -140,11 +140,11 @@ export default function Navbar({ scrolled = false }) {
             type="button"
             onClick={() => setMenuOpen((prev) => !prev)}
             className={`md:hidden flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
-              scrolled ? 'border-white text-white' : 'border-black text-black'
+              scrolled ? "border-white text-white" : "border-black text-black"
             }`}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -193,10 +193,10 @@ export default function Navbar({ scrolled = false }) {
                     onClick={() => setMenuOpen(false)}
                     className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
                       isActive
-                        ? 'bg-(--accent-bg) text-(--accent)'
+                        ? "bg-(--accent-bg) text-(--accent)"
                         : scrolled
-                        ? 'text-white/80 hover:bg-white/10 hover:text-white'
-                        : 'text-(--text) hover:bg-black/5 hover:text-(--text-h)'
+                          ? "text-white/80 hover:bg-white/10 hover:text-white"
+                          : "text-(--text) hover:bg-black/5 hover:text-(--text-h)"
                     }`}
                   >
                     {label}

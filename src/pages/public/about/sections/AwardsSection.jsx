@@ -84,15 +84,15 @@ export default function AwardsSection() {
       ref={ref}
       className="relative z-1 py-16 md:py-20"
     >
-      <div className="w-[90%] md:w-[75%] max-w-[1400px] mx-auto">
-        {/* AWARDS watermark */}
-        <h2
+      <div className="w-[90%] md:w-[75%] max-w-350 mx-auto">
+        {/* AWARDS watermark — same style as EXPERTISE, white stroke */}
+        <div
           aria-hidden="true"
-          className="font-sequel font-black italic text-transparent text-[clamp(3rem,7vw,6rem)] leading-[0.9] tracking-tighter uppercase mb-12 select-none"
-          style={{ WebkitTextStroke: "2px rgba(255,255,255,0.15)" }}
+          className="font-sequel font-black text-transparent text-[clamp(4rem,10vw,10rem)] leading-[0.85] tracking-tighter uppercase mb-5 select-none"
+          style={{ WebkitTextStroke: "1px white", textStroke: "0.5px white" }}
         >
           AWARDS
-        </h2>
+        </div>
 
         {/* 4-column table */}
         <div className="flex flex-col border-t border-white/10">
@@ -101,16 +101,16 @@ export default function AwardsSection() {
               key={i}
               className="award-row grid grid-cols-[2fr_1.2fr_1.2fr_0.5fr] gap-4 items-center py-4 border-b border-white/8 hover:pl-2 transition-all duration-300"
             >
-              <span className="font-sequel font-extrabold italic text-xs text-white/80 uppercase tracking-wide">
+              <span className="font-sequel font-extrabold italic text-sm text-white uppercase tracking-wide">
                 {award.name}
               </span>
-              <span className="font-sans text-xs text-white/50">
+              <span className="text-base font-serif text-white">
                 {award.category}
               </span>
-              <span className="font-sans text-xs text-white/50">
+              <span className="text-base font-serif text-white">
                 {award.company}
               </span>
-              <span className="font-heading font-semibold text-xs text-white/40 text-right">
+              <span className="text-base font-sequel text-white text-right">
                 {award.year}
               </span>
             </div>

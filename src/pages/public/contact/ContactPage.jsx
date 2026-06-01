@@ -123,12 +123,12 @@ export default function ContactPage() {
       </section>
 
       {/* ── Main content ───────────────────────────────────────────────── */}
-      <main id="main-content" tabIndex={-1} className="bg-[#f0f0f0] flex-1">
+      <main id="main-content" tabIndex={-1} className="bg-black flex-1">
         <div className="w-[90%] md:w-[75%] mx-auto py-16 md:py-24 flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
 
           {/* Left — info */}
           <div className="flex-1 flex flex-col gap-8">
-            <p className="text-gray-600 text-sm leading-relaxed max-w-md">
+            <p className="text-white/60 text-sm leading-relaxed max-w-md">
               We'd love to hear from you! Whether you have questions about our services,
               need expert advice, or want to discuss your financial goals, don't hesitate
               to reach out. Contact us today, and let's start your journey together!
@@ -138,19 +138,19 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
               {CONTACT_ITEMS.map((item) => (
                 <div key={item.label} className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#1a4a2e] text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center shrink-0 mt-0.5">
                     {item.icon}
                   </div>
                   <div>
-                    <p className="text-[0.65rem] font-bold tracking-widest text-gray-800 uppercase mb-0.5">
+                    <p className="text-[0.65rem] font-bold tracking-widest text-white/50 uppercase mb-0.5">
                       {item.label}
                     </p>
                     {item.href ? (
-                      <a href={item.href} className="text-sm text-gray-700 hover:text-[#1a4a2e] transition-colors">
+                      <a href={item.href} className="text-sm text-white/80 hover:text-white transition-colors">
                         {item.value}
                       </a>
                     ) : (
-                      <p className="text-sm text-gray-700">{item.value}</p>
+                      <p className="text-sm text-white/80">{item.value}</p>
                     )}
                   </div>
                 </div>
@@ -158,11 +158,11 @@ export default function ContactPage() {
             </div>
 
             {/* Divider */}
-            <hr className="border-gray-300" />
+            <hr className="border-white/10" />
 
             {/* Follow us */}
             <div className="flex flex-col gap-3">
-              <p className="text-sm font-black uppercase tracking-widest text-gray-800">
+              <p className="text-sm font-black uppercase tracking-widest text-white/70">
                 Follow Us
               </p>
               <div className="flex gap-2">
@@ -173,7 +173,7 @@ export default function ContactPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="w-9 h-9 rounded-full bg-[#1a4a2e] text-white flex items-center justify-center hover:bg-[#255e3a] transition-colors"
+                    className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
                   >
                     {s.icon}
                   </a>
@@ -183,7 +183,7 @@ export default function ContactPage() {
           </div>
 
           {/* Right — form card */}
-          <div className="w-full lg:w-150 shrink-0 bg-black rounded-2xl p-6 md:p-8">
+          <div className="w-full lg:w-150 shrink-0 bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
             <h2 className="text-white font-black uppercase tracking-wider text-center mb-8"
               style={{ fontSize: 'clamp(1rem, 2.5vw, 1.4rem)' }}>
               Get In Touch With Us
@@ -204,7 +204,7 @@ export default function ContactPage() {
                     value={form.firstName}
                     onChange={handleChange}
                     required
-                    className="bg-white rounded-lg px-4 py-3 text-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#1a4a2e]"
+                    className="bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/40 outline-none focus:ring-2 focus:ring-white/30"
                   />
                   <input
                     type="text"
@@ -213,7 +213,7 @@ export default function ContactPage() {
                     value={form.lastName}
                     onChange={handleChange}
                     required
-                    className="bg-white rounded-lg px-4 py-3 text-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#1a4a2e]"
+                    className="bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/40 outline-none focus:ring-2 focus:ring-white/30"
                   />
                 </div>
 
@@ -225,7 +225,7 @@ export default function ContactPage() {
                     value={form.email}
                     onChange={handleChange}
                     required
-                    className="bg-white rounded-lg px-4 py-3 text-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#1a4a2e]"
+                    className="bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/40 outline-none focus:ring-2 focus:ring-white/30"
                   />
                   <input
                     type="tel"
@@ -233,7 +233,7 @@ export default function ContactPage() {
                     placeholder="Phone Number"
                     value={form.phone}
                     onChange={handleChange}
-                    className="bg-white rounded-lg px-4 py-3 text-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#1a4a2e]"
+                    className="bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/40 outline-none focus:ring-2 focus:ring-white/30"
                   />
                 </div>
 
@@ -244,12 +244,12 @@ export default function ContactPage() {
                   value={form.message}
                   onChange={handleChange}
                   required
-                  className="bg-white rounded-lg px-4 py-3 text-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#1a4a2e] resize-none"
+                  className="bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/40 outline-none focus:ring-2 focus:ring-white/30 resize-none"
                 />
 
                 <button
                   type="submit"
-                  className="w-full bg-[#1a4a2e] hover:bg-[#255e3a] text-white font-semibold text-sm py-4 rounded-lg transition-colors duration-200 uppercase tracking-wider"
+                  className="w-full bg-white text-black hover:bg-white/90 font-semibold text-sm py-4 rounded-lg transition-colors duration-200 uppercase tracking-wider"
                 >
                   Send
                 </button>
