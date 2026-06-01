@@ -68,17 +68,17 @@ export default function About() {
           ${isDark ? "opacity-0" : "opacity-100"}
         `}
         aria-hidden="true"
-        style={{
-          background:
-            "linear-gradient(to right, #ffffff 0%, #ffffff 45%, rgba(255,255,255,0.85) 55%, rgba(255,255,255,0.2) 75%, rgba(255,255,255,0) 100%)",
-        }}
+        // style={{
+        //   background:
+        //     "linear-gradient(to right, #ffffff 0%, #ffffff 45%, rgba(255,255,255,0.85) 55%, rgba(255,255,255,0.2) 75%, rgba(255,255,255,0) 100%)",
+        // }}
       />
 
       {/* ── DARK overlay: single uniform dark tint (fades in on scroll) ── */}
       <div
         className={`
           fixed inset-0 z-0 pointer-events-none
-          bg-black/80
+          bg-black/85
           transition-opacity duration-300 ease-in-out
           ${isDark ? "opacity-100" : "opacity-0"}
         `}
