@@ -2,13 +2,12 @@ import { useRef, useEffect } from "react";
 import SEO from "../../../components/SEO";
 import { useScrolled } from "../../../hooks/useScrolled";
 import bgImage from "../../../assets/about/removebg.png";
-
-import HeroSection from "./sections/HeroSection";
 import BioSection from "./sections/BioSection";
 import ExpertiseSection from "./sections/ExpertiseSection";
 import ClientsSection from "./sections/ClientsSection";
 import AwardsSection from "./sections/AwardsSection";
 import CtaSection from "./sections/CtaSection";
+import HeroSection from "./sections/HeroSection";
 
 export default function About() {
   const isDark = useScrolled(50);
@@ -48,9 +47,9 @@ export default function About() {
         canonical="https://example.com/about"
       />
 
-      {/* ── Fixed portrait image (right side, behind everything) ──── */}
+      {/* ── Fixed portrait image (full-width on mobile, right half on desktop) ── */}
       <div
-        className="fixed top-0 right-0 w-1/2 h-screen z-0 pointer-events-none overflow-hidden"
+        className="fixed top-0 right-0 w-full md:w-1/2 h-screen z-0 pointer-events-none overflow-hidden"
         aria-hidden="true"
       >
         <img
@@ -58,28 +57,34 @@ export default function About() {
           alt=""
           className="w-full h-full object-cover object-top"
         />
+        {/* Mobile gradient: fades image to dark at the bottom for text legibility */}
+        <div className="absolute inset-0 md:hidden bg-linear-to-t from-black/80 via-black/30 to-transparent" />
       </div>
 
-      {/* ── WHITE overlay: fades image into white bg (visible initially) ── */}
+      {/* ── WHITE overlay: hidden on mobile (photo must show), fades on desktop scroll ── */}
       <div
         className={`
           fixed inset-0 z-0 pointer-events-none
           transition-opacity duration-300 ease-in-out
+          hidden md:block
           ${isDark ? "opacity-0" : "opacity-100"}
         `}
         aria-hidden="true"
-        // style={{
-        //   background:
-        //     "linear-gradient(to right, #ffffff 0%, #ffffff 45%, rgba(255,255,255,0.85) 55%, rgba(255,255,255,0.2) 75%, rgba(255,255,255,0) 100%)",
-        // }}
       />
 
-      {/* ── DARK overlay: single uniform dark tint (fades in on scroll) ── */}
+      {/* ── DARK overlay (mobile only): always visible for legibility ── */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none bg-black/60 md:hidden"
+        aria-hidden="true"
+      />
+
+      {/* ── DARK overlay (desktop only): scroll-driven fade in ── */}
       <div
         className={`
           fixed inset-0 z-0 pointer-events-none
           bg-black/85
           transition-opacity duration-300 ease-in-out
+          hidden md:block
           ${isDark ? "opacity-100" : "opacity-0"}
         `}
         aria-hidden="true"

@@ -62,6 +62,12 @@ button, a, [role="button"] {
 @media (min-width: 1280px) { .hero-text { font-size: 83px;   } }
 .dark-theme .hero-text { color: #fff; }
 
+/* About page hero heading — always white on mobile (dark overlay is always on),
+   scroll-driven black→white on desktop (handled by inline style via isDark) */
+@media (max-width: 767px) {
+  .about-hero-heading { color: #fff !important; }
+}
+
 /* Animated scroll indicator line */
 .hero-line { background: #000; }
 .dark-theme .hero-line { background: #fff; }

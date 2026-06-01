@@ -19,14 +19,15 @@ export default function HeroSection({ isDark }) {
   return (
     <section
       aria-labelledby="about-heading"
-      className="relative min-h-screen flex items-center"
+      className="relative min-h-screen flex items-end md:items-center pb-28 md:pb-0"
     >
       <div className="w-[90%] md:w-[75%] max-w-350 mx-auto">
         <h1
           id="about-heading"
           ref={headingRef}
           className={`
-            uppercase max-w-[48%] leading-snug transition-colors duration-300
+            about-hero-heading
+            uppercase max-w-[90%] md:max-w-[48%] leading-snug transition-colors duration-300
           `}
           style={{
             fontFamily: "'Sequel', 'Unbounded', sans-serif",

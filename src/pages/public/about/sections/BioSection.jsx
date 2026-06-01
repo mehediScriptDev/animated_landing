@@ -41,10 +41,10 @@ export default function BioSection({ isDark }) {
   return (
     <section aria-label="Biography" ref={ref} className="relative z-1 py-16 md:py-20">
       <div className="w-[90%] md:w-[75%] max-w-350 mx-auto">
-        <div className="flex justify-between gap-12 md:gap-20">
+        <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-20">
 
           {/* Left — Bio text */}
-          <div className="flex flex-col gap-7 w-[50%]">
+          <div className="flex flex-col gap-7 w-full md:w-[50%]">
             <p className={`bio-animate font-sans text-sm md:text-base text-white/70 leading-[1.85] transition-colors duration-300 `}>
               Given that Michael grew up in Melbourne rooting for sports legends like{' '}
               <strong className={`font-sequel font-extrabold italic text-[18px] decoration-2 transition-colors duration-300 ${boldColor} ${isDark ? 'decoration-white/40' : 'decoration-black/30'}`}>
@@ -91,7 +91,7 @@ export default function BioSection({ isDark }) {
           </div>
 
           {/* Right — Education, Experience, Contact */}
-          <div className="bio-animate flex flex-col gap-8 w-[30%]">
+          <div className="bio-animate flex flex-col gap-8 w-full md:w-[30%]">
 
             {/* Education */}
             <div className="flex flex-col gap-2.5">
