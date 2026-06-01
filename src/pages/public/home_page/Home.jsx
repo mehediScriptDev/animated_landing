@@ -4,6 +4,7 @@ import ClientsGrid from './components/ClientsGrid';
 import LendersCarousel from './components/LendersCarousel';
 import AboutSection from './components/AboutSection';
 import ReviewsSection from './components/ReviewsSection';
+import CtaSection from '../about/sections/CtaSection';
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <LendersCarousel />
         <AboutSection />
         <ReviewsSection />
+        <CtaSection/>
       </main>
     </>
   );
