@@ -24,16 +24,16 @@ export default function About() {
       ([entry]) => {
         // When white section is visible at the top → navbar should be dark (black logo)
         window.dispatchEvent(
-          new CustomEvent('about-nav-theme', {
+          new CustomEvent("about-nav-theme", {
             detail: { dark: !entry.isIntersecting },
-          })
+          }),
         );
       },
       {
         // rootMargin: negative top = only trigger when section reaches navbar height (64px)
-        rootMargin: '-64px 0px -80% 0px',
+        rootMargin: "-64px 0px -80% 0px",
         threshold: 0,
-      }
+      },
     );
 
     observer.observe(el);
@@ -95,7 +95,7 @@ export default function About() {
         </div>
         <ClientsSection />
         <AwardsSection />
-        {/* <CtaSection /> */}
+        <CtaSection />
       </main>
     </>
   );
