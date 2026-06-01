@@ -3,28 +3,28 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /* Lender / client logos */
-import bendigoImg from "../../../../assets/leading_lenders/bendigo.webp";
-import commoImg from "../../../../assets/leading_lenders/commo.webp";
-import connectiveImg from "../../../../assets/leading_lenders/connective.webp";
-import depositImg from "../../../../assets/leading_lenders/Deposit.webp";
-import pepperImg from "../../../../assets/leading_lenders/pepeer.webp";
-import suncorpImg from "../../../../assets/leading_lenders/Suncorp.webp";
-import teacherImg from "../../../../assets/leading_lenders/teacher.webp";
-import ubankImg from "../../../../assets/leading_lenders/ubank.webp";
+// import bendigoImg from "../../../../assets/leading_lenders/bendigo.webp";
+// import commoImg from "../../../../assets/leading_lenders/commo.webp";
+// import connectiveImg from "../../../../assets/leading_lenders/connective.webp";
+// import depositImg from "../../../../assets/leading_lenders/Deposit.webp";
+// import pepperImg from "../../../../assets/leading_lenders/pepeer.webp";
+// import suncorpImg from "../../../../assets/leading_lenders/Suncorp.webp";
+// import teacherImg from "../../../../assets/leading_lenders/teacher.webp";
+// import ubankImg from "../../../../assets/leading_lenders/ubank.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Expanded to 20 total items for a massive logo wall
 const CLIENTS = [
   // Original 8 Local Imports
-  { name: "Bendigo Bank", img: bendigoImg },
-  { name: "Commonwealth Bank", img: commoImg },
-  { name: "Connective", img: connectiveImg },
-  { name: "Deposit Assure", img: depositImg },
-  { name: "Pepper Money", img: pepperImg },
-  { name: "Suncorp Bank", img: suncorpImg },
-  { name: "Teachers Mutual", img: teacherImg },
-  { name: "Ubank", img: ubankImg },
+  // { name: "Bendigo Bank", img: bendigoImg },
+  // { name: "Commonwealth Bank", img: commoImg },
+  // { name: "Connective", img: connectiveImg },
+  // { name: "Deposit Assure", img: depositImg },
+  // { name: "Pepper Money", img: pepperImg },
+  // { name: "Suncorp Bank", img: suncorpImg },
+  // { name: "Teachers Mutual", img: teacherImg },
+  // { name: "Ubank", img: ubankImg },
 
   // 12 Additional Placeholder URLs
   {

@@ -1,24 +1,64 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
-import bendigoImg    from '@/assets/leading_lenders/bendigo.webp';
-import commoImg      from '@/assets/leading_lenders/commo.webp';
-import connectiveImg from '@/assets/leading_lenders/connective.webp';
-import depositImg    from '@/assets/leading_lenders/Deposit.webp';
-import pepperImg     from '@/assets/leading_lenders/pepeer.webp';
-import suncorpImg    from '@/assets/leading_lenders/Suncorp.webp';
-import teacherImg    from '@/assets/leading_lenders/teacher.webp';
-import ubankImg      from '@/assets/leading_lenders/ubank.webp';
+import ampImg from '@/assets/leading_lenders/amp.png';
+import anzImg from '@/assets/leading_lenders/anz.jpg';
+import auswidebankImg from '@/assets/leading_lenders/auswidebank.png';
+import bankImg from '@/assets/leading_lenders/bank.png';
+import bankofImg from '@/assets/leading_lenders/bankof.png';
+import banksaImg from '@/assets/leading_lenders/banksa.png';
+import bankwestImg from '@/assets/leading_lenders/bankwest.png';
+import bluestoneImg from '@/assets/leading_lenders/bluestone.jpg';
+import depositpowerImg from '@/assets/leading_lenders/depositpower.png';
+import firstmateImg from '@/assets/leading_lenders/firstmate.webp';
+import graniteImg from '@/assets/leading_lenders/granite.png';
+import heritageImg from '@/assets/leading_lenders/heritage.png';
+import inglogoImg from '@/assets/leading_lenders/inglogo.jpg';
+import latrobeImg from '@/assets/leading_lenders/latrobe.jpg';
+import macquarieImg from '@/assets/leading_lenders/macquarie.png';
+import militarybankImg from '@/assets/leading_lenders/militarybank.jpg';
+import nabImg from '@/assets/leading_lenders/nab.svg';
+import ordeeImg from '@/assets/leading_lenders/ordee.png';
+import ownhomeImg from '@/assets/leading_lenders/ownhome.png';
+import paramountImg from '@/assets/leading_lenders/paramount.jpg';
+import peppermoneyImg from '@/assets/leading_lenders/peppermoney.png';
+import redzedImg from '@/assets/leading_lenders/redzed.png';
+import resimacImg from '@/assets/leading_lenders/resimac.png';
+import suncropImg from '@/assets/leading_lenders/suncrop.png';
+import teachersImg from '@/assets/leading_lenders/teachers.png';
+import thinktankImg from '@/assets/leading_lenders/thinktank.png';
+import ubankImg from '@/assets/leading_lenders/ubank.png';
+import westpacImg from '@/assets/leading_lenders/westpac.webp';
 
 const LENDERS = [
-  { id: 0, name: 'Bendigo Bank',          img: bendigoImg },
-  { id: 1, name: 'Commonwealth Bank',     img: commoImg },
-  { id: 2, name: 'Connective Home Loans', img: connectiveImg },
-  { id: 3, name: 'Deposit Assure',        img: depositImg },
-  { id: 4, name: 'Pepper Money',          img: pepperImg },
-  { id: 5, name: 'Suncorp Bank',          img: suncorpImg },
-  { id: 6, name: 'Teachers Mutual Bank',  img: teacherImg },
-  { id: 7, name: 'ubank',                 img: ubankImg },
+  { id: 0, name: 'AMP', img: ampImg },
+  { id: 1, name: 'ANZ', img: anzImg },
+  { id: 2, name: 'Auswide Bank', img: auswidebankImg },
+  { id: 3, name: 'Bank', img: bankImg },
+  { id: 4, name: 'Bank of', img: bankofImg },
+  { id: 5, name: 'BankSA', img: banksaImg },
+  { id: 6, name: 'Bankwest', img: bankwestImg },
+  { id: 7, name: 'Bluestone', img: bluestoneImg },
+  { id: 8, name: 'Deposit Power', img: depositpowerImg },
+  { id: 9, name: 'FirstMate', img: firstmateImg },
+  { id: 10, name: 'Granite', img: graniteImg },
+  { id: 11, name: 'Heritage', img: heritageImg },
+  { id: 12, name: 'ING', img: inglogoImg },
+  { id: 13, name: 'La Trobe', img: latrobeImg },
+  { id: 14, name: 'Macquarie', img: macquarieImg },
+  { id: 15, name: 'Military Bank', img: militarybankImg },
+  { id: 16, name: 'NAB', img: nabImg },
+  { id: 17, name: 'Ordee', img: ordeeImg },
+  { id: 18, name: 'Own Home', img: ownhomeImg },
+  { id: 19, name: 'Paramount', img: paramountImg },
+  { id: 20, name: 'Pepper Money', img: peppermoneyImg },
+  { id: 21, name: 'RedZed', img: redzedImg },
+  { id: 22, name: 'Resimac', img: resimacImg },
+  { id: 23, name: 'Suncrop', img: suncropImg },
+  { id: 24, name: 'Teachers', img: teachersImg },
+  { id: 25, name: 'Think Tank', img: thinktankImg },
+  { id: 26, name: 'ubank', img: ubankImg },
+  { id: 27, name: 'Westpac', img: westpacImg },
 ];
 
 // Duplicate for seamless loop
