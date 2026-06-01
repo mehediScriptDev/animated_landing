@@ -31,7 +31,8 @@ export default function HeroBanner() {
       <h1
         id="hero-heading"
         ref={textRef}
-        className="hero-text uppercase transition-colors duration-200 max-w-6xl"
+        className="hero-text font-sequel  uppercase transition-colors duration-200 max-w-6xl"
+        
       >
         Making Cents Real Estate and Sense of Your<br />
         Finance.

@@ -128,13 +128,13 @@ function ClientCard({ client, index, onEnter, onLeave }) {
         ref={textRef}
         className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-8"
       >
-        <span className="text-white font-light tracking-[0.3em] uppercase text-center text-xs sm:text-sm md:text-base leading-relaxed flex flex-wrap justify-center">
+        <span className="text-white font-light tracking-[0.3em] uppercase text-center text-sm sm:text-base md:text-lg lg:text-2xl xl:text-3xl leading-relaxed flex flex-wrap justify-center">
           {client.name.split('').map((char, i) => (
             <span key={i} className="char inline-block">{char === ' ' ? '\u00A0' : char}</span>
           ))}
         </span>
         {client.sub && (
-          <span className="text-white/40 text-[0.65rem] tracking-[0.25em] uppercase flex flex-wrap justify-center">
+          <span className="text-white/40 text-[0.65rem] sm:text-sm tracking-[0.25em] uppercase flex flex-wrap justify-center">
             {client.sub.split('').map((char, i) => (
               <span key={i} className="char inline-block">{char === ' ' ? '\u00A0' : char}</span>
             ))}
@@ -167,7 +167,7 @@ export default function ClientsGrid() {
     <>
       <section
         aria-label="Client portfolio"
-        className="relative clients-section pt-0.5 pb-[100px]"
+        className="relative clients-section pt-0.5 pb-25"
       >
         <div
           className="grid grid-cols-2 md:grid-cols-3 gap-4 w-[90%] md:w-[75%] md:gap-8 mx-auto clients-grid"

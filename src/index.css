@@ -1,10 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
 
-/* Register Unbounded as Tailwind's font-sans so all utility classes use it */
+
+/* Sequel Font */
+@font-face {
+  font-family: 'Sequel';
+  src: url('/fonts/Sequel_Demo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Register in Tailwind theme */
 @theme {
   --font-sans: 'Unbounded', system-ui, sans-serif;
   --font-heading: 'Unbounded', system-ui, sans-serif;
+  --font-sequel: 'Sequel', sans-serif;
 }
+
 
 /* Smooth scrolling */
 @media (prefers-reduced-motion: no-preference) {
@@ -35,15 +48,16 @@ button, a, [role="button"] {
 /* Hero heading color — black on white, white on dark */
 .hero-text {
   color: #000;
-  font-weight: 900;
-  font-variation-settings: 'wght' 900;
-  letter-spacing: 0.1em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 1000;
+  /* font-variation-settings: 'wght' 900; */
+  letter-spacing: -0.04em;;
   line-height: 0.9;
-  font-size: 2rem;
+  /* -webkit-text-stroke: 2px white; */
 }
 @media (min-width: 768px)  { .hero-text { font-size: 1rem; } }
-@media (min-width: 1024px) { .hero-text { font-size: 2.5rem;   } }
-@media (min-width: 1280px) { .hero-text { font-size: 3rem;   } }
+@media (min-width: 1024px) { .hero-text { font-size: 3rem;   } }
+@media (min-width: 1280px) { .hero-text { font-size: 83px;   } }
 .dark-theme .hero-text { color: #fff; }
 
 /* Animated scroll indicator line */
