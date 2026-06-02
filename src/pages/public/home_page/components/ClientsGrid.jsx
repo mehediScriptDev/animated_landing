@@ -11,37 +11,42 @@ const CLIENTS = [
   {
     id: 0,
     name: 'FIRST HOME',
+    sub: 'loans',
     pageColor: '#2B2E2E',
     imgStyle: { backgroundImage: `url(${motivImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
   {
     id: 1,
     name: 'NEXT HOME',
-    sub: 'Marriott',
+    sub: 'loans',
     pageColor: '#BFBDB2',
     imgStyle: { backgroundImage: `url(${espnImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
   {
     id: 2,
     name: 'INVESTMENT',
+    sub: 'loans',
     pageColor: '#069EDA',
     imgStyle: { backgroundImage: `url(${acImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
   {
     id: 3,
     name: 'CONSTRUCTION',
+    sub: 'loans',
     pageColor: '#941608',
     imgStyle: { backgroundImage: `url(${foxImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
   {
     id: 4,
     name: 'SMSF',
+    sub: 'loans',
     pageColor: '#000000',
     imgStyle: { backgroundImage: `url(${lafcImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
   {
     id: 5,
     name: 'REFINANCING',
+    sub: 'loans',
     pageColor: '#E6E147',
     imgStyle: { backgroundImage: `url(${nesteaImg})`, backgroundSize: 'cover', backgroundPosition: 'center' },
   },
@@ -127,7 +132,7 @@ function ClientCard({ client, index, onEnter, onLeave }) {
         ref={textRef}
         className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-8"
       >
-        <span className="text-white font-light tracking-[0.3em] uppercase text-center text-sm sm:text-base md:text-lg lg:text-2xl xl:text-3xl leading-relaxed flex flex-wrap justify-center">
+        <span className="text-white font-light tracking-[0.3em] uppercase text-center text-sm sm:text-base md:text-lg lg:text-2xl xl:text-[28px] leading-relaxed flex flex-wrap justify-center">
           {client.name.split('').map((char, i) => (
             <span key={i} className="char inline-block">{char === ' ' ? '\u00A0' : char}</span>
           ))}

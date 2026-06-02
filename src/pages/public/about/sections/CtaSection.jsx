@@ -1,10 +1,9 @@
 import { useState } from "react";
 
 const SOCIALS = [
-  { label: "TW.", color: "#1DA1F2" },
+  { label: "EM.", color: "#1DA1F2" },
   { label: "IG.", color: "#E1306C" },
   { label: "LN.", color: "#0077B5" },
-  { label: "BE.", color: "#1769FF" },
   { label: "M.", color: "#00C853" },
 ];
 
@@ -47,7 +46,7 @@ export default function CtaSection() {
               className="font-anton font-black italic text-white uppercase tracking-tighter leading-[1.05]"
               style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)", fontWeight: 1000 }}
             >
-              WANT TO MOVE FORWARD?
+              BOOK A FREE
             </p>
             <div className="relative inline-block w-fit">
               <div className="absolute left-0 right-0 h-4 bg-gray-300/50 -z-10 bottom-0"></div>
@@ -59,7 +58,7 @@ export default function CtaSection() {
                   fontWeight: 8000,
                 }}
               >
-                DROP A LINE.
+                CONSULTATION HERE .
               </a>
             </div>
           </div>
