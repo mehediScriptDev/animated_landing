@@ -6,11 +6,11 @@ export default function HeroBanner({ isDark = false }) {
   const textRef = useGsapFadeIn({ duration: 1 });
   const lineRef = useRef(null);
   const [hasStroke, setHasStroke] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches
   );
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
     const updateStroke = (event) => setHasStroke(event.matches);
 
     setHasStroke(mediaQuery.matches);
@@ -44,7 +44,7 @@ export default function HeroBanner({ isDark = false }) {
       <h1
         id="hero-heading"
         ref={textRef}
-        className="-mt-3 uppercase transition-colors max-[900px]:leading-relaxed! tracking-widest sm:tracking-normal duration-200 w-[90%] md:w-[75%] mx-auto font-anton! lg:text-[90px]! xl:text-[100px]!"
+        className="-mt-3 uppercase transition-colors max-[650px]:leading-relaxed! tracking-widest sm:tracking-normal duration-200 w-[90%] md:w-[75%] mx-auto font-anton! lg:text-[90px]! xl:text-[100px]!"
         style={{
           fontWeight: 900,
           fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)',

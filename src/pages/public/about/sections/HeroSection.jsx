@@ -40,7 +40,7 @@ export default function HeroSection({ isDark }) {
           ref={headingRef}
           className={`
             about-hero-heading
-            uppercase max-w-[90%] md:max-w-[58%] max-[900px]:leading-relaxed! tracking-widest sm:tracking-normal lg:text-[90px]! xl:text-[100px]! font-anton! transition-colors 
+            uppercase max-w-[90%] md:max-w-[58%] max-[650px]:leading-relaxed! tracking-widest sm:tracking-normal lg:text-[90px]! xl:text-[100px]! font-anton! transition-colors 
           `}
           style={{
             fontWeight: 900,
