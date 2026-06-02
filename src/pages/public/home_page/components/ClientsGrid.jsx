@@ -100,12 +100,14 @@ function ClientCard({ client, index, onEnter, onLeave }) {
     gsap.to(chars, { opacity: 1, x: 0, duration: 0.15, stagger: { each: 0.03, from: 'start' } });
   }, []);
 
-  const handleEnter = useCallback(() => {
+  const handleEnter = useCallback((e) => {
+    if (e.pointerType !== 'mouse') return;
     startLoop();
     onEnter(client.pageColor);
   }, [startLoop, onEnter, client.pageColor]);
 
-  const handleLeave = useCallback(() => {
+  const handleLeave = useCallback((e) => {
+    if (e.pointerType !== 'mouse') return;
     stopLoop();
     onLeave();
   }, [stopLoop, onLeave]);
@@ -113,8 +115,8 @@ function ClientCard({ client, index, onEnter, onLeave }) {
   return (
     <article
       ref={articleRef}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+      onPointerEnter={handleEnter}
+      onPointerLeave={handleLeave}
       aria-label={client.sub ? `${client.name} ${client.sub}` : client.name}
       className={`relative overflow-hidden client-card cursor-pointer select-none${index > 0 ? ' client-card-reveal' : ''}`}
       style={{ aspectRatio: '8 / 8', zIndex: 51 }}
