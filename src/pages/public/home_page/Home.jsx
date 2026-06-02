@@ -1,4 +1,5 @@
 import SEO from '../../../components/SEO';
+import { useScrolled } from '../../../hooks/useScrolled';
 import HeroBanner from './components/HeroBanner';
 import ClientsGrid from './components/ClientsGrid';
 import LendersCarousel from './components/LendersCarousel';
@@ -7,6 +8,8 @@ import ReviewsSection from './components/ReviewsSection';
 import CtaSection from '../about/sections/CtaSection';
 
 export default function Home() {
+  const isDark = useScrolled(50);
+
   return (
     <>
       <SEO
@@ -16,7 +19,7 @@ export default function Home() {
       />
 
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <HeroBanner />
+        <HeroBanner isDark={isDark} />
         <ClientsGrid />
         <LendersCarousel />
         <AboutSection />

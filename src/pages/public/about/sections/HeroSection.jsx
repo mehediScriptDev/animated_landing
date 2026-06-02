@@ -27,22 +27,19 @@ export default function HeroSection({ isDark }) {
           ref={headingRef}
           className={`
             about-hero-heading
-            uppercase max-w-[90%] md:max-w-[48%] leading-snug transition-colors duration-300
+            uppercase max-w-[90%] md:max-w-[58%] leading-snug text-[100px]! tracking-tighter font-anton! transition-colors 
           `}
           style={{
-            fontFamily: "'Sequel', 'Unbounded', sans-serif",
-            fontWeight: 1000,
-            fontStyle: 'italic',
+            fontWeight: 900,
             fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)',
             lineHeight: 1,
-            letterSpacing: '-0.00em',
+            letterSpacing: '0.00em',
             color: isDark ? '#fff' : '#000',
+            // THE TRICK: Add a 2px outline of the exact same color to make it look fatter
+            WebkitTextStroke: isDark ? '2px #fff' : '2px #000', 
           }}
         >
-          COMPETITION<br />
-          AND CREATIVITY<br />
-          RUNS HARD IN<br />
-          HIS VEINS.
+          Guiding You Through Every Step of your Property Journey.
         </h1>
       </div>
     </section>

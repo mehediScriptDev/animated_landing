@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import SEO from "../../../components/SEO";
 import { useScrolled } from "../../../hooks/useScrolled";
-import bgImage from "../../../assets/about/removebg.png";
+import bgImage from "../../../assets/about/About-me.jpg";
 import BioSection from "./sections/BioSection";
 import ExpertiseSection from "./sections/ExpertiseSection";
 import ClientsSection from "./sections/ClientsSection";
@@ -95,11 +95,11 @@ export default function About() {
         <HeroSection isDark={isDark} />
         <BioSection isDark={isDark} />
         {/* Ref wraps the white section so IntersectionObserver can detect it */}
-        <div ref={whiteSectionRef}>
+        {/* <div ref={whiteSectionRef}>
           <ExpertiseSection />
-        </div>
-        <ClientsSection />
-        <AwardsSection />
+        </div> */}
+        {/* <ClientsSection /> */}
+        {/* <AwardsSection /> */}
         <CtaSection />
       </main>
     </>
