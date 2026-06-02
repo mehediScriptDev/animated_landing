@@ -107,7 +107,7 @@ export default function Navbar({ scrolled = false }) {
               }`}
               aria-label="Contact us"
             >
-              Contact Us
+              Contact <span className="hidden min-[355px]:block">Us</span>
             </TransitionLink>
           )}
 

@@ -1,8 +1,21 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 
 export default function HeroSection({ isDark }) {
   const headingRef = useRef(null);
+  const [hasStroke, setHasStroke] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    const updateStroke = (event) => setHasStroke(event.matches);
+
+    setHasStroke(mediaQuery.matches);
+    mediaQuery.addEventListener('change', updateStroke);
+
+    return () => mediaQuery.removeEventListener('change', updateStroke);
+  }, []);
 
   useEffect(() => {
     if (!headingRef.current) return;
@@ -27,7 +40,7 @@ export default function HeroSection({ isDark }) {
           ref={headingRef}
           className={`
             about-hero-heading
-            uppercase max-w-[90%] md:max-w-[58%] leading-snug text-[100px]! tracking-tighter font-anton! transition-colors 
+            uppercase max-w-[90%] md:max-w-[58%] max-[900px]:leading-relaxed! tracking-widest sm:tracking-normal lg:text-[90px]! xl:text-[100px]! font-anton! transition-colors 
           `}
           style={{
             fontWeight: 900,
@@ -35,8 +48,7 @@ export default function HeroSection({ isDark }) {
             lineHeight: 1,
             letterSpacing: '0.00em',
             color: isDark ? '#fff' : '#000',
-            // THE TRICK: Add a 2px outline of the exact same color to make it look fatter
-            WebkitTextStroke: isDark ? '2px #fff' : '2px #000', 
+            WebkitTextStroke: hasStroke ? (isDark ? '2px #fff' : '2px #000') : '0px transparent',
           }}
         >
           Guiding You Through Every Step of your Property Journey.

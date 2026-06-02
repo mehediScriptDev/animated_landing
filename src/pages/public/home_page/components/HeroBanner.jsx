@@ -1,10 +1,23 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGsapFadeIn } from '../../../../hooks/useGsapFadeIn';
 
 export default function HeroBanner({ isDark = false }) {
   const textRef = useGsapFadeIn({ duration: 1 });
   const lineRef = useRef(null);
+  const [hasStroke, setHasStroke] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const updateStroke = (event) => setHasStroke(event.matches);
+
+    setHasStroke(mediaQuery.matches);
+    mediaQuery.addEventListener('change', updateStroke);
+
+    return () => mediaQuery.removeEventListener('change', updateStroke);
+  }, []);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -31,14 +44,14 @@ export default function HeroBanner({ isDark = false }) {
       <h1
         id="hero-heading"
         ref={textRef}
-        className="-mt-3 uppercase transition-colors duration-200 w-[90%] md:w-[75%] mx-auto font-anton! text-[100px]!"
+        className="-mt-3 uppercase transition-colors max-[900px]:leading-relaxed! tracking-widest sm:tracking-normal duration-200 w-[90%] md:w-[75%] mx-auto font-anton! lg:text-[90px]! xl:text-[100px]!"
         style={{
           fontWeight: 900,
           fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)',
           lineHeight: 1,
           letterSpacing: '0.00em',
           color: isDark ? '#fff' : '#000',
-          WebkitTextStroke: isDark ? '3px #fff' : '3px #000',
+          WebkitTextStroke: hasStroke ? (isDark ? '3px #fff' : '3px #000') : '0px transparent',
         }}
       >
         MAKING CENTS OF REAL ESTATE
