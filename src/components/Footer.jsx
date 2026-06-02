@@ -107,11 +107,11 @@ export default function Footer() {
                 0413 657 314
               </a>
             </li>
-            <li className="flex items-center gap-3">
+            <li className="flex items-start gap-3 min-w-0">
               <span aria-hidden="true">✉️</span>
               <a
                 href="mailto:michael@traikosfinance.com"
-                className="hover:text-white transition-colors"
+                className="min-w-0 wrap-anywhere hover:text-white transition-colors"
               >
                 michael@traikosfinance.com
               </a>
