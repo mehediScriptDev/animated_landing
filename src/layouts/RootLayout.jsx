@@ -8,8 +8,21 @@ import { useScrolled } from '../hooks/useScrolled';
 export default function RootLayout() {
   const scrolled = useScrolled(50);
   const { pathname } = useLocation();
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 650px)').matches,
+  );
   const isHome = pathname === '/';
   const isAbout = pathname === '/about';
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 650px)');
+    const handleChange = (event) => setIsMobile(event.matches);
+
+    setIsMobile(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   // About page dispatches 'about-nav-theme' events when white sections
   // enter/leave the viewport. This lets the navbar switch back to dark
@@ -31,17 +44,19 @@ export default function RootLayout() {
   const isContact = pathname === '/contact';
 
   // Navbar color logic:
-  // - Home: follows scroll state
-  // - About: follows scroll state AND whether a dark section is behind the navbar
+  // - Home: follows scroll state on all devices
+  // - About: always dark on mobile; on desktop follows scroll AND section theme
   // - Contact: dark at top, white on scroll (hero image behind sticky nav)
   // - Other pages: always light (unscrolled)
-  const navScrolled = isHome
+  const navScrolledByPage = isHome
     ? scrolled
     : isAbout
-    ? scrolled && aboutNavDark
+    ? isMobile || (scrolled && aboutNavDark)
     : isContact
     ? scrolled
     : false;
+
+  const navScrolled = navScrolledByPage;
 
   // bg transition only applies on the home page (about handles its own overlays)
   const bgClass = isHome && scrolled ? 'bg-black dark-theme' : 'bg-white';
