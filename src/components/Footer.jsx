@@ -144,7 +144,7 @@ export default function Footer() {
               <IconInstagram />
             </a>
             <a
-              href="https://www.linkedin.com/in/michael-traikos-ba1178272 "
+              href="https://www.linkedin.com/in/michael-traikos-ba1178272"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"

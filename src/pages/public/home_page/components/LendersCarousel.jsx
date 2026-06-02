@@ -63,11 +63,13 @@ const LENDERS = [
 
 // Duplicate for seamless loop
 const ITEMS = [...LENDERS, ...LENDERS];
+const AUTO_SCROLL_DURATION = 120;
 
 export default function LendersCarousel() {
   const trackRef   = useRef(null);
   const tweenRef   = useRef(null);
-  const dragRef    = useRef({ dragging: false, startX: 0, scrollLeft: 0 });
+  const isHoveringRef = useRef(false);
+  const dragRef    = useRef({ dragging: false, startX: 0, scrollLeft: 0, stoppedByTouch: false });
 
   useEffect(() => {
     const track = trackRef.current;
@@ -76,10 +78,9 @@ export default function LendersCarousel() {
     // Width of one full set of cards
     const totalWidth = track.scrollWidth / 2;
 
-    // Auto-scroll tween (infinite)
-    tweenRef.current = gsap.to(track, {
-      x: `-=${totalWidth}`,
-      duration: 70,
+    const createAutoplayTween = (toX) => gsap.to(track, {
+      x: toX,
+      duration: AUTO_SCROLL_DURATION,
       ease: 'none',
       repeat: -1,
       modifiers: {
@@ -90,14 +91,41 @@ export default function LendersCarousel() {
       },
     });
 
+    // Auto-scroll tween (infinite)
+    tweenRef.current = createAutoplayTween(`-=${totalWidth}`);
+
     // ---- Drag support ----
     const getClientX = (e) => (e.touches ? e.touches[0].clientX : e.clientX);
 
+    const pauseAutoplay = () => {
+      tweenRef.current?.pause();
+    };
+
+    const resumeAutoplay = () => {
+      if (dragRef.current.dragging || dragRef.current.stoppedByTouch) return;
+      const currentX = parseFloat(gsap.getProperty(track, 'x')) || 0;
+      tweenRef.current?.kill();
+      gsap.killTweensOf(track);
+      tweenRef.current = createAutoplayTween(`${currentX - totalWidth}`);
+    };
+
+    const onMouseEnter = () => {
+      isHoveringRef.current = true;
+      pauseAutoplay();
+    };
+
+    const onMouseLeave = () => {
+      isHoveringRef.current = false;
+      resumeAutoplay();
+    };
+
     const onDown = (e) => {
+      const isTouch = e.type.startsWith('touch');
       dragRef.current.dragging  = true;
       dragRef.current.startX    = getClientX(e);
       dragRef.current.scrollX   = gsap.getProperty(track, 'x');
-      tweenRef.current.pause();
+      if (isTouch) dragRef.current.stoppedByTouch = true;
+      pauseAutoplay();
       track.style.cursor = 'grabbing';
     };
 
@@ -114,23 +142,15 @@ export default function LendersCarousel() {
       if (!dragRef.current.dragging) return;
       dragRef.current.dragging = false;
       track.style.cursor = 'grab';
-      // Resume auto-scroll from current position
-      const currentX = gsap.getProperty(track, 'x');
-      gsap.killTweensOf(track);
-      tweenRef.current = gsap.to(track, {
-        x: `${parseFloat(currentX) - totalWidth}`,
-        duration: 30 * (Math.abs(parseFloat(currentX)) / totalWidth || 1),
-        ease: 'none',
-        repeat: -1,
-        modifiers: {
-          x: (x) => {
-            const val = parseFloat(x) % totalWidth;
-            return `${val}px`;
-          },
-        },
-      });
+
+      // Resume after drag only if cursor is not hovering and interaction was not touch.
+      if (!isHoveringRef.current && !dragRef.current.stoppedByTouch) {
+        resumeAutoplay();
+      }
     };
 
+    track.addEventListener('mouseenter', onMouseEnter);
+    track.addEventListener('mouseleave', onMouseLeave);
     track.addEventListener('mousedown',  onDown);
     track.addEventListener('touchstart', onDown, { passive: true });
     window.addEventListener('mousemove', onMove);
@@ -140,6 +160,8 @@ export default function LendersCarousel() {
 
     return () => {
       tweenRef.current?.kill();
+      track.removeEventListener('mouseenter', onMouseEnter);
+      track.removeEventListener('mouseleave', onMouseLeave);
       track.removeEventListener('mousedown',  onDown);
       track.removeEventListener('touchstart', onDown);
       window.removeEventListener('mousemove', onMove);

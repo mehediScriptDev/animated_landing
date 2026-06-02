@@ -1,10 +1,32 @@
 import { useState } from "react";
 
 const SOCIALS = [
-  { label: "EM.", color: "#1DA1F2" },
-  { label: "IG.", color: "#E1306C" },
-  { label: "LN.", color: "#0077B5" },
-  { label: "M.", color: "#00C853" },
+  {
+    label: "EM.",
+    color: "#1DA1F2",
+    href: "mailto:michael@traikosfinance.com",
+    ariaLabel: "Email Traikos Finance",
+  },
+  {
+    label: "IG.",
+    color: "#E1306C",
+    href: "https://www.instagram.com/traikos_finance?igsh=MWZrbWt1bHllYXo3",
+    ariaLabel: "Visit Instagram",
+    external: true,
+  },
+  {
+    label: "LN.",
+    color: "#0077B5",
+    href: "https://www.linkedin.com/in/michael-traikos-ba1178272",
+    ariaLabel: "Visit LinkedIn",
+    external: true,
+  },
+  {
+    label: "M.",
+    color: "#00C853",
+    href: "tel:0413657314",
+    ariaLabel: "Call 0413 657 314",
+  },
 ];
 
 export default function CtaSection() {
@@ -27,7 +49,10 @@ export default function CtaSection() {
           {SOCIALS.map((social, i) => (
             <a
               key={social.label}
-              href="#"
+              href={social.href}
+              aria-label={social.ariaLabel}
+              target={social.external ? "_blank" : undefined}
+              rel={social.external ? "noopener noreferrer" : undefined}
               className="font-anton font-black text-[1.6rem] md:text-[3.5vw] lg:text-[2.5vw] leading-none no-underline uppercase tracking-wide transition-colors duration-200"
               style={{ color: hovered === i ? social.color : "#fff" }}
               onMouseEnter={() => setHovered(i)}
@@ -43,7 +68,7 @@ export default function CtaSection() {
         <div className="flex items-end justify-between">
           <div className="flex flex-col gap-0.5">
             <p
-              className="font-anton font-black italic text-white uppercase tracking-tighter leading-[1.05]"
+              className="font-anton font-black italic text-white uppercase tracking-tight leading-[1.05]"
               style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)", fontWeight: 1000 }}
             >
               BOOK A FREE
@@ -52,7 +77,7 @@ export default function CtaSection() {
               <div className="absolute left-0 right-0 h-4 bg-gray-300/50 -z-10 bottom-0"></div>
               <a
                 href="mailto:michael@traikosfinance.com"
-                className="font-anton font-black italic text-white uppercase tracking-tighter leading-[1.05] inline-block no-underline hover:opacity-80 transition-opacity duration-200 self-start"
+                className="font-anton font-black italic text-white uppercase tracking-tight leading-[1.05] inline-block no-underline hover:opacity-80 transition-opacity duration-200 self-start"
                 style={{
                   fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)",
                   fontWeight: 8000,

@@ -132,7 +132,7 @@ function ClientCard({ client, index, onEnter, onLeave }) {
         ref={textRef}
         className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-8"
       >
-        <span className="text-white font-light tracking-[0.3em] uppercase text-center text-sm sm:text-base md:text-lg lg:text-2xl xl:text-[28px] leading-relaxed flex flex-wrap justify-center">
+        <span className="text-white font-light tracking-[0.3em] uppercase text-center text-xs sm:text-base md:text-lg lg:text-2xl xl:text-[28px] leading-relaxed flex flex-wrap justify-center">
           {client.name.split('').map((char, i) => (
             <span key={i} className="char inline-block">{char === ' ' ? '\u00A0' : char}</span>
           ))}

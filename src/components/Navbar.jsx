@@ -44,7 +44,7 @@ export default function Navbar({ scrolled = false }) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header className="sticky top-0 z-100 w-full">
       <nav
         className="w-[98%] mx-auto h-16 flex items-center justify-between"
         aria-label="Main navigation"
@@ -91,7 +91,7 @@ export default function Navbar({ scrolled = false }) {
           {pathname === '/' && (
             <TransitionLink
               to="/about"
-              className={`flex items-center gap-2 text-[12px] tracking-widest font-normal px-5 py-2.5 rounded-full transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
+              className={`flex items-center gap-2 text-[12px] tracking-widest uppercase font-normal px-5 py-2.5 rounded-full transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
                 scrolled ? 'border-white text-white' : 'text-black'
               }`}
               aria-label="About"
@@ -102,7 +102,7 @@ export default function Navbar({ scrolled = false }) {
           {pathname === '/about' && (
             <TransitionLink
               to="/contact"
-              className={`flex items-center gap-2 text-[12px] tracking-widest font-normal px-5 py-2.5 rounded-full transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
+              className={`flex items-center gap-2 text-[12px] tracking-widest uppercase font-normal px-5 py-2.5 rounded-full transition-all duration-200 hover:opacity-70 focus-visible:outline-2 ${
                 scrolled ? 'border-white text-white' : 'text-black'
               }`}
               aria-label="Contact us"
