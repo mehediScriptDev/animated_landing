@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import { gsap } from 'gsap';
 import motivImg  from '@/assets/grid_image/firsthome.png';
 import acImg     from '@/assets/simple.png';
@@ -52,13 +52,16 @@ const CLIENTS = [
   },
 ];
 
-function ClientCard({ client, index, onEnter, onLeave }) {
+function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
   const textRef   = useRef(null);
   const imgRef     = useRef(null);
   const loopRef    = useRef(null);
   const articleRef = useRef(null);
+  const wasActiveRef = useRef(isActive);
 
-  useEffect(() => () => { if (loopRef.current) loopRef.current.kill(); }, []);
+  useEffect(() => () => {
+    if (loopRef.current) loopRef.current.kill();
+  }, []);
 
   const startLoop = useCallback(() => {
     if (loopRef.current) { loopRef.current.kill(); loopRef.current = null; }
@@ -100,23 +103,41 @@ function ClientCard({ client, index, onEnter, onLeave }) {
     gsap.to(chars, { opacity: 1, x: 0, duration: 0.15, stagger: { each: 0.03, from: 'start' } });
   }, []);
 
+  useEffect(() => {
+    if (wasActiveRef.current === isActive) return;
+    wasActiveRef.current = isActive;
+
+    if (isActive) {
+      startLoop();
+    } else {
+      stopLoop();
+    }
+  }, [isActive, startLoop, stopLoop]);
+
   const handleEnter = useCallback((e) => {
     if (e.pointerType !== 'mouse') return;
+    if (isActive) return;
     startLoop();
     onEnter(client.pageColor);
-  }, [startLoop, onEnter, client.pageColor]);
+  }, [isActive, startLoop, onEnter, client.pageColor]);
 
   const handleLeave = useCallback((e) => {
     if (e.pointerType !== 'mouse') return;
+    if (isActive) return;
     stopLoop();
     onLeave();
-  }, [stopLoop, onLeave]);
+  }, [isActive, stopLoop, onLeave]);
+
+  const handleClick = useCallback(() => {
+    onToggle(client.id, client.pageColor);
+  }, [onToggle, client.id, client.pageColor]);
 
   return (
     <article
       ref={articleRef}
       onPointerEnter={handleEnter}
       onPointerLeave={handleLeave}
+      onClick={handleClick}
       aria-label={client.sub ? `${client.name} ${client.sub}` : client.name}
       className={`relative overflow-hidden client-card cursor-pointer select-none${index > 0 ? ' client-card-reveal' : ''}`}
       style={{ aspectRatio: '8 / 8', zIndex: 51 }}
@@ -152,6 +173,7 @@ function ClientCard({ client, index, onEnter, onLeave }) {
 }
 
 export default function ClientsGrid() {
+  const [activeCardId, setActiveCardId] = useState(null);
 
   const handleEnter = useCallback((color) => {
     gsap.to(document.getElementById('page-overlay'), {
@@ -168,6 +190,17 @@ export default function ClientsGrid() {
       ease: 'power2.out',
     });
   }, []);
+
+  const handleToggle = useCallback((id, color) => {
+    if (activeCardId === id) {
+      setActiveCardId(null);
+      handleLeave();
+      return;
+    }
+
+    setActiveCardId(id);
+    handleEnter(color);
+  }, [activeCardId, handleEnter, handleLeave]);
 
   return (
     <>
@@ -186,6 +219,8 @@ export default function ClientsGrid() {
               index={i}
               onEnter={handleEnter}
               onLeave={handleLeave}
+              isActive={activeCardId === client.id}
+              onToggle={handleToggle}
             />
           ))}
         </div>
