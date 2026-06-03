@@ -7,6 +7,12 @@ import ComplimentsPage from '../pages/public/compliments_page/ComplimentsPage';
 import ContactPage from '../pages/public/contact/ContactPage';
 import RootLayout from '../layouts/RootLayout';
 import About from '../pages/public/about/About';
+import FirstHome from '../pages/public/first_home/FirstHome';
+import NextHome from '../pages/public/next_home/NextHome';
+import Investment from '../pages/public/investment/Investment';
+import Construction from '../pages/public/construction/Construction';
+import Smsf from '../pages/public/smsf/Smsf';
+import Refinancing from '../pages/public/refinancing/Refinancing';
 
 const router = createBrowserRouter([
   {
@@ -14,7 +20,13 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <Home /> },
-      {path:'about', element: <About/>},
+      { path: 'about', element: <About /> },
+      { path: 'first-home', element: <FirstHome /> },
+      { path: 'next-home', element: <NextHome /> },
+      { path: 'investment', element: <Investment /> },
+      { path: 'construction', element: <Construction /> },
+      { path: 'smsf', element: <Smsf /> },
+      { path: 'refinancing', element: <Refinancing /> },
       { path: 'contact', element: <ContactPage /> },
       { path: 'privacy', element: <PrivacyPage /> },
       { path: 'disclaimer', element: <DisclaimerPage /> },
