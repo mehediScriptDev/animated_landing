@@ -135,7 +135,7 @@ export default function Footer() {
           </ul>
           <div className="flex gap-4">
             <a
-              href="https://www.instagram.com/traikos_finance?igsh=MWZrbWt1bHllYXo3"
+              href="https://www.instagram.com/traikos_finance"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"

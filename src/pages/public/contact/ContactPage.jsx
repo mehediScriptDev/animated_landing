@@ -28,14 +28,6 @@ function MapPinIcon() {
   );
 }
 
-function FacebookIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-    </svg>
-  );
-}
-
 function InstagramIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -46,10 +38,10 @@ function InstagramIcon() {
   );
 }
 
-function RateMyAgentIcon() {
+function LinkedInIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      <path d="M4.98 3.5a2.5 2.5 0 11.02 5 2.5 2.5 0 01-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.53-1 1.84-2.06 3.8-2.06 4.06 0 4.8 2.67 4.8 6.14V21h-4v-5.4c0-1.29-.02-2.96-1.8-2.96-1.81 0-2.09 1.42-2.09 2.87V21H9z" />
     </svg>
   );
 }
@@ -76,9 +68,8 @@ const CONTACT_ITEMS = [
 ];
 
 const SOCIALS = [
-  { icon: <FacebookIcon />, label: 'Facebook', href: 'https://facebook.com' },
-  { icon: <InstagramIcon />, label: 'Instagram', href: 'https://instagram.com' },
-  { icon: <RateMyAgentIcon />, label: 'RateMyAgent', href: 'https://ratemyagent.com.au' },
+  { icon: <InstagramIcon />, label: 'Instagram', href: 'https://www.instagram.com/traikos_finance' },
+  { icon: <LinkedInIcon />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/michael-traikos-ba1178272' },
 ];
 
 export default function ContactPage() {
@@ -124,10 +115,10 @@ export default function ContactPage() {
 
       {/* ── Main content ───────────────────────────────────────────────── */}
       <main id="main-content" tabIndex={-1} className="bg-black flex-1">
-        <div className="w-[90%] md:w-[75%] mx-auto py-16 md:py-24 flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+        <div className="w-[92%] sm:w-[90%] md:w-[84%] lg:w-[78%] xl:w-[75%] mx-auto py-14 md:py-20 lg:py-24 flex flex-col xl:flex-row gap-10 md:gap-12 lg:gap-14 items-start">
 
           {/* Left — info */}
-          <div className="flex-1 flex flex-col gap-8">
+          <div className="order-2 xl:order-1 w-full xl:flex-1 min-w-0 flex flex-col gap-8">
             <p className="text-white/60 text-sm leading-relaxed max-w-md">
               We'd love to hear from you! Whether you have questions about our services,
               need expert advice, or want to discuss your financial goals, don't hesitate
@@ -135,22 +126,22 @@ export default function ContactPage() {
             </p>
 
             {/* Contact details grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-6 gap-y-6">
               {CONTACT_ITEMS.map((item) => (
-                <div key={item.label} className="flex items-start gap-3">
+                <div key={item.label} className="flex items-start gap-3 min-w-0">
                   <div className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center shrink-0 mt-0.5">
                     {item.icon}
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-[0.65rem] font-bold tracking-widest text-white/50 uppercase mb-0.5">
                       {item.label}
                     </p>
                     {item.href ? (
-                      <a href={item.href} className="text-sm text-white/80 hover:text-white transition-colors">
+                      <a href={item.href} className="text-sm text-white/80 hover:text-white transition-colors wrap-anywhere leading-snug">
                         {item.value}
                       </a>
                     ) : (
-                      <p className="text-sm text-white/80">{item.value}</p>
+                      <p className="text-sm text-white/80 wrap-anywhere leading-snug">{item.value}</p>
                     )}
                   </div>
                 </div>
@@ -183,7 +174,7 @@ export default function ContactPage() {
           </div>
 
           {/* Right — form card */}
-          <div className="w-full lg:w-150 shrink-0 bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+          <div className="order-1 xl:order-2 w-full xl:w-150 shrink-0 bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
             <h2 className="text-white font-black uppercase tracking-wider text-center mb-8"
               style={{ fontSize: 'clamp(1rem, 2.5vw, 1.4rem)' }}>
               Get In Touch With Us

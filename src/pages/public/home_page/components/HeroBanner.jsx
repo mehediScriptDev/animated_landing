@@ -5,15 +5,15 @@ import { useGsapFadeIn } from '../../../../hooks/useGsapFadeIn';
 export default function HeroBanner({ isDark = false }) {
   const textRef = useGsapFadeIn({ duration: 1 });
   const lineRef = useRef(null);
-  const [hasStroke, setHasStroke] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches
+  const [strokeWidth, setStrokeWidth] = useState(
+    () => (typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches ? 3 : 1)
   );
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 768px)');
-    const updateStroke = (event) => setHasStroke(event.matches);
+    const updateStroke = (event) => setStrokeWidth(event.matches ? 3 : 1);
 
-    setHasStroke(mediaQuery.matches);
+    setStrokeWidth(mediaQuery.matches ? 3 : 1);
     mediaQuery.addEventListener('change', updateStroke);
 
     return () => mediaQuery.removeEventListener('change', updateStroke);
@@ -36,6 +36,8 @@ export default function HeroBanner({ isDark = false }) {
     return () => ctx.revert();
   }, []);
 
+  const useDarkThemeForHeading = isDark;
+
   return (
     <section
       aria-labelledby="hero-heading"
@@ -44,14 +46,14 @@ export default function HeroBanner({ isDark = false }) {
       <h1
         id="hero-heading"
         ref={textRef}
-        className="-mt-3 uppercase transition-colors max-[650px]:leading-relaxed! tracking-widest sm:tracking-normal duration-200 w-[90%] md:w-[75%] mx-auto font-anton! lg:text-[90px]! xl:text-[100px]!"
+        className="-mt-3 uppercase transition-colors tracking-widest sm:tracking-normal duration-200 w-[90%] md:w-[75%] mx-auto font-anton! lg:text-[90px]! xl:text-[100px]!"
         style={{
           fontWeight: 900,
           fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)',
           lineHeight: 1,
           letterSpacing: '0.00em',
-          color: isDark ? '#fff' : '#000',
-          WebkitTextStroke: hasStroke ? (isDark ? '3px #fff' : '3px #000') : '0px transparent',
+          color: useDarkThemeForHeading ? '#fff' : '#000',
+          WebkitTextStroke: `${strokeWidth}px ${useDarkThemeForHeading ? '#fff' : '#000'}`,
         }}
       >
         MAKING CENTS OF REAL ESTATE

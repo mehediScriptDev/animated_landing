@@ -10,7 +10,7 @@ const SOCIALS = [
   {
     label: "IG.",
     color: "#E1306C",
-    href: "https://www.instagram.com/traikos_finance?igsh=MWZrbWt1bHllYXo3",
+    href: "https://www.instagram.com/traikos_finance",
     ariaLabel: "Visit Instagram",
     external: true,
   },

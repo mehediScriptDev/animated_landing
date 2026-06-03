@@ -3,15 +3,22 @@ import { gsap } from 'gsap';
 
 export default function HeroSection({ isDark }) {
   const headingRef = useRef(null);
-  const [hasStroke, setHasStroke] = useState(
+  const [isDesktop, setIsDesktop] = useState(
     () => typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches
+  );
+  const [strokeWidth, setStrokeWidth] = useState(
+    () => (typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches ? 2 : 1.4)
   );
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 768px)');
-    const updateStroke = (event) => setHasStroke(event.matches);
+    const updateStroke = (event) => {
+      setIsDesktop(event.matches);
+      setStrokeWidth(event.matches ? 2 : 1);
+    };
 
-    setHasStroke(mediaQuery.matches);
+    setIsDesktop(mediaQuery.matches);
+    setStrokeWidth(mediaQuery.matches ? 2 : 1);
     mediaQuery.addEventListener('change', updateStroke);
 
     return () => mediaQuery.removeEventListener('change', updateStroke);
@@ -29,6 +36,8 @@ export default function HeroSection({ isDark }) {
     return () => ctx.revert();
   }, []);
 
+  const useDarkThemeForHeading = isDesktop ? isDark : true;
+
   return (
     <section
       aria-labelledby="about-heading"
@@ -40,15 +49,15 @@ export default function HeroSection({ isDark }) {
           ref={headingRef}
           className={`
             about-hero-heading
-            uppercase max-w-[90%] md:max-w-[58%] max-[650px]:leading-relaxed! tracking-widest sm:tracking-normal lg:text-[90px]! xl:text-[100px]! font-anton! transition-colors 
+            uppercase max-w-[90%] md:max-w-[58%] tracking-widest sm:tracking-normal lg:text-[90px]! xl:text-[100px]! font-anton! transition-colors 
           `}
           style={{
             fontWeight: 900,
             fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)',
             lineHeight: 1,
             letterSpacing: '0.00em',
-            color: isDark ? '#fff' : '#000',
-            WebkitTextStroke: hasStroke ? (isDark ? '2px #fff' : '2px #000') : '0px transparent',
+            color: useDarkThemeForHeading ? '#fff' : '#000',
+            WebkitTextStroke: `${strokeWidth}px ${useDarkThemeForHeading ? '#fff' : '#000'}`,
           }}
         >
           Guiding You Through Every Step of your Property Journey.
