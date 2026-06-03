@@ -1,5 +1,6 @@
 import TransitionLink from "./TransitionLink";
 import logoImg from "@/assets/logo_dark_1.png";
+import { lenisRef } from './PageWipeOverlay';
 
 // Instagram icon
 function IconInstagram() {
@@ -54,7 +55,13 @@ const QUICK_LINKS = [
 ];
 
 export default function Footer() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = () => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <footer className="bg-black text-white relative z-2" role="contentinfo">

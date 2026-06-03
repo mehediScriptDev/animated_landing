@@ -2,8 +2,13 @@ import { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import PageWipeOverlay, { pageRef } from '../components/PageWipeOverlay';
+import PageWipeOverlay, { pageRef, lenisRef } from '../components/PageWipeOverlay';
 import { useScrolled } from '../hooks/useScrolled';
+import Lenis from 'lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function RootLayout() {
   const scrolled = useScrolled(50);
@@ -22,6 +27,38 @@ export default function RootLayout() {
     mediaQuery.addEventListener('change', handleChange);
 
     return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Initialize Lenis smooth scroll
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+    });
+
+    lenisRef.current = lenis;
+
+    // Connect Lenis with ScrollTrigger
+    lenis.on('scroll', () => {
+      ScrollTrigger.update();
+    });
+
+    const updateTicker = (time) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(updateTicker);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.destroy();
+      lenisRef.current = null;
+      gsap.ticker.remove(updateTicker);
+    };
   }, []);
 
   // About page dispatches 'about-nav-theme' events when white sections

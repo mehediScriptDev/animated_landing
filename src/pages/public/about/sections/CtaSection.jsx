@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { lenisRef } from "../../../../components/PageWipeOverlay";
 
 const SOCIALS = [
   {
@@ -30,7 +31,13 @@ const SOCIALS = [
 ];
 
 export default function CtaSection() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = () => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
   const [hovered, setHovered] = useState(null);
 
   return (

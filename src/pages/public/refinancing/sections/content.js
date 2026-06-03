@@ -37,11 +37,11 @@ export const REFINANCING_CONTENT = {
       "Once your refinance is in place at Traikos Finance, it's not the beginning, but the start. We leverage advanced fintech software to assess your loan annually, ensuring it stays competitive in the market. Within each plan, you receive a call from us letting you know that we've reviewed, compared, and potentially improved your interest rate—all without any effort from your end. You're unlikely to receive this level of service if you went directly through a bank or broker.",
   },
   whyChoose: {
-    title: 'FREQUENTLY ASKED QUESTIONS',
+    title: 'WHY CHOOSE US',
     cards: [
-      { image: whyOneImg, label: 'Leveraging your home equity to refinance your mortgage.' },
-      { image: whyTwoImg, label: 'Can I receive cashback when refinancing my home loan?' },
-      { image: whyThreeImg, label: 'How can I tell if I should refinance my home loan?' },
+      { image: whyOneImg, label: 'Use your home equity to unlock a smarter refinance strategy.' },
+      { image: whyTwoImg, label: 'We compare cashback offers and lender incentives that actually add value.' },
+      { image: whyThreeImg, label: 'Get clear guidance on when refinancing is worth it for your situation.' },
     ],
   },
 };

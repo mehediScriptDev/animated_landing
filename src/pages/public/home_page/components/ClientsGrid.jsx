@@ -1,7 +1,7 @@
 import { useRef, useEffect, useCallback, useState } from "react";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
-import { pageRef } from "../../../../components/PageWipeOverlay";
+import { pageRef, lenisRef } from "../../../../components/PageWipeOverlay";
 import motivImg from "@/assets/grid_image/firsthome.png";
 import acImg from "@/assets/simple.png";
 import nesteaImg from "@/assets/grid_image/refinancing.png";
@@ -264,14 +264,26 @@ export default function ClientsGrid() {
         const to = CARD_ROUTES[id];
 
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          window.scrollTo(0, 0);
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true });
+          } else {
+            document.documentElement.style.scrollBehavior = 'auto';
+            window.scrollTo(0, 0);
+            document.documentElement.style.scrollBehavior = '';
+          }
           navigate(to);
           return;
         }
 
         const page = pageRef.current;
         if (!page) {
-          window.scrollTo(0, 0);
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true });
+          } else {
+            document.documentElement.style.scrollBehavior = 'auto';
+            window.scrollTo(0, 0);
+            document.documentElement.style.scrollBehavior = '';
+          }
           navigate(to);
           return;
         }
@@ -313,12 +325,17 @@ export default function ClientsGrid() {
 
         document.documentElement.style.overflowX = 'hidden';
         document.body.style.overflowX = 'hidden';
+        document.documentElement.style.scrollBehavior = 'auto';
 
         // Push the real page wrapper off-screen to the right
         gsap.set(page, { x: vw });
 
         // Navigate and scroll to top (hidden under snapshot)
-        window.scrollTo(0, 0);
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(0, { immediate: true });
+        } else {
+          window.scrollTo(0, 0);
+        }
         navigate(to);
 
         // Slide old snapshot out to the left, new page in from the right
@@ -344,6 +361,8 @@ export default function ClientsGrid() {
             gsap.set(page, { clearProps: 'transform' });
             document.documentElement.style.overflowX = '';
             document.body.style.overflowX = '';
+            document.documentElement.style.scrollBehavior = '';
+            lenisRef.current?.resize();
           },
         });
 

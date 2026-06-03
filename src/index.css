@@ -21,9 +21,30 @@
 }
 
 
-/* Smooth scrolling */
+/* Lenis smooth scrolling rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Fallback default smooth scrolling if Lenis is disabled/fails */
 @media (prefers-reduced-motion: no-preference) {
-  html { scroll-behavior: smooth; }
+  html:not(.lenis) { scroll-behavior: smooth; }
 }
 
 /* Pointer cursor on all interactive elements */

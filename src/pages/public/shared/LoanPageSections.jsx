@@ -62,13 +62,13 @@ export function HeroSection({ content }) {
           </p>
         </div>
 
-        <button
+        <a
           ref={btnRef}
-          type="button"
-          className="mt-8 md:mt-10 inline-flex items-center justify-center px-9 py-3 bg-white text-black uppercase text-[0.65rem] md:text-[0.72rem] tracking-[0.22em] font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105! hover:shadow-lg"
+          href="tel:0413657314"
+          className="mt-8 md:mt-10 inline-flex items-center justify-center px-9 py-3 bg-white text-black uppercase text-[0.65rem] md:text-[0.72rem] tracking-[0.22em] font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105! hover:shadow-lg no-underline"
         >
           {content.cta}
-        </button>
+        </a>
       </div>
     </section>
   );
