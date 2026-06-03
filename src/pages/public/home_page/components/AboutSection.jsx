@@ -1,25 +1,25 @@
-import aboutImg from '@/assets/description.webp';
+import aboutImg from '@/assets/simplemain.png';
 
 export default function AboutSection() {
   return (
     <section
       aria-label="About Traikos Finance"
-      className="relative z-10 py-20 "
+      className="relative z-10 py-12 md:py-16 lg:py-24"
     >
-      <div className="w-[90%] md:w-[75%] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16">
+      <div className="w-[90%] md:w-[75%] mx-auto flex flex-col lg:flex-row lg:items-stretch gap-10 ">
 
         {/* Left — image with top-right rounded corner */}
-        <div className="w-full md:w-1/2 flex-shrink-0">
+        <div className="w-full lg:w-1/2 shrink-0 flex">
           <img
             src={aboutImg}
             alt="Modern apartment building"
-            className="w-full h-auto object-cover"
+            className="w-full h-80 sm:h-112.5 lg:h-full object-cover"
             style={{ borderRadius: '0 80px 0 0' }}
           />
         </div>
 
         {/* Right — text content */}
-        <div className="w-full md:w-1/2 flex flex-col gap-6 text-white/85 text-sm md:text-sm   leading-relaxed">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center gap-6 text-white/85 text-sm lg:text-[0.95rem] leading-relaxed">
           <p>
             We are Traikos Finance. A solutions-driven mortgage brokerage with access to
             over 30 lenders, offering tailored financial services across various markets and
@@ -46,3 +46,4 @@ export default function AboutSection() {
     </section>
   );
 }
+
