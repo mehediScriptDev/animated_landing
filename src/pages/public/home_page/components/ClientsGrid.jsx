@@ -1,11 +1,11 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { gsap } from 'gsap';
-import motivImg  from '@/assets/grid_image/firsthome.png';
-import acImg     from '@/assets/simple.png';
+import motivImg from '@/assets/grid_image/firsthome.png';
+import acImg from '@/assets/simple.png';
 import nesteaImg from '@/assets/grid_image/refinancing.png';
-import espnImg   from '@/assets/grid_image/nexthome.png';
-import lafcImg   from '@/assets/grid_image/loans.png';
-import foxImg    from '@/assets/grid_image/construction.png';
+import espnImg from '@/assets/grid_image/nexthome.png';
+import lafcImg from '@/assets/grid_image/loans.png';
+import foxImg from '@/assets/grid_image/construction.png';
 
 const CLIENTS = [
   {
@@ -53,9 +53,9 @@ const CLIENTS = [
 ];
 
 function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
-  const textRef   = useRef(null);
-  const imgRef     = useRef(null);
-  const loopRef    = useRef(null);
+  const textRef = useRef(null);
+  const imgRef = useRef(null);
+  const loopRef = useRef(null);
   const articleRef = useRef(null);
   const wasActiveRef = useRef(isActive);
 
@@ -64,15 +64,15 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
   }, []);
 
   const startLoop = useCallback(() => {
-    if (loopRef.current) { loopRef.current.kill(); loopRef.current = null; }
+    if (loopRef.current) {
+      loopRef.current.kill();
+      loopRef.current = null;
+    }
     if (!textRef.current || !imgRef.current) return;
 
     const chars = Array.from(textRef.current.querySelectorAll('.char'));
-
-    // Single-run slide-out then slide-in animation. Keep image visible while hovered.
     const tl = gsap.timeline();
 
-    // Slide chars left while fading out (staggered, end → start)
     tl.to(chars, {
       x: '-12px',
       opacity: 0,
@@ -80,25 +80,26 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
       stagger: { each: 0.02, from: 'end' },
       ease: 'power2.in',
     })
-      // Fade image in and keep it visible while hovering (start immediately)
       .to(imgRef.current, { opacity: 1, duration: 0.22, ease: 'power1.out' }, '<0')
-      // Bring chars back from right while fading in (staggered, start → end)
       .fromTo(
         chars,
         { x: '12px', opacity: 0 },
-        { x: '0px', opacity: 1, duration: 0.3, stagger: { each: 0.02, from: 'start' }, ease: 'power2.out' }
+        { x: '0px', opacity: 1, duration: 0.3, stagger: { each: 0.02, from: 'start' }, ease: 'power2.out' },
       );
 
     loopRef.current = tl;
   }, []);
 
   const stopLoop = useCallback(() => {
-    if (loopRef.current) { loopRef.current.kill(); loopRef.current = null; }
+    if (loopRef.current) {
+      loopRef.current.kill();
+      loopRef.current = null;
+    }
     if (!textRef.current || !imgRef.current) return;
+
     const chars = Array.from(textRef.current.querySelectorAll('.char'));
     gsap.killTweensOf([...chars, imgRef.current]);
 
-    // Fade image back out and reset chars to visible and aligned
     gsap.to(imgRef.current, { opacity: 0, duration: 0.25, ease: 'power1.in' });
     gsap.to(chars, { opacity: 1, x: 0, duration: 0.15, stagger: { each: 0.03, from: 'start' } });
   }, []);
@@ -107,11 +108,8 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
     if (wasActiveRef.current === isActive) return;
     wasActiveRef.current = isActive;
 
-    if (isActive) {
-      startLoop();
-    } else {
-      stopLoop();
-    }
+    if (isActive) startLoop();
+    else stopLoop();
   }, [isActive, startLoop, stopLoop]);
 
   const handleEnter = useCallback((e) => {
@@ -142,7 +140,6 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
       className={`relative overflow-hidden client-card cursor-pointer select-none${index > 0 ? ' client-card-reveal' : ''}`}
       style={{ aspectRatio: '8 / 8', zIndex: 51 }}
     >
-      {/* Image / color reveal layer */}
       <div
         ref={imgRef}
         className="absolute inset-0 opacity-0"
@@ -150,18 +147,17 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
         aria-hidden="true"
       />
 
-      {/* Brand name layer */}
       <div
         ref={textRef}
-        className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-8"
+        className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-3 px-5 sm:px-8 md:px-10"
       >
-        <span className="text-white font-light tracking-[0.3em] uppercase text-center text-xs sm:text-base md:text-lg lg:text-2xl xl:text-[28px] leading-relaxed flex flex-wrap justify-center">
+        <span className="text-white font-light tracking-[0.14em] sm:tracking-[0.22em] uppercase text-center whitespace-nowrap leading-none text-[clamp(0.52rem,1.25vw,1.6rem)] max-w-full">
           {client.name.split('').map((char, i) => (
             <span key={i} className="char inline-block">{char === ' ' ? '\u00A0' : char}</span>
           ))}
         </span>
         {client.sub && (
-          <span className="text-white/40 text-[0.65rem] sm:text-sm tracking-[0.25em] uppercase flex flex-wrap justify-center">
+          <span className="mt-1 text-white/40 tracking-[0.18em] sm:tracking-[0.25em] uppercase whitespace-nowrap leading-none text-[clamp(0.38rem,0.85vw,0.82rem)] max-w-full">
             {client.sub.split('').map((char, i) => (
               <span key={i} className="char inline-block">{char === ' ' ? '\u00A0' : char}</span>
             ))}
@@ -203,28 +199,23 @@ export default function ClientsGrid() {
   }, [activeCardId, handleEnter, handleLeave]);
 
   return (
-    <>
-      <section
-        aria-label="Client portfolio"
-        className="relative clients-section pt-0.5 pb-25"
+    <section aria-label="Client portfolio" className="relative clients-section pt-0.5 pb-25">
+      <div
+        className="grid grid-cols-2 md:grid-cols-3 gap-4 w-[90%] md:w-[75%] md:gap-8 mx-auto clients-grid"
+        style={{ marginTop: '-100px' }}
       >
-        <div
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 w-[90%] md:w-[75%] md:gap-8 mx-auto clients-grid"
-          style={{marginTop: '-100px' }}
-        >
-          {CLIENTS.map((client, i) => (
-            <ClientCard
-              key={client.id}
-              client={client}
-              index={i}
-              onEnter={handleEnter}
-              onLeave={handleLeave}
-              isActive={activeCardId === client.id}
-              onToggle={handleToggle}
-            />
-          ))}
-        </div>
-      </section>
-    </>
+        {CLIENTS.map((client, i) => (
+          <ClientCard
+            key={client.id}
+            client={client}
+            index={i}
+            onEnter={handleEnter}
+            onLeave={handleLeave}
+            isActive={activeCardId === client.id}
+            onToggle={handleToggle}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
