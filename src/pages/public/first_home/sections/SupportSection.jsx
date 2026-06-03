@@ -72,7 +72,7 @@ export default function SupportSection() {
           </h2>
 
           {/* Gold accent divider */}
-          <div className="support-text-animate mt-5 h-[3px] w-12 bg-white/40 rounded-full" />
+          <div className="support-text-animate mt-5 h-0.75 w-12 bg-white/40 rounded-full" />
 
           <p className="support-text-animate mt-5 text-[0.84rem] md:text-[0.92rem] leading-relaxed text-white/70 max-w-lg">
             {support.body}
@@ -87,7 +87,7 @@ export default function SupportSection() {
             className="w-full h-64 md:h-80 object-cover object-center"
           />
           {/* Subtle overlay for depth */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
         </div>
       </div>
     </section>
