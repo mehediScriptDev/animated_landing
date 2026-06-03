@@ -1,16 +1,17 @@
 import SEO from '../../../components/SEO';
 import { SMSF_CONTENT } from './sections/content';
 import {
-  SharedHeroSection,
-  SharedIntroSection,
-  SharedTopSection,
-  SharedSecondarySection,
-  SharedSupportSection,
-  SharedWhyChooseSection,
+  HeroSection,
+  IntroSection,
+  TopChoiceSection,
+  PurchaseSection,
+  SupportSection,
+  WhyChooseSection,
 } from '../shared/LoanPageSections';
 
+const c = SMSF_CONTENT;
+
 export default function Smsf() {
-  const c = SMSF_CONTENT;
   return (
     <>
       <SEO
@@ -18,13 +19,14 @@ export default function Smsf() {
         description="Invest in property through your self-managed super fund with expert SMSF loan guidance from Traikos Finance."
         canonical="https://example.com/smsf"
       />
+
       <main id="main-content" tabIndex={-1} className="text-black flex-1">
-        <SharedHeroSection content={c.hero} />
-        <SharedIntroSection content={c.intro} />
-        <SharedTopSection content={c.topSection} />
-        <SharedSecondarySection content={c.secondary} />
-        <SharedSupportSection content={c.support} />
-        <SharedWhyChooseSection content={c.whyChoose} />
+        <HeroSection       content={c.hero} />
+        <IntroSection      content={c.intro} />
+        <TopChoiceSection  content={c.topSection} />
+        <PurchaseSection   content={c.secondary} />
+        <SupportSection    content={c.support} />
+        <WhyChooseSection  content={c.whyChoose} />
       </main>
     </>
   );

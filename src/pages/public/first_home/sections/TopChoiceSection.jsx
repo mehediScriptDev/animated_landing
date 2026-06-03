@@ -77,8 +77,8 @@ export default function TopChoiceSection() {
         {/* Text */}
         <div ref={textRef} className="flex flex-col items-center lg:items-start text-center lg:text-left">
           <h3
-            className="text-animate font-black uppercase leading-[0.95] tracking-tight text-[#111111]"
-            style={{ fontSize: 'clamp(1.5rem, 3.8vw, 3rem)' }}
+            className="text-animate font-anton uppercase leading-[0.95] tracking-tight text-[#111111]"
+            style={{ fontSize: 'clamp(1.5rem, 3.8vw, 2rem)' }}
           >
             {topChoice.title[0]}
             <br />
@@ -88,7 +88,7 @@ export default function TopChoiceSection() {
           </h3>
 
           {/* Accent divider */}
-          <div className="text-animate mt-5 h-[3px] w-14 bg-black/80 rounded-full" />
+          <div className="text-animate mt-5 h-0.75 w-14 bg-black/80 rounded-full" />
 
           <p className="text-animate mt-5 text-[0.86rem] md:text-[0.97rem] leading-relaxed text-black/75 max-w-xl">
             {topChoice.body}

@@ -32,7 +32,7 @@ export default function HeroSection() {
       }}
     >
       {/* Subtle animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
 
       <div className="relative w-[90%] md:w-[75%] max-w-4xl mx-auto text-center text-white py-24 md:py-32 flex flex-col items-center">
         <h1
@@ -52,7 +52,7 @@ export default function HeroSection() {
         <button
           ref={btnRef}
           type="button"
-          className="mt-8 md:mt-10 inline-flex items-center justify-center px-9 py-3 bg-white text-black uppercase text-[0.65rem] md:text-[0.72rem] tracking-[0.22em] font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          className="mt-8 md:mt-10 inline-flex items-center justify-center px-9 py-3 bg-white text-black uppercase text-[0.65rem] md:text-[0.72rem] tracking-[0.22em] font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105! hover:shadow-lg"
         >
           {hero.cta}
         </button>

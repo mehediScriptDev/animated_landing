@@ -1,10 +1,15 @@
 import SEO from '../../../components/SEO';
-import HeroSection from './sections/HeroSection';
-import IntroSection from './sections/IntroSection';
-import TopChoiceSection from './sections/TopChoiceSection';
-import PurchaseSection from './sections/PurchaseSection';
-import SupportSection from './sections/SupportSection';
-import WhyChooseSection from './sections/WhyChooseSection';
+import { FIRST_HOME_CONTENT } from './sections/content';
+import {
+  HeroSection,
+  IntroSection,
+  TopChoiceSection,
+  PurchaseSection,
+  SupportSection,
+  WhyChooseSection,
+} from '../shared/LoanPageSections';
+
+const c = FIRST_HOME_CONTENT;
 
 export default function FirstHome() {
   return (
@@ -15,13 +20,13 @@ export default function FirstHome() {
         canonical="https://example.com/first-home"
       />
 
-      <main id="main-content" tabIndex={-1} className=" text-black flex-1">
-        <HeroSection />
-        <IntroSection />
-        <TopChoiceSection />
-        <PurchaseSection />
-        <SupportSection />
-        <WhyChooseSection />
+      <main id="main-content" tabIndex={-1} className="text-black flex-1">
+        <HeroSection       content={c.hero} />
+        <IntroSection      content={c.intro} />
+        <TopChoiceSection  content={c.topChoice} />
+        <PurchaseSection   content={c.purchase} />
+        <SupportSection    content={c.support} />
+        <WhyChooseSection  content={c.whyChoose} />
       </main>
     </>
   );

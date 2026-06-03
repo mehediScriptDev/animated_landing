@@ -39,14 +39,14 @@ export default function PurchaseSection() {
     <section className="bg-[#efefef] py-18 md:py-26 border-t border-black/8">
       <div ref={sectionRef} className="w-[90%] md:w-[75%] max-w-4xl mx-auto flex flex-col items-center text-center">
         <h2
-          className="purchase-animate font-black uppercase leading-[0.96] tracking-tight text-[#111111]"
+          className="purchase-animate font-anton! uppercase leading-[0.96] tracking-tight text-[#111111]!"
           style={{ fontSize: 'clamp(1.65rem, 4.4vw, 3.4rem)' }}
         >
           {purchase.title}
         </h2>
 
         {/* Accent divider */}
-        <div className="purchase-animate mt-6 h-[3px] w-14 bg-black/80 rounded-full" />
+        <div className="purchase-animate mt-6 h-0.75 w-14 bg-black/80 rounded-full" />
 
         <p className="purchase-animate mt-6 text-[0.86rem] md:text-[1rem] leading-relaxed text-black/75 max-w-3xl">
           {purchase.body}

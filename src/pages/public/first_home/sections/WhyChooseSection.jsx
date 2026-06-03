@@ -57,7 +57,7 @@ export default function WhyChooseSection() {
     <section className="bg-[#efefef] py-14 md:py-20 border-t border-black/8">
       <div ref={sectionRef} className="w-[90%] md:w-[75%] max-w-5xl mx-auto">
         <h2
-          className="why-title text-center font-anton! uppercase text-[#111111] leading-none mb-10 md:mb-14"
+          className="why-title text-center font-anton! uppercase text-[#111111]! leading-none mb-10 md:mb-14"
           style={{ fontSize: 'clamp(1.65rem, 3.1vw, 2.9rem)' }}
         >
           {whyChoose.title}
@@ -76,9 +76,9 @@ export default function WhyChooseSection() {
                   className="w-full h-44 md:h-52 object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
                 {/* Gradient overlay on image */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
               </div>
-              <p className="px-4 py-4 text-[0.73rem] md:text-[0.78rem] leading-snug font-semibold uppercase tracking-[0.05em] text-black/85 text-left">
+              <p className="px-4 py-4 text-[0.73rem] md:text-[0.78rem] leading-snug font-semibold uppercase tracking-wider text-black/85 text-left">
                 {card.label}
               </p>
             </article>

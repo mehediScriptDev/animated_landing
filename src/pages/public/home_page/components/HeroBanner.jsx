@@ -6,11 +6,11 @@ export default function HeroBanner({ isDark = false }) {
   const textRef = useGsapFadeIn({ duration: 1 });
   const lineRef = useRef(null);
   const [strokeWidth, setStrokeWidth] = useState(
-    () => (typeof window !== 'undefined' && window.matchMedia('(min-width: 768px)').matches ? 3 : 1)
+    () => (typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches ? 3 : 1)
   );
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
     const updateStroke = (event) => setStrokeWidth(event.matches ? 3 : 1);
 
     setStrokeWidth(mediaQuery.matches ? 3 : 1);

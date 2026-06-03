@@ -42,7 +42,7 @@ export default function IntroSection() {
       <div className="w-[90%] md:w-[75%] max-w-4xl mx-auto flex flex-col items-center text-center">
         <h2
           ref={headingRef}
-          className="font-black uppercase leading-[0.96] tracking-tight"
+          className="font-black font-anton! uppercase leading-[0.96] tracking-tight"
           style={{ fontSize: 'clamp(1.6rem, 5.2vw, 3.5rem)', color: '#111111' }}
         >
           <span className="intro-line block">{intro.titleTop}</span>

@@ -230,7 +230,7 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
           </span>
         )}
         {hasRoute && (
-          <span className="char mt-2 text-white/50 text-[clamp(0.32rem,0.65vw,0.65rem)] tracking-[0.3em] uppercase">VIEW →</span>
+          <span className="char text-white/50 text-[clamp(0.32rem,0.65vw,0.65rem)] tracking-[0.3em] uppercase"></span>
         )}
       </div>
     </article>

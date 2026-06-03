@@ -1,16 +1,17 @@
 import SEO from '../../../components/SEO';
 import { NEXT_HOME_CONTENT } from './sections/content';
 import {
-  SharedHeroSection,
-  SharedIntroSection,
-  SharedTopSection,
-  SharedSecondarySection,
-  SharedSupportSection,
-  SharedWhyChooseSection,
+  HeroSection,
+  IntroSection,
+  TopChoiceSection,
+  PurchaseSection,
+  SupportSection,
+  WhyChooseSection,
 } from '../shared/LoanPageSections';
 
+const c = NEXT_HOME_CONTENT;
+
 export default function NextHome() {
-  const c = NEXT_HOME_CONTENT;
   return (
     <>
       <SEO
@@ -18,13 +19,14 @@ export default function NextHome() {
         description="Moving to your next home? Traikos Finance helps you secure a better loan for your next purchase with personalised advice and competitive rates."
         canonical="https://example.com/next-home"
       />
+
       <main id="main-content" tabIndex={-1} className="text-black flex-1">
-        <SharedHeroSection content={c.hero} />
-        <SharedIntroSection content={c.intro} />
-        <SharedTopSection content={c.topSection} />
-        <SharedSecondarySection content={c.secondary} />
-        <SharedSupportSection content={c.support} />
-        <SharedWhyChooseSection content={c.whyChoose} />
+        <HeroSection       content={c.hero} />
+        <IntroSection      content={c.intro} />
+        <TopChoiceSection  content={c.topSection} />
+        <PurchaseSection   content={c.secondary} />
+        <SupportSection    content={c.support} />
+        <WhyChooseSection  content={c.whyChoose} />
       </main>
     </>
   );
