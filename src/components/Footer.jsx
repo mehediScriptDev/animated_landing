@@ -50,6 +50,7 @@ function IconChevronUp() {
 const QUICK_LINKS = [
   { label: "Home", to: "/" },
   { label: "Refinancing", to: "/refinancing" },
+  { label: "Calculators", to: "/calculators" },
   { label: "About Us", to: "/about" },
   { label: "Contact", to: "/contact" },
 ];

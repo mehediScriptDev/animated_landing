@@ -8,6 +8,8 @@ import {
   PurchaseSection,
   SupportSection,
   WhyChooseSection,
+  CalculatorBanner,
+  FloatingCalculatorButton,
 } from '../shared/LoanPageSections';
 
 const c = NEXT_HOME_CONTENT;
@@ -28,10 +30,13 @@ export default function NextHome() {
         <PurchaseSection   content={c.secondary} />
         <SupportSection    content={c.support} />
         <WhyChooseSection  content={c.whyChoose} />
+        <CalculatorBanner />
         <div className='bg-black'>
                  <CtaSection />
                </div>
       </main>
+
+      <FloatingCalculatorButton />
     </>
   );
 }

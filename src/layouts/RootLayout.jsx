@@ -79,11 +79,13 @@ export default function RootLayout() {
   }, [isAbout]);
 
   const isContact = pathname === '/contact';
+  const isCalculators = pathname === '/calculators';
 
   // Navbar color logic:
   // - Home: follows scroll state on all devices
   // - About: always dark on mobile; on desktop follows scroll AND section theme
   // - Contact: dark at top, white on scroll (hero image behind sticky nav)
+  // - Calculators: always dark (white text) since page is black
   // - Other pages: always light (unscrolled)
   const navScrolledByPage = isHome
     ? scrolled
@@ -91,12 +93,19 @@ export default function RootLayout() {
     ? isMobile || (scrolled && aboutNavDark)
     : isContact
     ? scrolled
+    : isCalculators
+    ? true
     : false;
 
   const navScrolled = navScrolledByPage;
 
   // bg transition only applies on the home page (about handles its own overlays)
-  const bgClass = isHome && scrolled ? 'bg-black dark-theme' : 'bg-white';
+  // Calculators page manages its own black bg via .calc-page
+  const bgClass = isHome && scrolled
+    ? 'bg-black dark-theme'
+    : isCalculators
+    ? 'bg-black'
+    : 'bg-white';
 
   return (
     <>

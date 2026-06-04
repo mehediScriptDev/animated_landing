@@ -13,6 +13,7 @@ import Investment from '../pages/public/investment/Investment';
 import Construction from '../pages/public/construction/Construction';
 import Smsf from '../pages/public/smsf/Smsf';
 import Refinancing from '../pages/public/refinancing/Refinancing';
+import Calculators from '../pages/public/calculators/Calculators';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: 'construction', element: <Construction /> },
       { path: 'smsf', element: <Smsf /> },
       { path: 'refinancing', element: <Refinancing /> },
+      { path: 'calculators', element: <Calculators /> },
       { path: 'contact', element: <ContactPage /> },
       { path: 'privacy', element: <PrivacyPage /> },
       { path: 'disclaimer', element: <DisclaimerPage /> },
