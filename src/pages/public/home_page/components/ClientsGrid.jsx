@@ -88,7 +88,7 @@ const CLIENTS = [
   },
 ];
 
-function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
+function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle, onTouchPreview }) {
   const textRef = useRef(null);
   const imgRef = useRef(null);
   const loopRef = useRef(null);
@@ -190,6 +190,10 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
     onToggle(client.id, client.pageColor);
   }, [onToggle, client.id, client.pageColor]);
 
+  const handleTouchStart = useCallback(() => {
+    onTouchPreview(client.id, client.pageColor, articleRef.current);
+  }, [onTouchPreview, client.id, client.pageColor]);
+
   const hasRoute = CARD_ROUTES[client.id] != null;
 
   return (
@@ -197,6 +201,7 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
       ref={articleRef}
       onPointerEnter={handleEnter}
       onPointerLeave={handleLeave}
+      onTouchStart={handleTouchStart}
       onClick={handleClick}
       aria-label={client.sub ? `${client.name} ${client.sub}` : client.name}
       className={`relative overflow-hidden client-card cursor-pointer select-none${index > 0 ? " client-card-reveal" : ""}`}
@@ -213,7 +218,7 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
         ref={textRef}
         className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-3 px-5 sm:px-8 md:px-10"
       >
-        <span className="text-white font-light tracking-[0.14em] sm:tracking-[0.22em] uppercase text-center whitespace-nowrap leading-none text-[clamp(0.52rem,1.25vw,1.6rem)] max-w-full">
+        <span className="text-white font-light tracking-[0.14em] sm:tracking-[0.22em] uppercase text-center whitespace-nowrap leading-none text-[0.7rem] sm:text-[clamp(0.52rem,1.25vw,1.6rem)] max-w-full">
           {client.name.split("").map((char, i) => (
             <span key={i} className="char inline-block">
               {char === " " ? "\u00A0" : char}
@@ -221,7 +226,7 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
           ))}
         </span>
         {client.sub && (
-          <span className="mt-1 text-white/40 tracking-[0.18em] sm:tracking-[0.25em] uppercase whitespace-nowrap leading-none text-[clamp(0.38rem,0.85vw,0.82rem)] max-w-full">
+          <span className="mt-1 text-white/40 tracking-[0.18em] sm:tracking-[0.25em] uppercase whitespace-nowrap leading-none text-[0.5rem] sm:text-[clamp(0.38rem,0.85vw,0.82rem)] max-w-full">
             {client.sub.split("").map((char, i) => (
               <span key={i} className="char inline-block">
                 {char === " " ? "\u00A0" : char}
@@ -240,6 +245,13 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
 export default function ClientsGrid() {
   const [activeCardId, setActiveCardId] = useState(null);
   const navigate = useNavigate();
+  const touchPreviewRef = useRef(null);
+  const touchPreviewTimeoutRef = useRef(null);
+
+  const isTouchPreviewViewport = useCallback(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px) and (hover: none) and (pointer: coarse)').matches,
+    [],
+  );
 
   const handleEnter = useCallback((color) => {
     gsap.to(document.getElementById("page-overlay"), {
@@ -257,8 +269,75 @@ export default function ClientsGrid() {
     });
   }, []);
 
+  const clearTouchPreview = useCallback(() => {
+    if (touchPreviewTimeoutRef.current) {
+      window.clearTimeout(touchPreviewTimeoutRef.current);
+      touchPreviewTimeoutRef.current = null;
+    }
+
+    touchPreviewRef.current = null;
+    setActiveCardId(null);
+    handleLeave();
+  }, [handleLeave]);
+
+  useEffect(
+    () => () => {
+      if (touchPreviewTimeoutRef.current) {
+        window.clearTimeout(touchPreviewTimeoutRef.current);
+      }
+    },
+    [],
+  );
+
+  const handleTouchPreview = useCallback(
+    (id, color, element) => {
+      if (!isTouchPreviewViewport()) return;
+
+      if (touchPreviewTimeoutRef.current) {
+        window.clearTimeout(touchPreviewTimeoutRef.current);
+      }
+
+      touchPreviewRef.current = id;
+      setActiveCardId(id);
+      handleEnter(color);
+      touchPreviewTimeoutRef.current = window.setTimeout(() => {
+        clearTouchPreview();
+      }, 3000);
+
+      if (!element) return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const rect = element.getBoundingClientRect();
+      const topInset = 96;
+      const bottomInset = 32;
+      const isAboveViewport = rect.top < topInset;
+      const isBelowViewport = rect.bottom > window.innerHeight - bottomInset;
+
+      if (!isAboveViewport && !isBelowViewport) return;
+
+      const nextScrollY = window.scrollY + (isAboveViewport
+        ? rect.top - topInset
+        : rect.bottom - window.innerHeight + bottomInset);
+
+      window.scrollTo({
+        top: Math.max(0, nextScrollY),
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
+    },
+    [clearTouchPreview, handleEnter, isTouchPreviewViewport],
+  );
+
   const handleToggle = useCallback(
     (id, color) => {
+      if (touchPreviewRef.current === id) {
+        if (touchPreviewTimeoutRef.current) {
+          window.clearTimeout(touchPreviewTimeoutRef.current);
+          touchPreviewTimeoutRef.current = null;
+        }
+        touchPreviewRef.current = null;
+        return;
+      }
+
       // If this card has a dedicated page, use a smooth slide transition
       if (CARD_ROUTES[id]) {
         const to = CARD_ROUTES[id];
@@ -399,6 +478,7 @@ export default function ClientsGrid() {
             onLeave={handleLeave}
             isActive={activeCardId === client.id}
             onToggle={handleToggle}
+            onTouchPreview={handleTouchPreview}
           />
         ))}
       </div>
