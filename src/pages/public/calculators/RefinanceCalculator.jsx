@@ -177,9 +177,9 @@ export default function RefinanceCalculator() {
             value={frequency}
             onChange={(e) => setFrequency(e.target.value)}
           >
-            <option value="monthly" className="bg-[#0d0b21] text-white">Monthly</option>
-            <option value="fortnightly" className="bg-[#0d0b21] text-white">Fortnightly</option>
-            <option value="weekly" className="bg-[#0d0b21] text-white">Weekly</option>
+            <option value="monthly" className="bg-black text-white">Monthly</option>
+            <option value="fortnightly" className="bg-black text-white">Fortnightly</option>
+            <option value="weekly" className="bg-black text-white">Weekly</option>
           </select>
         </div>
 
@@ -247,11 +247,11 @@ export default function RefinanceCalculator() {
         {/* Dual result cards */}
         <div className="grid grid-cols-1 gap-4 mb-6" key={animKey}>
           {/* Repayment Savings */}
-          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-[#c9a84c]/15 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
+          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
             <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
               Decrease your repayments by
             </div>
-            <div className="text-xl sm:text-2xl md:text-3xl font-black text-[#c9a84c] tracking-tight transition-all duration-300 animate-value-pop">
+            <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
               {hasInputs ? fmt(repaymentSavings) : "$0"}
             </div>
             <div className="text-[11px] text-neutral-400 mt-1">
@@ -260,7 +260,7 @@ export default function RefinanceCalculator() {
           </div>
 
           {/* Interest Savings */}
-          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-[#c9a84c]/15 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
+          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
             <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
               Decrease your interest paid by
             </div>
@@ -275,7 +275,7 @@ export default function RefinanceCalculator() {
 
         {/* How does we calculate this? */}
         <button
-          className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-[#c9a84c] transition-colors duration-200 mt-5 border-none bg-transparent cursor-pointer font-semibold"
+          className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-white transition-colors duration-200 mt-5 border-none bg-transparent cursor-pointer font-semibold"
           onClick={() => setShowInfo(!showInfo)}
           aria-expanded={showInfo}
         >
@@ -323,7 +323,7 @@ export default function RefinanceCalculator() {
           </span>
           <a
             href="mailto:michael@traikosfinance.com"
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#c9a84c] hover:bg-[#d4b65e] text-neutral-950 font-black text-xs tracking-wider uppercase rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#c9a84c]/20 active:translate-y-0 cursor-pointer decoration-none"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-white hover:bg-neutral-200 text-black font-black text-xs tracking-wider uppercase rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-white/20 active:translate-y-0 cursor-pointer decoration-none"
           >
             Book a Consultation
           </a>

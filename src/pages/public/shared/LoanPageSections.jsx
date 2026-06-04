@@ -643,7 +643,7 @@ export function FloatingCalculatorButton() {
         WebkitBackdropFilter: "blur(12px)",
         border: "1px solid rgba(201, 168, 76, 0.25)",
         borderRadius: 50,
-        color: "#c9a84c",
+        color: "#ffffff",
         fontSize: "0.7rem",
         fontWeight: 700,
         letterSpacing: "0.12em",

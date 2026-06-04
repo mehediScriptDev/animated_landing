@@ -189,9 +189,9 @@ export default function RepaymentCalculator() {
             value={frequency}
             onChange={(e) => setFrequency(e.target.value)}
           >
-            <option value="monthly" className="bg-[#0d0b21] text-white">Monthly</option>
-            <option value="fortnightly" className="bg-[#0d0b21] text-white">Fortnightly</option>
-            <option value="weekly" className="bg-[#0d0b21] text-white">Weekly</option>
+            <option value="monthly" className="bg-black text-white">Monthly</option>
+            <option value="fortnightly" className="bg-black text-white">Fortnightly</option>
+            <option value="weekly" className="bg-black text-white">Weekly</option>
           </select>
         </div>
 
@@ -236,13 +236,11 @@ export default function RepaymentCalculator() {
           >
             <div
               className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
-                interestOnly
-                  ? "bg-[#c9a84c]/15 border-[#c9a84c]"
-                  : "border-white/20 bg-white/10"
+                interestOnly ? "bg-white border-white" : "border-white/20 bg-white/10"
               }`}
             >
               <svg
-                className={`w-3 h-3 text-[#c9a84c] transition-all duration-200 ${
+                className={`w-3 h-3 text-black transition-all duration-200 ${
                   interestOnly ? "scale-100 opacity-100" : "scale-50 opacity-0"
                 }`}
                 viewBox="0 0 12 12"
@@ -291,7 +289,7 @@ export default function RepaymentCalculator() {
 
         {/* Estimated repayment result */}
         <div
-          className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-[#c9a84c]/15 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15"
+          className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15"
           key={animKey}
         >
           <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
@@ -349,7 +347,7 @@ export default function RepaymentCalculator() {
         </div>
 
         {/* Changed repayment result */}
-        <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-[#c9a84c]/15 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
+        <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
           <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
             Estimated repayment
           </div>
@@ -373,7 +371,7 @@ export default function RepaymentCalculator() {
 
         {/* How do we calculate this? */}
         <button
-          className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-[#c9a84c] transition-colors duration-200 mt-5 border-none bg-transparent cursor-pointer font-semibold"
+          className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-white transition-colors duration-200 mt-5 border-none bg-transparent cursor-pointer font-semibold"
           onClick={() => setShowInfo(!showInfo)}
           aria-expanded={showInfo}
         >
@@ -421,7 +419,7 @@ export default function RepaymentCalculator() {
           </span>
           <a
             href="mailto:michael@traikosfinance.com"
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#c9a84c] hover:bg-[#d4b65e] text-neutral-950 font-black text-xs tracking-wider uppercase rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#c9a84c]/20 active:translate-y-0 cursor-pointer decoration-none"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-white hover:bg-neutral-200 text-black font-black text-xs tracking-wider uppercase rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-white/20 active:translate-y-0 cursor-pointer decoration-none"
           >
             Book a Consultation
           </a>

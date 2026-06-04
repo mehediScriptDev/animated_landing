@@ -190,7 +190,7 @@ export default function BorrowingPowerCalculator() {
             <button
               className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
                 applicants === 1
-                  ? 'bg-[#c9a84c]/15 text-[#c9a84c]'
+                  ? 'bg-white text-black'
                   : 'bg-white/10 text-neutral-400 hover:bg-white/15'
               }`}
               onClick={() => setApplicants(1)}
@@ -201,7 +201,7 @@ export default function BorrowingPowerCalculator() {
             <button
               className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
                 applicants === 2
-                  ? 'bg-[#c9a84c]/15 text-[#c9a84c]'
+                  ? 'bg-white text-black'
                   : 'bg-white/10 text-neutral-400 hover:bg-white/15'
               }`}
               onClick={() => setApplicants(2)}
@@ -224,7 +224,7 @@ export default function BorrowingPowerCalculator() {
             onChange={(e) => setDependents(parseInt(e.target.value))}
           >
             {DEPENDENTS_OPTIONS.map((o) => (
-              <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
+              <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
             ))}
           </select>
         </div>
@@ -236,7 +236,7 @@ export default function BorrowingPowerCalculator() {
             <button
               className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
                 propertyUse === 'live'
-                  ? 'bg-[#c9a84c]/15 text-[#c9a84c]'
+                  ? 'bg-white text-black'
                   : 'bg-white/10 text-neutral-400 hover:bg-white/15'
               }`}
               onClick={() => setPropertyUse('live')}
@@ -247,7 +247,7 @@ export default function BorrowingPowerCalculator() {
             <button
               className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
                 propertyUse === 'investment'
-                  ? 'bg-[#c9a84c]/15 text-[#c9a84c]'
+                  ? 'bg-white text-black'
                   : 'bg-white/10 text-neutral-400 hover:bg-white/15'
               }`}
               onClick={() => setPropertyUse('investment')}
@@ -284,7 +284,7 @@ export default function BorrowingPowerCalculator() {
               onChange={(e) => setIncomeFreq1(e.target.value)}
             >
               {FREQ_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
+                <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
               ))}
             </select>
           </div>
@@ -313,7 +313,7 @@ export default function BorrowingPowerCalculator() {
               onChange={(e) => setOtherIncomeFreq1(e.target.value)}
             >
               {FREQ_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
+                <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
               ))}
             </select>
           </div>
@@ -346,7 +346,7 @@ export default function BorrowingPowerCalculator() {
                   onChange={(e) => setIncomeFreq2(e.target.value)}
                 >
                   {FREQ_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
+                    <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
                   ))}
                 </select>
               </div>
@@ -375,7 +375,7 @@ export default function BorrowingPowerCalculator() {
                   onChange={(e) => setOtherIncomeFreq2(e.target.value)}
                 >
                   {FREQ_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
+                    <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
                   ))}
                 </select>
               </div>
@@ -410,7 +410,7 @@ export default function BorrowingPowerCalculator() {
                 onChange={(e) => setExpensesFreq(e.target.value)}
               >
                 {FREQ_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
+                  <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
                 ))}
               </select>
             </div>
@@ -432,9 +432,9 @@ export default function BorrowingPowerCalculator() {
             }}
           >
             <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
-              useHEM ? 'bg-[#c9a84c]/15 border-[#c9a84c]' : 'border-white/20 bg-white/10'
+              useHEM ? 'bg-white border-white' : 'border-white/20 bg-white/10'
             }`}>
-              <svg className={`w-3 h-3 text-[#c9a84c] transition-all duration-200 ${
+              <svg className={`w-3 h-3 text-black transition-all duration-200 ${
                 useHEM ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
               }`} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M2 6l3 3 5-5" />
@@ -443,7 +443,7 @@ export default function BorrowingPowerCalculator() {
             <span className="text-xs font-semibold text-neutral-300">Work it out later</span>
           </div>
           {useHEM && (
-            <div className="text-xs text-neutral-400 mt-1.5 ml-[32px]">
+            <div className="text-xs text-neutral-400 mt-1.5 ml-8">
               Using estimated expenses of {fmt(HEM_MONTHLY[Math.min(dependents, 7)])}/month based on {dependents} dependent{dependents !== 1 ? 's' : ''}
             </div>
           )}
@@ -475,7 +475,7 @@ export default function BorrowingPowerCalculator() {
               onChange={(e) => setOtherLoanFreq(e.target.value)}
             >
               {FREQ_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
+                <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
               ))}
             </select>
           </div>
@@ -506,14 +506,14 @@ export default function BorrowingPowerCalculator() {
 
         {/* Dual result cards */}
         <div className="grid grid-cols-1 gap-4 mb-6">
-          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-[#c9a84c]/15 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
+          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
             <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">Conservative</div>
             <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
               {hasIncome ? fmt(conservativeMax) : '—'}
             </div>
             <div className="text-[11px] text-neutral-400 mt-1">at {ASSESSMENT_RATE_CONSERVATIVE}% assessment</div>
           </div>
-          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-[#c9a84c]/15 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
+          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
             <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">Maximum</div>
             <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
               {hasIncome ? fmt(maximumMax) : '—'}
@@ -549,7 +549,7 @@ export default function BorrowingPowerCalculator() {
 
         {/* How do we calculate? */}
         <button
-          className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-[#c9a84c] transition-colors duration-200 mt-5 border-none bg-transparent cursor-pointer font-semibold"
+          className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-white transition-colors duration-200 mt-5 border-none bg-transparent cursor-pointer font-semibold"
           onClick={() => setShowInfo(!showInfo)}
           aria-expanded={showInfo}
         >
@@ -558,7 +558,7 @@ export default function BorrowingPowerCalculator() {
         </button>
 
         <div className={`overflow-hidden transition-all duration-300 ${
-          showInfo ? 'max-h-[600px] opacity-100 mt-4' : 'max-h-0 opacity-0'
+          showInfo ? 'max-h-150 opacity-100 mt-4' : 'max-h-0 opacity-0'
         }`}>
           <div className="bg-white/10 border border-white/10 rounded-xl p-5 text-xs text-neutral-400 leading-relaxed space-y-2.5">
             <p>
@@ -593,7 +593,7 @@ export default function BorrowingPowerCalculator() {
           </span>
           <a
             href="mailto:michael@traikosfinance.com"
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#c9a84c] hover:bg-[#d4b65e] text-neutral-950 font-black text-xs tracking-wider uppercase rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#c9a84c]/20 active:translate-y-0 cursor-pointer decoration-none"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-white hover:bg-neutral-200 text-black font-black text-xs tracking-wider uppercase rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-white/20 active:translate-y-0 cursor-pointer decoration-none"
           >
             Book a Consultation
           </a>

@@ -83,12 +83,12 @@ export default function Calculators() {
         id="main-content"
         tabIndex={-1}
         ref={containerRef}
-        className="calc-page bg-[#0d0b21] min-h-screen pt-18 sm:pt-24 pb-20 text-white font-sans"
+        className="calc-page bg-black min-h-screen pt-18 sm:pt-24 pb-20 text-white font-sans"
       >
         <div className="w-[90%] max-w-300 mx-auto">
           {/* ── Tab navigation ─────────────────────────────────── */}
           <div
-            className="animate-fade-up grid grid-cols-3 sm:flex gap-1 mb-8 sm:mb-10 bg-[#161332]/80 rounded-2xl p-1 w-full sm:w-fit border border-white/5"
+            className="animate-fade-up grid grid-cols-3 sm:flex gap-1 mb-8 sm:mb-10 bg-white/5 rounded-2xl p-1 w-full sm:w-fit border border-white/10"
             role="tablist"
             aria-label="Calculator type"
           >
@@ -100,8 +100,8 @@ export default function Calculators() {
                 aria-controls={`panel-${t.id}`}
                 className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl border font-semibold text-[10px] sm:text-xs tracking-[0.06em] sm:tracking-wider uppercase cursor-pointer transition-all duration-300 whitespace-normal sm:whitespace-nowrap text-center leading-tight active:scale-95 min-w-0 ${
                   activeTab === t.id
-                    ? "bg-[#c9a84c]/15 text-[#c9a84c] border-[#c9a84c]/20 shadow-md"
-                    : "bg-white/5 text-neutral-400 border-white/5 hover:text-white hover:bg-white/10"
+                    ? "bg-white text-black border-white shadow-md"
+                    : "bg-white/5 text-neutral-400 border-white/10 hover:text-white hover:bg-white/10"
                 }`}
                 onClick={() => setActiveTab(t.id)}
               >
@@ -113,7 +113,7 @@ export default function Calculators() {
 
           {/* ── Header ── */}
           <div className="animate-fade-up mb-12">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-anton! text-transparent mb-3 tracking-tight bg-clip-text bg-linear-to-r from-white via-neutral-200 to-[#c9a84c]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-anton! text-transparent mb-3 tracking-tight bg-clip-text bg-linear-to-r from-white via-neutral-200 to-neutral-400">
               {tab.title}
             </h1>
             <p className="text-sm md:text-base text-neutral-400 max-w-2xl leading-relaxed">

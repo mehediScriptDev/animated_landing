@@ -110,7 +110,7 @@ export default function RootLayout() {
     isHome && scrolled
       ? "bg-black dark-theme"
       : isCalculators
-        ? "bg-[#0d0b21] dark-theme"
+        ? "bg-black dark-theme"
         : "bg-white";
 
   return (

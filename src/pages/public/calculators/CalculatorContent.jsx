@@ -104,9 +104,9 @@ export default function CalculatorContent({ activeTab }) {
       </div>
 
       {/* ── Call To Action Banner Card ── */}
-      <div className="bg-gradient-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-[#c9a84c]/20 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 mb-16 shadow-lg">
+      <div className="bg-gradient-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 mb-16 shadow-lg">
         <div className="flex-1 text-center md:text-left">
-          <h4 className="text-sm font-bold text-[#c9a84c] tracking-wider uppercase mb-2">
+          <h4 className="text-sm font-bold text-white tracking-wider uppercase mb-2">
             Get Personalised Mortgage Advice
           </h4>
           <p className="text-sm text-neutral-300 leading-relaxed max-w-2xl">
@@ -115,7 +115,7 @@ export default function CalculatorContent({ activeTab }) {
         </div>
         <a
           href="mailto:michael@traikosfinance.com"
-          className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#c9a84c] hover:bg-[#d4b65e] text-neutral-950 font-black text-xs tracking-wider uppercase rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#c9a84c]/20 active:translate-y-0 cursor-pointer decoration-none whitespace-nowrap"
+          className="inline-flex items-center gap-2 px-6 py-3.5 bg-white hover:bg-neutral-200 text-black font-black text-xs tracking-wider uppercase rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-white/20 active:translate-y-0 cursor-pointer decoration-none whitespace-nowrap"
         >
           Book a Consultation
         </a>
@@ -135,13 +135,13 @@ export default function CalculatorContent({ activeTab }) {
                 className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 transition-all duration-200 hover:border-white/20"
               >
                 <button
-                  className="w-full flex items-center justify-between px-6 py-5 text-left font-bold text-white text-sm md:text-base border-none bg-transparent cursor-pointer transition-colors hover:text-[#c9a84c] focus:outline-hidden"
+                  className="w-full flex items-center justify-between px-6 py-5 text-left font-bold text-white text-sm md:text-base border-none bg-transparent cursor-pointer transition-colors hover:text-white/80 focus:outline-hidden"
                   onClick={() => toggleFaq(idx)}
                   aria-expanded={isOpen}
                 >
                   <span>{faq.q}</span>
                   <span className={`text-xl transition-transform duration-300 font-normal ml-4 ${
-                    isOpen ? "transform rotate-45 text-[#c9a84c]" : ""
+                    isOpen ? "transform rotate-45 text-white" : ""
                   }`}>
                     ＋
                   </span>
@@ -151,7 +151,7 @@ export default function CalculatorContent({ activeTab }) {
                     isOpen ? "max-h-[300px] border-t border-white/10" : "max-h-0"
                   }`}
                 >
-                  <div className="px-6 py-5 text-sm text-neutral-300 leading-relaxed bg-[#13112c]/40">
+                  <div className="px-6 py-5 text-sm text-neutral-300 leading-relaxed bg-white/5">
                     {faq.a}
                   </div>
                 </div>
