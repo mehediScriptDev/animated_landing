@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState } from 'react';
 
 /**
  * Format a number as AUD currency.
@@ -178,24 +178,32 @@ export default function BorrowingPowerCalculator() {
   const hasIncome = parseNum(income1) > 0 || (applicants === 2 && parseNum(income2) > 0);
 
   return (
-    <div className="calc-grid">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-7 items-start text-white">
       {/* ══════════════ LEFT — Inputs ══════════════ */}
-      <div className="calc-card">
-        <h2 className="calc-card-title">Your details</h2>
+      <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-9 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:shadow-xl [&_input]:text-[0.92rem] [&_select]:text-[0.92rem] sm:[&_input]:text-base sm:[&_select]:text-base">
+        <h2 className="text-xl font-black text-white mb-7 tracking-tight">Your details</h2>
 
         {/* Number of applicants */}
-        <div className="calc-field">
-          <label className="calc-label">Number of applicants</label>
-          <div className="calc-toggle-group">
+        <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase">Number of applicants</label>
+          <div className="flex rounded-xl overflow-hidden border border-white/10">
             <button
-              className={`calc-toggle-btn ${applicants === 1 ? 'active' : ''}`}
+              className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
+                applicants === 1
+                  ? 'bg-[#c9a84c]/15 text-[#c9a84c]'
+                  : 'bg-white/10 text-neutral-400 hover:bg-white/15'
+              }`}
               onClick={() => setApplicants(1)}
               type="button"
             >
               1
             </button>
             <button
-              className={`calc-toggle-btn ${applicants === 2 ? 'active' : ''}`}
+              className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
+                applicants === 2
+                  ? 'bg-[#c9a84c]/15 text-[#c9a84c]'
+                  : 'bg-white/10 text-neutral-400 hover:bg-white/15'
+              }`}
               onClick={() => setApplicants(2)}
               type="button"
             >
@@ -205,36 +213,43 @@ export default function BorrowingPowerCalculator() {
         </div>
 
         {/* Number of dependents */}
-        <div className="calc-field">
-          <label className="calc-label" htmlFor="bp-dependents">
+        <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-dependents">
             Number of dependents
           </label>
           <select
             id="bp-dependents"
-            className="calc-select"
-            style={{ width: '100%' }}
+            className="w-full px-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200 cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2712%27%20height=%2712%27%20viewBox=%270%200%2024%2024%27%20fill=%27none%27%20stroke=%27rgba(255,255,255,0.6)%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M6%209l6%206%206-6%27/%3E%3C/svg%3E')] bg-size-[14px] bg-position-[right_16px_center] bg-no-repeat"
             value={dependents}
             onChange={(e) => setDependents(parseInt(e.target.value))}
           >
             {DEPENDENTS_OPTIONS.map((o) => (
-              <option key={o.value} value={o.value}>{o.label}</option>
+              <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
             ))}
           </select>
         </div>
 
         {/* Property use */}
-        <div className="calc-field">
-          <label className="calc-label">Property use</label>
-          <div className="calc-toggle-group">
+        <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase">Property use</label>
+          <div className="flex rounded-xl overflow-hidden border border-white/10">
             <button
-              className={`calc-toggle-btn ${propertyUse === 'live' ? 'active' : ''}`}
+              className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
+                propertyUse === 'live'
+                  ? 'bg-[#c9a84c]/15 text-[#c9a84c]'
+                  : 'bg-white/10 text-neutral-400 hover:bg-white/15'
+              }`}
               onClick={() => setPropertyUse('live')}
               type="button"
             >
               To live in
             </button>
             <button
-              className={`calc-toggle-btn ${propertyUse === 'investment' ? 'active' : ''}`}
+              className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
+                propertyUse === 'investment'
+                  ? 'bg-[#c9a84c]/15 text-[#c9a84c]'
+                  : 'bg-white/10 text-neutral-400 hover:bg-white/15'
+              }`}
               onClick={() => setPropertyUse('investment')}
               type="button"
             >
@@ -243,62 +258,62 @@ export default function BorrowingPowerCalculator() {
           </div>
         </div>
 
-        <hr className="calc-divider" />
+        <hr className="h-px bg-white/10 my-6 border-none" />
 
         {/* ── Applicant 1 Income ──────────────────────────────────── */}
-        <div className="calc-field">
-          <label className="calc-label" htmlFor="bp-income-1">
+        <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-income-1">
             Income (before tax){applicants === 2 ? ' — Applicant 1' : ''}
           </label>
-          <div className="calc-input-group">
-            <div className="calc-input-wrap" style={{ flex: 1 }}>
-              <span className="calc-input-prefix">$</span>
+          <div className="flex gap-2">
+            <div className="relative flex items-center flex-1">
+              <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
               <input
                 id="bp-income-1"
                 type="text"
                 inputMode="numeric"
-                className="calc-input has-prefix"
+                className="w-full pl-8 pr-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
                 placeholder="100,000"
                 value={numInput(income1)}
                 onChange={handleNumChange(setIncome1)}
               />
             </div>
             <select
-              className="calc-select"
+              className="px-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200 cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2712%27%20height=%2712%27%20viewBox=%270%200%2024%2024%27%20fill=%27none%27%20stroke=%27rgba(255,255,255,0.6)%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M6%209l6%206%206-6%27/%3E%3C/svg%3E')] bg-size-[14px] bg-position-[right_16px_center] bg-no-repeat min-width-[130px]"
               value={incomeFreq1}
               onChange={(e) => setIncomeFreq1(e.target.value)}
             >
               {FREQ_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
+                <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
               ))}
             </select>
           </div>
         </div>
 
-        <div className="calc-field">
-          <label className="calc-label" htmlFor="bp-other-income-1">
+        <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-other-income-1">
             Other income{applicants === 2 ? ' — Applicant 1' : ''}
           </label>
-          <div className="calc-input-group">
-            <div className="calc-input-wrap" style={{ flex: 1 }}>
-              <span className="calc-input-prefix">$</span>
+          <div className="flex gap-2">
+            <div className="relative flex items-center flex-1">
+              <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
               <input
                 id="bp-other-income-1"
                 type="text"
                 inputMode="numeric"
-                className="calc-input has-prefix"
+                className="w-full pl-8 pr-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
                 placeholder="0"
                 value={numInput(otherIncome1)}
                 onChange={handleNumChange(setOtherIncome1)}
               />
             </div>
             <select
-              className="calc-select"
+              className="px-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200 cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2712%27%20height=%2712%27%20viewBox=%270%200%2024%2024%27%20fill=%27none%27%20stroke=%27rgba(255,255,255,0.6)%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M6%209l6%206%206-6%27/%3E%3C/svg%3E')] bg-size-[14px] bg-position-[right_16px_center] bg-no-repeat min-width-[130px]"
               value={otherIncomeFreq1}
               onChange={(e) => setOtherIncomeFreq1(e.target.value)}
             >
               {FREQ_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
+                <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
               ))}
             </select>
           </div>
@@ -307,60 +322,60 @@ export default function BorrowingPowerCalculator() {
         {/* ── Applicant 2 Income (if 2 applicants) ───────────────── */}
         {applicants === 2 && (
           <>
-            <hr className="calc-divider" />
-            <div className="calc-field">
-              <label className="calc-label" htmlFor="bp-income-2">
+            <hr className="h-px bg-white/10 my-6 border-none" />
+            <div className="mb-6 last:mb-0">
+              <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-income-2">
                 Income (before tax) — Applicant 2
               </label>
-              <div className="calc-input-group">
-                <div className="calc-input-wrap" style={{ flex: 1 }}>
-                  <span className="calc-input-prefix">$</span>
+              <div className="flex gap-2">
+                <div className="relative flex items-center flex-1">
+                  <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
                   <input
                     id="bp-income-2"
                     type="text"
                     inputMode="numeric"
-                    className="calc-input has-prefix"
+                    className="w-full pl-8 pr-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
                     placeholder="80,000"
                     value={numInput(income2)}
                     onChange={handleNumChange(setIncome2)}
                   />
                 </div>
                 <select
-                  className="calc-select"
+                  className="px-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200 cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2712%27%20height=%2712%27%20viewBox=%270%200%2024%2024%27%20fill=%27none%27%20stroke=%27rgba(255,255,255,0.6)%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M6%209l6%206%206-6%27/%3E%3C/svg%3E')] bg-size-[14px] bg-position-[right_16px_center] bg-no-repeat min-width-[130px]"
                   value={incomeFreq2}
                   onChange={(e) => setIncomeFreq2(e.target.value)}
                 >
                   {FREQ_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value}>{o.label}</option>
+                    <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
                   ))}
                 </select>
               </div>
             </div>
 
-            <div className="calc-field">
-              <label className="calc-label" htmlFor="bp-other-income-2">
+            <div className="mb-6 last:mb-0">
+              <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-other-income-2">
                 Other income — Applicant 2
               </label>
-              <div className="calc-input-group">
-                <div className="calc-input-wrap" style={{ flex: 1 }}>
-                  <span className="calc-input-prefix">$</span>
+              <div className="flex gap-2">
+                <div className="relative flex items-center flex-1">
+                  <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
                   <input
                     id="bp-other-income-2"
                     type="text"
                     inputMode="numeric"
-                    className="calc-input has-prefix"
+                    className="w-full pl-8 pr-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
                     placeholder="0"
                     value={numInput(otherIncome2)}
                     onChange={handleNumChange(setOtherIncome2)}
                   />
                 </div>
                 <select
-                  className="calc-select"
+                  className="px-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200 cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2712%27%20height=%2712%27%20viewBox=%270%200%2024%2024%27%20fill=%27none%27%20stroke=%27rgba(255,255,255,0.6)%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M6%209l6%206%206-6%27/%3E%3C/svg%3E')] bg-size-[14px] bg-position-[right_16px_center] bg-no-repeat min-width-[130px]"
                   value={otherIncomeFreq2}
                   onChange={(e) => setOtherIncomeFreq2(e.target.value)}
                 >
                   {FREQ_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value}>{o.label}</option>
+                    <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
                   ))}
                 </select>
               </div>
@@ -368,43 +383,43 @@ export default function BorrowingPowerCalculator() {
           </>
         )}
 
-        <hr className="calc-divider" />
+        <hr className="h-px bg-white/10 my-6 border-none" />
 
         {/* ── Expenses ───────────────────────────────────────────── */}
-        <div className="calc-field">
-          <label className="calc-label" htmlFor="bp-expenses">
+        <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-expenses">
             Total living expenses
           </label>
           {!useHEM && (
-            <div className="calc-input-group">
-              <div className="calc-input-wrap" style={{ flex: 1 }}>
-                <span className="calc-input-prefix">$</span>
+            <div className="flex gap-2">
+              <div className="relative flex items-center flex-1">
+                <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
                 <input
                   id="bp-expenses"
                   type="text"
                   inputMode="numeric"
-                  className="calc-input has-prefix"
+                  className="w-full pl-8 pr-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
                   placeholder="3,000"
                   value={numInput(expenses)}
                   onChange={handleNumChange(setExpenses)}
                 />
               </div>
               <select
-                className="calc-select"
+                className="px-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200 cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2712%27%20height=%2712%27%20viewBox=%270%200%2024%2024%27%20fill=%27none%27%20stroke=%27rgba(255,255,255,0.6)%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M6%209l6%206%206-6%27/%3E%3C/svg%3E')] bg-size-[14px] bg-position-[right_16px_center] bg-no-repeat min-width-[130px]"
                 value={expensesFreq}
                 onChange={(e) => setExpensesFreq(e.target.value)}
               >
                 {FREQ_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
+                  <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
                 ))}
               </select>
             </div>
           )}
         </div>
 
-        <div className="calc-field">
+        <div className="mb-6 last:mb-0">
           <div
-            className="calc-checkbox-wrap"
+            className="flex items-center gap-3 cursor-pointer select-none group"
             onClick={() => setUseHEM(!useHEM)}
             role="checkbox"
             aria-checked={useHEM}
@@ -416,63 +431,67 @@ export default function BorrowingPowerCalculator() {
               }
             }}
           >
-            <div className={`calc-checkbox ${useHEM ? 'checked' : ''}`}>
-              <svg className="calc-checkbox-check" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
+              useHEM ? 'bg-[#c9a84c]/15 border-[#c9a84c]' : 'border-white/20 bg-white/10'
+            }`}>
+              <svg className={`w-3 h-3 text-[#c9a84c] transition-all duration-200 ${
+                useHEM ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
+              }`} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M2 6l3 3 5-5" />
               </svg>
             </div>
-            <span className="calc-checkbox-label">Work it out later</span>
+            <span className="text-xs font-semibold text-neutral-300">Work it out later</span>
           </div>
           {useHEM && (
-            <div className="calc-sublabel" style={{ marginLeft: 30, marginTop: 6 }}>
+            <div className="text-xs text-neutral-400 mt-1.5 ml-[32px]">
               Using estimated expenses of {fmt(HEM_MONTHLY[Math.min(dependents, 7)])}/month based on {dependents} dependent{dependents !== 1 ? 's' : ''}
             </div>
           )}
         </div>
 
-        <hr className="calc-divider" />
+        <hr className="h-px bg-white/10 my-6 border-none" />
 
         {/* ── Liabilities ────────────────────────────────────────── */}
-        <div className="calc-field">
-          <label className="calc-label" htmlFor="bp-other-loans">
+        <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-other-loans">
             Other loan repayments
           </label>
-          <div className="calc-input-group">
-            <div className="calc-input-wrap" style={{ flex: 1 }}>
-              <span className="calc-input-prefix">$</span>
+          <div className="flex gap-2">
+            <div className="relative flex items-center flex-1">
+              <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
               <input
                 id="bp-other-loans"
                 type="text"
                 inputMode="numeric"
-                className="calc-input has-prefix"
+                className="w-full pl-8 pr-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
                 placeholder="0"
                 value={numInput(otherLoanRepay)}
                 onChange={handleNumChange(setOtherLoanRepay)}
               />
             </div>
             <select
-              className="calc-select"
+              className="px-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200 cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2712%27%20height=%2712%27%20viewBox=%270%200%2024%2024%27%20fill=%27none%27%20stroke=%27rgba(255,255,255,0.6)%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M6%209l6%206%206-6%27/%3E%3C/svg%3E')] bg-size-[14px] bg-position-[right_16px_center] bg-no-repeat min-width-[130px]"
               value={otherLoanFreq}
               onChange={(e) => setOtherLoanFreq(e.target.value)}
             >
               {FREQ_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
+                <option key={o.value} value={o.value} className="bg-[#0d0b21] text-white">{o.label}</option>
               ))}
             </select>
           </div>
         </div>
 
-        <div className="calc-field">
-          <label className="calc-label" htmlFor="bp-credit-cards">
+        <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-credit-cards">
             Credit card limits
           </label>
-          <div className="calc-input-wrap">
-            <span className="calc-input-prefix">$</span>
+          <div className="relative flex items-center">
+            <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
             <input
               id="bp-credit-cards"
               type="text"
               inputMode="numeric"
-              className="calc-input has-prefix"
+              className="w-full pl-8 pr-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
               placeholder="0"
               value={numInput(creditCardLimits)}
               onChange={handleNumChange(setCreditCardLimits)}
@@ -482,64 +501,66 @@ export default function BorrowingPowerCalculator() {
       </div>
 
       {/* ══════════════ RIGHT — Results (sticky) ══════════════ */}
-      <div className="calc-card calc-sticky">
-        <h2 className="calc-card-title">Your borrowing power</h2>
+      <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-9 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:shadow-xl md:sticky md:top-24">
+        <h2 className="text-xl font-black text-white mb-7 tracking-tight">Your borrowing power</h2>
 
         {/* Dual result cards */}
-        <div className="calc-result-duo">
-          <div className="calc-result-card">
-            <div className="calc-result-card-label">Conservative</div>
-            <div className="calc-result-card-value">
+        <div className="grid grid-cols-1 gap-4 mb-6">
+          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-[#c9a84c]/15 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
+            <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">Conservative</div>
+            <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
               {hasIncome ? fmt(conservativeMax) : '—'}
             </div>
-            <div className="calc-result-card-sub">at {ASSESSMENT_RATE_CONSERVATIVE}% assessment</div>
+            <div className="text-[11px] text-neutral-400 mt-1">at {ASSESSMENT_RATE_CONSERVATIVE}% assessment</div>
           </div>
-          <div className="calc-result-card">
-            <div className="calc-result-card-label">Maximum</div>
-            <div className="calc-result-card-value">
+          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-[#c9a84c]/15 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
+            <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">Maximum</div>
+            <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
               {hasIncome ? fmt(maximumMax) : '—'}
             </div>
-            <div className="calc-result-card-sub">at {ASSESSMENT_RATE_MAX}% assessment</div>
+            <div className="text-[11px] text-neutral-400 mt-1">at {ASSESSMENT_RATE_MAX}% assessment</div>
           </div>
         </div>
 
         {/* Repayment estimator */}
-        <div className="calc-estimator">
-          <div className="calc-estimator-title">
+        <div className="bg-white/10 border border-white/10 rounded-xl p-5 mt-5">
+          <div className="text-xs font-bold text-neutral-300 mb-3">
             How much would you like to borrow?
           </div>
-          <div className="calc-input-wrap">
-            <span className="calc-input-prefix">$</span>
+          <div className="relative flex items-center">
+            <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
             <input
               id="bp-borrow-desired"
               type="text"
               inputMode="numeric"
-              className="calc-input has-prefix"
+              className="w-full pl-8 pr-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
               placeholder="500,000"
               value={numInput(borrowDesired)}
               onChange={handleNumChange(setBorrowDesired)}
             />
           </div>
           {desiredAmount > 0 && (
-            <div className="calc-estimator-result">
-              <span className="calc-estimator-value">{fmt(estimatedRepayment)}</span>
-              <span className="calc-estimator-period">per month (est. at 6.49% p.a.)</span>
+            <div className="flex items-baseline gap-1.5 mt-3 flex-wrap">
+              <span className="text-xl sm:text-2xl md:text-3xl font-black text-white">{fmt(estimatedRepayment)}</span>
+              <span className="text-xs text-neutral-400">per month (est. at 6.49% p.a.)</span>
             </div>
           )}
         </div>
 
         {/* How do we calculate? */}
         <button
-          className="calc-info-link"
+          className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-[#c9a84c] transition-colors duration-200 mt-5 border-none bg-transparent cursor-pointer font-semibold"
           onClick={() => setShowInfo(!showInfo)}
           aria-expanded={showInfo}
         >
-          <span className="calc-info-icon">i</span>
+          <span className="w-4.5 h-4.5 rounded-full border border-white/20 flex items-center justify-center text-[10px] font-black">i</span>
           How do we calculate this?
         </button>
 
-        <div className={`calc-info-panel ${showInfo ? 'open' : ''}`}>
-          <div className="calc-info-content">
+        <div className={`overflow-hidden transition-all duration-300 ${
+          showInfo ? 'max-h-[600px] opacity-100 mt-4' : 'max-h-0 opacity-0'
+        }`}>
+          <div className="bg-white/10 border border-white/10 rounded-xl p-5 text-xs text-neutral-400 leading-relaxed space-y-2.5">
             <p>
               <strong>Income assessment:</strong> We annualise your income and estimate tax
               using the 2024-25 Australian individual tax brackets.
@@ -558,7 +579,7 @@ export default function BorrowingPowerCalculator() {
               repayment per dollar at the assessment rate (conservative: {ASSESSMENT_RATE_CONSERVATIVE}%,
               maximum: {ASSESSMENT_RATE_MAX}%) over a 30-year P&I term.
             </p>
-            <p style={{ marginTop: 8, fontStyle: 'italic', opacity: 0.7 }}>
+            <p className="mt-2.5 italic opacity-70">
               This is an estimate only. Lender policies, credit history, and property type
               all affect your actual borrowing power. Contact Michael for a personalised assessment.
             </p>
@@ -566,13 +587,13 @@ export default function BorrowingPowerCalculator() {
         </div>
 
         {/* CTA */}
-        <div className="calc-cta">
-          <span className="calc-cta-text">
+        <div className="flex items-center justify-between gap-4 mt-7 pt-6 border-t border-white/10 flex-wrap">
+          <span className="text-xs font-bold text-neutral-300 leading-relaxed">
             Discuss your borrowing power<br />with an expert
           </span>
           <a
             href="mailto:michael@traikosfinance.com"
-            className="calc-cta-btn"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#c9a84c] hover:bg-[#d4b65e] text-neutral-950 font-black text-xs tracking-wider uppercase rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#c9a84c]/20 active:translate-y-0 cursor-pointer decoration-none"
           >
             Book a Consultation
           </a>

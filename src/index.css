@@ -1,12 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
-
 
 /* Sequel Font */
 @font-face {
-  font-family: 'Sequel';
-  src: url('/fonts/Sequel_Demo.ttf') format('truetype');
+  font-family: "Sequel";
+  src: url("/fonts/Sequel_Demo.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -14,15 +13,15 @@
 
 /* Register in Tailwind theme */
 @theme {
-  --font-sans: 'Unbounded', system-ui, sans-serif;
-  --font-heading: 'Unbounded', system-ui, sans-serif;
-  --font-sequel: 'Sequel', sans-serif;
+  --font-sans: "Unbounded", system-ui, sans-serif;
+  --font-heading: "Unbounded", system-ui, sans-serif;
+  --font-sequel: "Sequel", sans-serif;
   --font-anton: "Anton", sans-serif;
 }
 
-
 /* Lenis smooth scrolling rules */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -44,11 +43,15 @@ html.lenis, html.lenis body {
 
 /* Fallback default smooth scrolling if Lenis is disabled/fails */
 @media (prefers-reduced-motion: no-preference) {
-  html:not(.lenis) { scroll-behavior: smooth; }
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Pointer cursor on all interactive elements */
-button, a, [role="button"] {
+button,
+a,
+[role="button"] {
   cursor: pointer;
 }
 
@@ -60,7 +63,9 @@ button, a, [role="button"] {
 
 /* Reduced motion — disables GSAP & CSS transitions */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -71,27 +76,47 @@ button, a, [role="button"] {
 /* Hero heading color — black on white, white on dark */
 .hero-text {
   color: #000;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 1000;
   /* font-variation-settings: 'wght' 900; */
-  letter-spacing: -0.04em;;
+  letter-spacing: -0.04em;
   line-height: 0.9;
   /* -webkit-text-stroke: 2px white; */
 }
-@media (min-width: 768px)  { .hero-text { font-size: 1rem; } }
-@media (min-width: 1024px) { .hero-text { font-size: 3rem;   } }
-@media (min-width: 1280px) { .hero-text { font-size: 83px;   } }
-.dark-theme .hero-text { color: #fff; }
+@media (min-width: 768px) {
+  .hero-text {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-text {
+    font-size: 3rem;
+  }
+}
+@media (min-width: 1280px) {
+  .hero-text {
+    font-size: 83px;
+  }
+}
+.dark-theme .hero-text {
+  color: #fff;
+}
 
 /* About page hero heading — always white on mobile (dark overlay is always on),
    scroll-driven black→white on desktop (handled by inline style via isDark) */
 @media (max-width: 767px) {
-  .about-hero-heading { color: #fff !important; }
+  .about-hero-heading {
+    color: #fff !important;
+  }
 }
 
 /* Animated scroll indicator line */
-.hero-line { background: #000; }
-.dark-theme .hero-line { background: #fff; }
+.hero-line {
+  background: #000;
+}
+.dark-theme .hero-line {
+  background: #fff;
+}
 
 /* Client portfolio cards */
 .client-card {
@@ -151,8 +176,8 @@ button, a, [role="button"] {
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: 'Unbounded', system-ui, sans-serif;
-  --heading: 'Unbounded', system-ui, sans-serif;
+  --sans: "Unbounded", system-ui, sans-serif;
+  --heading: "Unbounded", system-ui, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -192,7 +217,7 @@ button, a, [role="button"] {
 
 body {
   margin: 0;
-  font-family: 'Unbounded', system-ui, sans-serif;
+  font-family: "Unbounded", system-ui, sans-serif;
 }
 
 #root {
@@ -244,4 +269,40 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+/* ── Custom keyframes for calculators ── */
+@keyframes calc-value-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-value-pop {
+  animation: calc-value-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Theme override for calculators page ── */
+.calc-page {
+  --bg: #0d0b21 !important;
+  --text: rgba(255, 255, 255, 0.7) !important;
+  --text-h: #ffffff !important;
+  --border: rgba(255, 255, 255, 0.1) !important;
+  color-scheme: dark !important;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -6,10 +6,10 @@
  *
  * Each component accepts a `content` prop instead of reading from a fixed import.
  */
-import { useState, useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import TransitionLink from '../../../components/TransitionLink';
+import { useState, useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TransitionLink from "../../../components/TransitionLink";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,14 +23,30 @@ export function HeroSection({ content }) {
   const btnRef = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.fromTo(headingRef.current, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.2 })
-        .fromTo(bodyRef.current,   { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.5')
-        .fromTo(btnRef.current,    { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.4');
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.fromTo(
+        headingRef.current,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, delay: 0.2 },
+      )
+        .fromTo(
+          bodyRef.current,
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8 },
+          "-=0.5",
+        )
+        .fromTo(
+          btnRef.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6 },
+          "-=0.4",
+        );
     });
 
     return () => ctx.revert();
@@ -41,8 +57,8 @@ export function HeroSection({ content }) {
       className="relative min-h-[60vh] md:min-h-[68vh] flex items-center justify-center overflow-hidden"
       style={{
         backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${content.background})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       {/* Subtle gradient overlay */}
@@ -52,7 +68,7 @@ export function HeroSection({ content }) {
         <h1
           ref={headingRef}
           className="font-anton! uppercase tracking-tight leading-[0.95] text-white"
-          style={{ fontSize: 'clamp(2.2rem, 5vw, 4.4rem)' }}
+          style={{ fontSize: "clamp(2.2rem, 5vw, 4.4rem)" }}
         >
           {content.title}
         </h1>
@@ -84,11 +100,13 @@ export function IntroSection({ content }) {
   const headingRef = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced || !headingRef.current) return;
 
     const ctx = gsap.context(() => {
-      const lines = headingRef.current.querySelectorAll('.intro-line');
+      const lines = headingRef.current.querySelectorAll(".intro-line");
       gsap.fromTo(
         lines,
         { y: 50, opacity: 0 },
@@ -97,9 +115,9 @@ export function IntroSection({ content }) {
           opacity: 1,
           duration: 0.85,
           stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
-        }
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
+        },
       );
     });
 
@@ -107,12 +125,15 @@ export function IntroSection({ content }) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#efefef] py-16 md:py-22 border-t border-black/8">
+    <section
+      ref={sectionRef}
+      className="bg-[#efefef] py-16 md:py-22 border-t border-black/8"
+    >
       <div className="w-[90%] md:w-[75%] max-w-4xl mx-auto flex flex-col items-center text-center">
         <h2
           ref={headingRef}
           className="font-black font-anton! uppercase leading-[0.96] tracking-tight"
-          style={{ fontSize: 'clamp(1.6rem, 5.2vw, 3.5rem)', color: '#111111' }}
+          style={{ fontSize: "clamp(1.6rem, 5.2vw, 3.5rem)", color: "#111111" }}
         >
           <span className="intro-line block">{content.titleTop}</span>
           <span className="intro-line block">{content.titleBottom}</span>
@@ -129,11 +150,13 @@ export function IntroSection({ content }) {
 ───────────────────────────────────────────────────────────── */
 export function TopChoiceSection({ content }) {
   const sectionRef = useRef(null);
-  const imagesRef  = useRef(null);
-  const textRef    = useRef(null);
+  const imagesRef = useRef(null);
+  const textRef = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
@@ -142,20 +165,27 @@ export function TopChoiceSection({ content }) {
         imagesRef.current,
         { x: -60, opacity: 0 },
         {
-          x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-        }
+          x: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        },
       );
 
       // Text content animates in from right with stagger on children
-      const textEls = textRef.current.querySelectorAll('.text-animate');
+      const textEls = textRef.current.querySelectorAll(".text-animate");
       gsap.fromTo(
         textEls,
         { x: 40, opacity: 0 },
         {
-          x: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 72%' },
-        }
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
+        },
       );
     });
 
@@ -183,13 +213,18 @@ export function TopChoiceSection({ content }) {
         </div>
 
         {/* Text */}
-        <div ref={textRef} className="flex flex-col items-center lg:items-start text-center lg:text-left">
+        <div
+          ref={textRef}
+          className="flex flex-col items-center lg:items-start text-center lg:text-left"
+        >
           <h3
             className="text-animate font-anton uppercase leading-[0.95] tracking-tight text-[#111111]"
-            style={{ fontSize: 'clamp(1.5rem, 3.8vw, 2rem)' }}
+            style={{ fontSize: "clamp(1.5rem, 3.8vw, 2rem)" }}
           >
             {content.title.map((line, i) => (
-              <span key={i} className="block">{line}</span>
+              <span key={i} className="block">
+                {line}
+              </span>
             ))}
           </h3>
 
@@ -214,18 +249,24 @@ export function PurchaseSection({ content }) {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const els = sectionRef.current.querySelectorAll('.purchase-animate');
+      const els = sectionRef.current.querySelectorAll(".purchase-animate");
       gsap.fromTo(
         els,
         { y: 45, opacity: 0 },
         {
-          y: 0, opacity: 1, duration: 0.85, stagger: 0.18, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
-        }
+          y: 0,
+          opacity: 1,
+          duration: 0.85,
+          stagger: 0.18,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
+        },
       );
     });
 
@@ -234,10 +275,13 @@ export function PurchaseSection({ content }) {
 
   return (
     <section className="bg-[#efefef] py-18 md:py-26 border-t border-black/8">
-      <div ref={sectionRef} className="w-[90%] md:w-[75%] max-w-4xl mx-auto flex flex-col items-center text-center">
+      <div
+        ref={sectionRef}
+        className="w-[90%] md:w-[75%] max-w-4xl mx-auto flex flex-col items-center text-center"
+      >
         <h2
           className="purchase-animate font-anton! uppercase leading-[0.96] tracking-tight text-[#111111]!"
-          style={{ fontSize: 'clamp(1.65rem, 4.4vw, 3.4rem)' }}
+          style={{ fontSize: "clamp(1.65rem, 4.4vw, 3.4rem)" }}
         >
           {content.title}
         </h2>
@@ -246,8 +290,11 @@ export function PurchaseSection({ content }) {
         <div className="purchase-animate mt-6 h-0.75 w-14 bg-black/80 rounded-full" />
 
         {/* Support multi-paragraph bodies (split on \n\n) */}
-        {content.body.split('\n\n').map((para, i) => (
-          <p key={i} className="purchase-animate mt-6 text-[0.86rem] md:text-[1rem] leading-relaxed text-black/75 max-w-3xl">
+        {content.body.split("\n\n").map((para, i) => (
+          <p
+            key={i}
+            className="purchase-animate mt-6 text-[0.86rem] md:text-[1rem] leading-relaxed text-black/75 max-w-3xl"
+          >
             {para}
           </p>
         ))}
@@ -262,23 +309,29 @@ export function PurchaseSection({ content }) {
 ───────────────────────────────────────────────────────────── */
 export function SupportSection({ content }) {
   const sectionRef = useRef(null);
-  const textRef    = useRef(null);
-  const imgRef     = useRef(null);
+  const textRef = useRef(null);
+  const imgRef = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
       // Text slides in from left
-      const textEls = textRef.current.querySelectorAll('.support-text-animate');
+      const textEls = textRef.current.querySelectorAll(".support-text-animate");
       gsap.fromTo(
         textEls,
         { x: -50, opacity: 0 },
         {
-          x: 0, opacity: 1, duration: 0.85, stagger: 0.16, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
-        }
+          x: 0,
+          opacity: 1,
+          duration: 0.85,
+          stagger: 0.16,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
+        },
       );
 
       // Image slides in from right
@@ -286,9 +339,12 @@ export function SupportSection({ content }) {
         imgRef.current,
         { x: 50, opacity: 0 },
         {
-          x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-        }
+          x: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        },
       );
     });
 
@@ -302,10 +358,13 @@ export function SupportSection({ content }) {
         className="w-[90%] md:w-[75%] max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
       >
         {/* Text */}
-        <div ref={textRef} className="flex flex-col justify-center py-2 md:py-4">
+        <div
+          ref={textRef}
+          className="flex flex-col justify-center py-2 md:py-4"
+        >
           <h2
             className="support-text-animate font-anton! uppercase leading-[0.95] text-white"
-            style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)' }}
+            style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.6rem)" }}
           >
             {content.title[0]}
             <br />
@@ -321,7 +380,10 @@ export function SupportSection({ content }) {
         </div>
 
         {/* Image */}
-        <div ref={imgRef} className="relative overflow-hidden rounded-tr-[20px] rounded-bl-[20px]">
+        <div
+          ref={imgRef}
+          className="relative overflow-hidden rounded-tr-[20px] rounded-bl-[20px]"
+        >
           <img
             src={content.image}
             alt=""
@@ -343,30 +405,39 @@ export function WhyChooseSection({ content }) {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
       // Title animates in
-      const title = sectionRef.current.querySelector('.why-title');
+      const title = sectionRef.current.querySelector(".why-title");
       gsap.fromTo(
         title,
         { y: 35, opacity: 0 },
         {
-          y: 0, opacity: 1, duration: 0.75, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
-        }
+          y: 0,
+          opacity: 1,
+          duration: 0.75,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+        },
       );
 
       // Cards stagger up
-      const cards = sectionRef.current.querySelectorAll('.why-card');
+      const cards = sectionRef.current.querySelectorAll(".why-card");
       gsap.fromTo(
         cards,
         { y: 50, opacity: 0 },
         {
-          y: 0, opacity: 1, duration: 0.7, stagger: 0.14, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-        }
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.14,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        },
       );
     });
 
@@ -378,7 +449,7 @@ export function WhyChooseSection({ content }) {
       <div ref={sectionRef} className="w-[90%] md:w-[75%] max-w-5xl mx-auto">
         <h2
           className="why-title text-center font-anton! uppercase text-[#111111]! leading-none mb-10 md:mb-14"
-          style={{ fontSize: 'clamp(1.65rem, 3.1vw, 2.9rem)' }}
+          style={{ fontSize: "clamp(1.65rem, 3.1vw, 2.9rem)" }}
         >
           {content.title}
         </h2>
@@ -418,18 +489,24 @@ export function CalculatorBanner() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReduced || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const els = sectionRef.current.querySelectorAll('.calc-banner-animate');
+      const els = sectionRef.current.querySelectorAll(".calc-banner-animate");
       gsap.fromTo(
         els,
         { y: 40, opacity: 0 },
         {
-          y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' },
-        }
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 82%" },
+        },
       );
     });
 
@@ -438,14 +515,12 @@ export function CalculatorBanner() {
 
   return (
     <section className="bg-[#efefef] py-8 md:py-12 border-t border-black/8">
-      <div
-        ref={sectionRef}
-        className="w-[90%] md:w-[75%] max-w-5xl mx-auto"
-      >
+      <div ref={sectionRef} className="w-[90%] md:w-[75%] max-w-5xl mx-auto">
         <div
           className="relative overflow-hidden rounded-2xl md:rounded-3xl"
           style={{
-            background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1040 50%, #0d1a3a 100%)',
+            background:
+              "linear-gradient(135deg, #0a0a0a 0%, #1a1040 50%, #0d1a3a 100%)",
           }}
         >
           {/* Decorative grid dots */}
@@ -453,17 +528,30 @@ export function CalculatorBanner() {
             className="absolute inset-0 pointer-events-none opacity-[0.04]"
             style={{
               backgroundImage:
-                'radial-gradient(circle, #fff 1px, transparent 1px)',
-              backgroundSize: '24px 24px',
+                "radial-gradient(circle, #fff 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
             }}
           />
 
           <div className="relative flex flex-col md:flex-row items-center gap-6 md:gap-10 px-8 md:px-12 py-10 md:py-14">
             {/* Icon */}
-            <div className="calc-banner-animate flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center"
-              style={{ background: 'rgba(201, 168, 76, 0.12)', border: '1px solid rgba(201, 168, 76, 0.2)' }}
+            <div
+              className="calc-banner-animate shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center"
+              style={{
+                background: "rgba(201, 168, 76, 0.12)",
+                border: "1px solid rgba(201, 168, 76, 0.2)",
+              }}
             >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#c9a84c"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <rect x="4" y="2" width="16" height="20" rx="2" />
                 <line x1="8" y1="6" x2="16" y2="6" />
                 <line x1="8" y1="10" x2="10" y2="10" />
@@ -477,27 +565,37 @@ export function CalculatorBanner() {
             {/* Text */}
             <div className="calc-banner-animate flex-1 text-center md:text-left">
               <h3
-                className="font-anton! uppercase text-white leading-[1] tracking-tight"
-                style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)' }}
+                className="font-anton! uppercase text-white leading-none tracking-tight"
+                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)" }}
               >
                 How much can you borrow?
               </h3>
               <p className="mt-2 text-[0.82rem] md:text-[0.88rem] text-white/55 leading-relaxed max-w-lg">
-                Use our free calculators to estimate your borrowing power and monthly repayments — no sign‑up required.
+                Use our free calculators to estimate your borrowing power and
+                monthly repayments — no sign‑up required.
               </p>
             </div>
 
             {/* CTA */}
             <TransitionLink
               to="/calculators"
-              className="calc-banner-animate inline-flex items-center gap-2 px-7 py-3 rounded-xl text-[0.72rem] md:text-[0.76rem] font-bold uppercase tracking-[0.14em] no-underline transition-all duration-300 hover:scale-105! hover:shadow-lg flex-shrink-0"
+              className="calc-banner-animate inline-flex items-center gap-2 px-7 py-3 rounded-xl text-[0.72rem] md:text-[0.76rem] font-bold uppercase tracking-[0.14em] no-underline transition-all duration-300 hover:scale-105! hover:shadow-lg shrink-0"
               style={{
-                background: '#c9a84c',
-                color: '#000',
+                background: "#c9a84c",
+                color: "#000",
               }}
             >
               Try Calculators
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M5 12h14" />
                 <path d="M12 5l7 7-7 7" />
               </svg>
@@ -522,8 +620,8 @@ export function FloatingCalculatorButton() {
       setVisible(window.scrollY > 400);
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -532,33 +630,42 @@ export function FloatingCalculatorButton() {
       aria-label="Open calculators"
       className="no-underline"
       style={{
-        position: 'fixed',
+        position: "fixed",
         bottom: 28,
         right: 28,
         zIndex: 90,
-        display: 'flex',
-        alignItems: 'center',
+        display: "flex",
+        alignItems: "center",
         gap: 8,
-        padding: '12px 20px',
-        background: 'rgba(10, 10, 10, 0.92)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        border: '1px solid rgba(201, 168, 76, 0.25)',
+        padding: "12px 20px",
+        background: "rgba(10, 10, 10, 0.92)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        border: "1px solid rgba(201, 168, 76, 0.25)",
         borderRadius: 50,
-        color: '#c9a84c',
-        fontSize: '0.7rem',
+        color: "#c9a84c",
+        fontSize: "0.7rem",
         fontWeight: 700,
-        letterSpacing: '0.12em',
-        textTransform: 'uppercase',
-        textDecoration: 'none',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+        letterSpacing: "0.12em",
+        textTransform: "uppercase",
+        textDecoration: "none",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
         opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(20px)',
-        transition: 'opacity 0.4s ease, transform 0.4s ease',
-        pointerEvents: visible ? 'auto' : 'none',
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+        transition: "opacity 0.4s ease, transform 0.4s ease",
+        pointerEvents: visible ? "auto" : "none",
       }}
     >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <rect x="4" y="2" width="16" height="20" rx="2" />
         <line x1="8" y1="6" x2="16" y2="6" />
         <line x1="8" y1="10" x2="10" y2="10" />
