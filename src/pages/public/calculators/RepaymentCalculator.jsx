@@ -58,7 +58,6 @@ export default function RepaymentCalculator() {
   const [loanTerm, setLoanTerm] = useState("30");
   const [interestOnly, setInterestOnly] = useState(false);
   const [ioTerm, setIoTerm] = useState("5");
-  const [rateOffset, setRateOffset] = useState(0); // in 0.25 steps
   const [showInfo, setShowInfo] = useState(false);
   const [animKey, setAnimKey] = useState(0);
   const prevRepayRef = useRef(0);
@@ -78,15 +77,6 @@ export default function RepaymentCalculator() {
   // P&I repayment after IO period
   const monthlyAfterIO = interestOnly ? calcPI(P, R, T - IO_T) : 0;
   const afterIORepayment = toFrequency(monthlyAfterIO, frequency);
-
-  // Rate-changed repayment
-  const changedMonthlyPI = calcPI(P, R + rateOffset * 0.25, T);
-  const changedMonthlyIO = calcIO(P, R + rateOffset * 0.25);
-  const changedMonthly = interestOnly ? changedMonthlyIO : changedMonthlyPI;
-  const changedRepayment = toFrequency(changedMonthly, frequency);
-
-  // Difference
-  const diff = changedRepayment - currentRepayment;
 
   // Animate on repayment change
   useEffect(() => {
@@ -321,53 +311,15 @@ export default function RepaymentCalculator() {
           What if my rate changes?
         </h2>
 
-        {/* Rate changer */}
-        <div className="flex items-center justify-center gap-5 my-6">
-          <button
-            className="w-11 h-11 rounded-full border border-white/20 bg-white/10 text-white font-bold hover:border-white/30 hover:bg-white/15 hover:text-white active:scale-95 transition-all duration-200 flex items-center justify-center cursor-pointer text-lg"
-            onClick={() => setRateOffset((o) => o - 1)}
-            aria-label="Decrease rate"
-          >
-            −
-          </button>
-          <div className="text-center min-w-30">
-            <div className="text-xl font-bold text-white">
-              {rateOffset >= 0 ? "+" : ""}
-              {(rateOffset * 0.25).toFixed(2)}%
-            </div>
-            <div className="text-[11px] text-neutral-400">p.a.</div>
-          </div>
-          <button
-            className="w-11 h-11 rounded-full border border-white/20 bg-white/10 text-white font-bold hover:border-white/30 hover:bg-white/15 hover:text-white active:scale-95 transition-all duration-200 flex items-center justify-center cursor-pointer text-lg"
-            onClick={() => setRateOffset((o) => o + 1)}
-            aria-label="Increase rate"
-          >
-            +
-          </button>
-        </div>
+        <div className="my-6 h-16" aria-hidden="true" />
 
         {/* Changed repayment result */}
         <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
           <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
-            Estimated repayment
+            Leave blank under interest rates
           </div>
-          <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
-            {P > 0 && R > 0 ? fmt(changedRepayment) : "$0"}
-          </div>
-          <div className="text-[11px] text-neutral-400 mt-1">
-            {freqLabel(frequency)}
-          </div>
+          <div className="h-10" />
         </div>
-
-        {P > 0 && R > 0 && rateOffset !== 0 && (
-          <div className="text-xs text-neutral-400 text-center leading-relaxed mt-3">
-            An estimated repayment {diff >= 0 ? "increase" : "decrease"} of{" "}
-            <strong className="text-white font-bold">
-              {fmt(Math.abs(diff))}
-            </strong>{" "}
-            {freqLabel(frequency)} from current repayments
-          </div>
-        )}
 
         {/* How do we calculate this? */}
         <button

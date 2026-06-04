@@ -48,7 +48,8 @@ export default function RefinanceCalculator() {
   const [currentRate, setCurrentRate] = useState("");
   const [frequency, setFrequency] = useState("monthly");
   const [newRate, setNewRate] = useState("");
-  const [remainingTerm, setRemainingTerm] = useState("25");
+  const [currentTerm, setCurrentTerm] = useState("25");
+  const [newTerm, setNewTerm] = useState("25");
   const [showInfo, setShowInfo] = useState(false);
   const [animKey, setAnimKey] = useState(0);
   const prevSavingsRef = useRef(0);
@@ -57,11 +58,12 @@ export default function RefinanceCalculator() {
   const P = parseNum(loanBalance);
   const R_curr = parseFloat(currentRate) || 0;
   const R_new = parseFloat(newRate) || 0;
-  const T = parseInt(remainingTerm) || 25;
+  const T_curr = parseInt(currentTerm) || 25;
+  const T_new = parseInt(newTerm) || 25;
 
   // Monthly payments
-  const currentMonthly = calcPI(P, R_curr, T);
-  const newMonthly = calcPI(P, R_new, T);
+  const currentMonthly = calcPI(P, R_curr, T_curr);
+  const newMonthly = calcPI(P, R_new, T_new);
 
   // Frequency adjusted payments
   const currentRepayment = toFrequency(currentMonthly, frequency);
@@ -69,12 +71,7 @@ export default function RefinanceCalculator() {
 
   // Savings
   const repaymentSavings = Math.max(0, currentRepayment - newRepayment);
-  const totalInterestSavings = Math.max(
-    0,
-    (currentMonthly - newMonthly) * 12 * T,
-  );
-
-  const hasInputs = P > 0 && R_curr > 0 && R_new > 0 && T > 0;
+  const hasInputs = P > 0 && R_curr > 0 && R_new > 0 && T_curr > 0 && T_new > 0;
 
   // Animate on savings change
   useEffect(() => {
@@ -100,9 +97,14 @@ export default function RefinanceCalculator() {
     setNewRate(val);
   }, []);
 
-  const handleTerm = useCallback((e) => {
+  const handleCurrentTerm = useCallback((e) => {
     const val = e.target.value.replace(/[^0-9]/g, "");
-    setRemainingTerm(val);
+    setCurrentTerm(val);
+  }, []);
+
+  const handleNewTerm = useCallback((e) => {
+    const val = e.target.value.replace(/[^0-9]/g, "");
+    setNewTerm(val);
   }, []);
 
   return (
@@ -153,7 +155,7 @@ export default function RefinanceCalculator() {
               type="text"
               inputMode="decimal"
               className="w-full pl-4 pr-10 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
-              placeholder="7.15"
+              placeholder=""
               value={currentRate}
               onChange={handleCurrentRate}
             />
@@ -191,6 +193,24 @@ export default function RefinanceCalculator() {
 
         {/* New Interest Rate */}
         <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="refi-current-term">
+            Years left on your current loan
+          </label>
+          <div className="relative flex items-center">
+            <input
+              id="refi-current-term"
+              type="text"
+              inputMode="numeric"
+              className="w-full pl-4 pr-12 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
+              placeholder="25"
+              value={currentTerm}
+              onChange={handleCurrentTerm}
+            />
+            <span className="absolute right-4 text-sm font-semibold text-neutral-400 pointer-events-none">yrs</span>
+          </div>
+        </div>
+
+        <div className="mb-6 last:mb-0">
           <label
             className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
             htmlFor="refi-new-rate"
@@ -203,7 +223,7 @@ export default function RefinanceCalculator() {
               type="text"
               inputMode="decimal"
               className="w-full pl-4 pr-10 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
-              placeholder="6.49"
+              placeholder=""
               value={newRate}
               onChange={handleNewRate}
             />
@@ -213,23 +233,23 @@ export default function RefinanceCalculator() {
           </div>
         </div>
 
-        {/* Remaining Loan Term */}
+        {/* New Loan Term */}
         <div className="mb-6 last:mb-0">
           <label
             className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
-            htmlFor="refi-term"
+            htmlFor="refi-new-term"
           >
-            Remaining loan term
+            New loan term
           </label>
           <div className="relative flex items-center">
             <input
-              id="refi-term"
+              id="refi-new-term"
               type="text"
               inputMode="numeric"
               className="w-full pl-4 pr-12 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
               placeholder="25"
-              value={remainingTerm}
-              onChange={handleTerm}
+              value={newTerm}
+              onChange={handleNewTerm}
             />
             <span className="absolute right-4 text-sm font-semibold text-neutral-400 pointer-events-none">
               yrs
@@ -246,32 +266,34 @@ export default function RefinanceCalculator() {
 
         {/* Dual result cards */}
         <div className="grid grid-cols-1 gap-4 mb-6" key={animKey}>
-          {/* Repayment Savings */}
+          {/* Current repayment estimate */}
           <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
             <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
-              Decrease your repayments by
+              Current repayment estimate per month
             </div>
             <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
-              {hasInputs ? fmt(repaymentSavings) : "$0"}
+              {hasInputs ? fmt(currentRepayment) : "$0"}
             </div>
-            <div className="text-[11px] text-neutral-400 mt-1">
-              {freqLabel(frequency)}
-            </div>
+            <div className="text-[11px] text-neutral-400 mt-1">{freqLabel(frequency)}</div>
           </div>
 
-          {/* Interest Savings */}
+          {/* New repayment estimate */}
           <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
             <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
-              Decrease your interest paid by
+              New repayment estimate per month
             </div>
             <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
-              {hasInputs ? fmt(totalInterestSavings) : "$0"}
+              {hasInputs ? fmt(newRepayment) : "$0"}
             </div>
-            <div className="text-[11px] text-neutral-400 mt-1">
-              over the remaining {T} years
-            </div>
+            <div className="text-[11px] text-neutral-400 mt-1">{freqLabel(frequency)}</div>
           </div>
         </div>
+
+        {hasInputs && (
+          <div className="text-xs text-neutral-400 leading-relaxed mb-3">
+            Estimated saving: <strong className="text-white font-bold">{fmt(repaymentSavings)}</strong> {freqLabel(frequency)}
+          </div>
+        )}
 
         {/* How does we calculate this? */}
         <button
@@ -302,9 +324,9 @@ export default function RefinanceCalculator() {
               payment under the new rate.
             </p>
             <p>
-              <strong>Interest savings:</strong> Total interest savings
-              represent the cumulative repayment savings over the remaining term
-              of the loan (Savings per month × 12 × remaining years).
+              <strong>Current vs new:</strong> We compare the repayment on your
+              current rate and term versus the repayment on the new rate and
+              new term to show the difference.
             </p>
             <p className="mt-2.5 italic opacity-70">
               Refinancing may involve loan setup fees, discharge fees, and

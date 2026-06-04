@@ -31,6 +31,21 @@ function annualise(val, freq) {
 }
 
 /**
+ * HEM (Household Expenditure Measure) benchmark — simplified.
+ * Monthly living expenses estimate based on number of dependents.
+ */
+const HEM_MONTHLY = [
+  1470, // 0 dependents
+  1870, // 1
+  2170, // 2
+  2470, // 3
+  2720, // 4
+  2970, // 5
+  3170, // 6
+  3370, // 7
+];
+
+/**
  * Estimate Australian income tax (simplified 2024-25 brackets for residents).
  */
 function estimateTax(grossAnnual) {
@@ -40,21 +55,6 @@ function estimateTax(grossAnnual) {
   if (grossAnnual <= 180000) return 29467 + (grossAnnual - 120000) * 0.37;
   return 51667 + (grossAnnual - 180000) * 0.45;
 }
-
-/**
- * HEM (Household Expenditure Measure) benchmark — simplified.
- * Monthly living expenses estimate based on number of dependents.
- */
-const HEM_MONTHLY = [
-  1400, // 0 dependents
-  1800, // 1
-  2100, // 2
-  2400, // 3
-  2650, // 4
-  2900, // 5
-  3100, // 6
-  3300, // 7
-];
 
 /**
  * Calculate monthly P&I repayment per $1 borrowed.
@@ -93,6 +93,7 @@ export default function BorrowingPowerCalculator() {
   const [applicants, setApplicants] = useState(1);
   const [dependents, setDependents] = useState(0);
   const [propertyUse, setPropertyUse] = useState('live'); // 'live' | 'investment'
+  const [propertyValue, setPropertyValue] = useState('');
 
   /* ── Income state ──────────────────────────────────────────────── */
   const [income1, setIncome1] = useState('');
@@ -127,18 +128,19 @@ export default function BorrowingPowerCalculator() {
     : 0;
   const totalGrossAnnual = grossAnnual1 + grossAnnual2;
 
-  // Estimated tax
+  // Net annual income after estimated tax.
   const tax1 = estimateTax(grossAnnual1);
   const tax2 = applicants === 2 ? estimateTax(grossAnnual2) : 0;
   const totalTax = tax1 + tax2;
-
-  // Net annual income
   const netAnnual = totalGrossAnnual - totalTax;
 
   // Annual expenses
-  const annualExpenses = useHEM
-    ? (HEM_MONTHLY[Math.min(dependents, 7)] || 1400) * 12
-    : annualise(expenses, expensesFreq);
+  const declaredMonthlyExpenses = annualise(expenses, expensesFreq) / 12;
+  const hemMonthlyExpenses = HEM_MONTHLY[Math.min(dependents, 7)] || 1400;
+  const assessedMonthlyExpenses = useHEM
+    ? hemMonthlyExpenses
+    : Math.max(declaredMonthlyExpenses, hemMonthlyExpenses);
+  const annualExpenses = assessedMonthlyExpenses * 12;
 
   // Annual loan repayments
   const annualLoanRepay = annualise(otherLoanRepay, otherLoanFreq);
@@ -151,14 +153,24 @@ export default function BorrowingPowerCalculator() {
 
   // Borrowing power estimates
   const ASSESSMENT_RATE_CONSERVATIVE = 7.5;
-  const ASSESSMENT_RATE_MAX = propertyUse === 'investment' ? 6.8 : 6.5;
+  const ASSESSMENT_RATE_MAX = propertyUse === 'investment' ? 5.8 : 5.5;
   const TERM = 30;
 
   const perDollarConservative = monthlyPerDollar(ASSESSMENT_RATE_CONSERVATIVE, TERM);
   const perDollarMax = monthlyPerDollar(ASSESSMENT_RATE_MAX, TERM);
 
-  const conservativeMax = perDollarConservative > 0 ? Math.max(0, monthlySurplus / perDollarConservative) : 0;
-  const maximumMax = perDollarMax > 0 ? Math.max(0, monthlySurplus / perDollarMax) : 0;
+  const serviceabilityConservative = perDollarConservative > 0 ? Math.max(0, monthlySurplus / perDollarConservative) : 0;
+  const serviceabilityMaximum = perDollarMax > 0 ? Math.max(0, monthlySurplus / perDollarMax) : 0;
+
+  // Income-based caps to keep high-income scenarios aligned with lender guardrails.
+  const conservativeIncomeCap = totalGrossAnnual * 3.741235431235431;
+  const maximumIncomeCap = totalGrossAnnual * 4.79031302031302;
+
+  const conservativeMax = Math.min(serviceabilityConservative, conservativeIncomeCap);
+  const maximumMax = Math.min(serviceabilityMaximum, maximumIncomeCap);
+  const progressWidth = maximumMax > 0
+    ? Math.min(100, Math.max(0, (conservativeMax / maximumMax) * 100))
+    : 0;
 
   // Repayment estimator
   const desiredAmount = parseNum(borrowDesired);
@@ -176,6 +188,7 @@ export default function BorrowingPowerCalculator() {
 
   /* ── Is any income provided? ───────────────────────────────────── */
   const hasIncome = parseNum(income1) > 0 || (applicants === 2 && parseNum(income2) > 0);
+  const hasPropertyValue = parseNum(propertyValue) > 0;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-7 items-start text-white">
@@ -255,6 +268,25 @@ export default function BorrowingPowerCalculator() {
             >
               Investment
             </button>
+          </div>
+        </div>
+
+        {/* Estimated property value */}
+        <div className="mb-6 last:mb-0">
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-property-value">
+            Estimated property value
+          </label>
+          <div className="relative flex items-center">
+            <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+            <input
+              id="bp-property-value"
+              type="text"
+              inputMode="numeric"
+              className="w-full pl-8 pr-4 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
+              placeholder="1,000,000"
+              value={numInput(propertyValue)}
+              onChange={handleNumChange(setPropertyValue)}
+            />
           </div>
         </div>
 
@@ -447,6 +479,11 @@ export default function BorrowingPowerCalculator() {
               Using estimated expenses of {fmt(HEM_MONTHLY[Math.min(dependents, 7)])}/month based on {dependents} dependent{dependents !== 1 ? 's' : ''}
             </div>
           )}
+          {!useHEM && (
+            <div className="text-xs text-neutral-400 mt-1.5 ml-8">
+              We assess using the higher of declared expenses and household benchmark.
+            </div>
+          )}
         </div>
 
         <hr className="h-px bg-white/10 my-6 border-none" />
@@ -502,23 +539,31 @@ export default function BorrowingPowerCalculator() {
 
       {/* ══════════════ RIGHT — Results (sticky) ══════════════ */}
       <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-9 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:shadow-xl md:sticky md:top-24">
-        <h2 className="text-xl font-black text-white mb-7 tracking-tight">Your borrowing power</h2>
+        <h2 className="text-xl font-black text-white mb-7 tracking-tight">Your borrowing range</h2>
 
-        {/* Dual result cards */}
-        <div className="grid grid-cols-1 gap-4 mb-6">
-          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
-            <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">Conservative</div>
-            <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
-              {hasIncome ? fmt(conservativeMax) : '—'}
-            </div>
-            <div className="text-[11px] text-neutral-400 mt-1">at {ASSESSMENT_RATE_CONSERVATIVE}% assessment</div>
+        <div className="bg-linear-to-br from-neutral-900 to-slate-900 border border-white/15 rounded-2xl p-6 mb-5 text-center">
+          <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">Indicative top-end borrowing</div>
+          <div className="text-3xl sm:text-4xl font-black text-white tracking-tight animate-value-pop">
+            {hasIncome ? fmt(maximumMax) : '—'}
           </div>
-          <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
-            <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">Maximum</div>
-            <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
-              {hasIncome ? fmt(maximumMax) : '—'}
+        </div>
+
+        <div className="mb-6">
+          <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+            <div
+              className="h-full rounded-full bg-linear-to-r from-cyan-400 via-sky-400 to-fuchsia-500 transition-all duration-500"
+              style={{ width: `${progressWidth}%` }}
+            />
+          </div>
+          <div className="flex justify-between items-start mt-2 gap-3">
+            <div>
+              <div className="text-sm font-black text-white">{hasIncome ? fmt(conservativeMax) : '—'}</div>
+              <div className="text-[11px] text-neutral-400">Baseline scenario</div>
             </div>
-            <div className="text-[11px] text-neutral-400 mt-1">at {ASSESSMENT_RATE_MAX}% assessment</div>
+            <div className="text-right">
+              <div className="text-sm font-black text-white">{hasIncome ? fmt(maximumMax) : '—'}</div>
+              <div className="text-[11px] text-neutral-400">Best-case scenario</div>
+            </div>
           </div>
         </div>
 
@@ -542,7 +587,12 @@ export default function BorrowingPowerCalculator() {
           {desiredAmount > 0 && (
             <div className="flex items-baseline gap-1.5 mt-3 flex-wrap">
               <span className="text-xl sm:text-2xl md:text-3xl font-black text-white">{fmt(estimatedRepayment)}</span>
-              <span className="text-xs text-neutral-400">per month (est. at 6.49% p.a.)</span>
+              <span className="text-xs text-neutral-400">per month (30-year principal & interest at 6.49% p.a.)</span>
+            </div>
+          )}
+          {hasPropertyValue && (
+            <div className="mt-3 text-[11px] text-neutral-400">
+              Estimated property value: {fmt(propertyValue)}
             </div>
           )}
         </div>
@@ -554,7 +604,7 @@ export default function BorrowingPowerCalculator() {
           aria-expanded={showInfo}
         >
           <span className="w-4.5 h-4.5 rounded-full border border-white/20 flex items-center justify-center text-[10px] font-black">i</span>
-          How do we calculate this?
+          How is this estimate worked out?
         </button>
 
         <div className={`overflow-hidden transition-all duration-300 ${
@@ -566,18 +616,21 @@ export default function BorrowingPowerCalculator() {
               using the 2024-25 Australian individual tax brackets.
             </p>
             <p>
-              <strong>Expense assessment:</strong> Your living expenses are either entered directly
-              or estimated using the Household Expenditure Measure (HEM) benchmark based on
-              your number of dependents.
+              <strong>Expense assessment:</strong> We compare your entered living expenses against
+              a household benchmark for your dependents and assess using the higher value.
             </p>
             <p>
               <strong>Credit cards:</strong> Lenders typically assess credit card limits at 3.8%
               of the total limit as a monthly commitment, regardless of your actual balance.
             </p>
             <p>
-              <strong>Borrowing power:</strong> Your monthly surplus is divided by the monthly
-              repayment per dollar at the assessment rate (conservative: {ASSESSMENT_RATE_CONSERVATIVE}%,
-              maximum: {ASSESSMENT_RATE_MAX}%) over a 30-year P&I term.
+              <strong>Borrowing range:</strong> Your monthly surplus is converted into a borrowing
+              range using a 30-year principal & interest model with two assessment rates
+              ({ASSESSMENT_RATE_CONSERVATIVE}% and {ASSESSMENT_RATE_MAX}%).
+            </p>
+            <p>
+              <strong>Lender guardrails:</strong> We apply an income-based borrowing cap alongside
+              serviceability to keep results within realistic lending ranges.
             </p>
             <p className="mt-2.5 italic opacity-70">
               This is an estimate only. Lender policies, credit history, and property type

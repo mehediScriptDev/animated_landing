@@ -293,6 +293,11 @@ export default function ClientsGrid() {
     (id, color, element) => {
       if (!isTouchPreviewViewport()) return;
 
+      if (touchPreviewRef.current === id) {
+        // Keep the current preview visible until timeout or navigation.
+        return;
+      }
+
       if (touchPreviewTimeoutRef.current) {
         window.clearTimeout(touchPreviewTimeoutRef.current);
       }
@@ -335,7 +340,6 @@ export default function ClientsGrid() {
           touchPreviewTimeoutRef.current = null;
         }
         touchPreviewRef.current = null;
-        return;
       }
 
       // If this card has a dedicated page, use a smooth slide transition
