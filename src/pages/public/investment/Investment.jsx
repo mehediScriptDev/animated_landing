@@ -1,4 +1,5 @@
 import SEO from '../../../components/SEO';
+import CtaSection from '../about/sections/CtaSection';
 import { INVESTMENT_CONTENT } from './sections/content';
 import {
   HeroSection,
@@ -27,6 +28,9 @@ export default function Investment() {
         <PurchaseSection   content={c.secondary} />
         <SupportSection    content={c.support} />
         <WhyChooseSection  content={c.whyChoose} />
+        <div className='bg-black'>
+                 <CtaSection />
+               </div>
       </main>
     </>
   );
