@@ -520,7 +520,7 @@ export function CalculatorBanner() {
           className="relative overflow-hidden rounded-2xl md:rounded-3xl"
           style={{
             background:
-              "linear-gradient(135deg, #0a0a0a 0%, #1a1040 50%, #0d1a3a 100%)",
+              "linear-gradient(135deg, #050505 0%, #101010 50%, #171717 100%)",
           }}
         >
           {/* Decorative grid dots */}
@@ -538,8 +538,8 @@ export function CalculatorBanner() {
             <div
               className="calc-banner-animate shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center"
               style={{
-                background: "rgba(201, 168, 76, 0.12)",
-                border: "1px solid rgba(201, 168, 76, 0.2)",
+                background: "rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(255, 255, 255, 0.16)",
               }}
             >
               <svg
@@ -547,7 +547,7 @@ export function CalculatorBanner() {
                 height="32"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#c9a84c"
+                stroke="#ffffff"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -563,14 +563,14 @@ export function CalculatorBanner() {
             </div>
 
             {/* Text */}
-            <div className="calc-banner-animate flex-1 text-center md:text-left">
+            <div className="calc-banner-animate flex-1 text-center md:text-left flex flex-col gap-y-1.5 md:gap-y-2">
               <h3
                 className="font-anton! uppercase text-white leading-none tracking-tight"
                 style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)" }}
               >
                 How much can you borrow?
               </h3>
-              <p className="mt-2 text-[0.82rem] md:text-[0.88rem] text-white/55 leading-relaxed max-w-lg">
+              <p className="text-[0.82rem] md:text-[0.88rem] text-white/55 max-w-lg">
                 Use our free calculators to estimate your borrowing power and
                 monthly repayments — no sign‑up required.
               </p>
@@ -581,8 +581,8 @@ export function CalculatorBanner() {
               to="/calculators"
               className="calc-banner-animate inline-flex items-center gap-2 px-7 py-3 rounded-xl text-[0.72rem] md:text-[0.76rem] font-bold uppercase tracking-[0.14em] no-underline transition-all duration-300 hover:scale-105! hover:shadow-lg shrink-0"
               style={{
-                background: "#c9a84c",
-                color: "#000",
+                background: "#ffffff",
+                color: "#000000",
               }}
             >
               Try Calculators
