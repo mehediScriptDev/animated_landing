@@ -1,10 +1,10 @@
-import heroBg from '@/assets/hero.png';
-import firstHomeImg from '@/assets/grid_image/firsthome.png';
-import nextHomeImg from '@/assets/grid_image/nexthome.png';
-import supportImg from '@/assets/simplemain.png';
-import whyOneImg from '@/assets/grid_image/construction.png';
+import heroBg from '@/assets/first_home/mainbg.webp';
+import firstHomeImg from '@/assets/first_home/second2.webp';
+import nextHomeImg from '@/assets/first_home/second.webp';
+import supportImg from '@/assets/description.webp';
+import whyOneImg from '@/assets/first_home/whyus1.jpg';
 import whyTwoImg from '@/assets/grid_image/refinancing.png';
-import whyThreeImg from '@/assets/grid_image/loans.png';
+import whyThreeImg from '@/assets/first_home/whyus3.jpg';
 
 export const FIRST_HOME_CONTENT = {
   hero: {
@@ -19,8 +19,8 @@ export const FIRST_HOME_CONTENT = {
     titleBottom: "WE'LL MAKE IT A BREEZE",
   },
   topChoice: {
-    leftImage: firstHomeImg,
-    middleImage: nextHomeImg,
+    leftImage: nextHomeImg,
+    middleImage: firstHomeImg,
     title: ['YOUR TOP CHOICE FOR', 'FIRST-TIME HOME BUYER', 'MORTGAGES'],
     body:
       "This should be one of the most thrilling periods of your life, and the team at Traikos Finance is dedicated to streamlining the financing process, eliminating any complications and frustrations so you can settle into your new home more sooner. Whether you're looking to design and build your own home, purchase off the plan, or move into an existing property, we've got all your financing needs taken care of.",

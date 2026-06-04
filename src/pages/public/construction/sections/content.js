@@ -1,10 +1,10 @@
 import heroBg from '@/assets/grid_image/construction.png';
-import img1 from '@/assets/grid_image/construction.png';
-import img2 from '@/assets/grid_image/firsthome.png';
-import supportImg from '@/assets/simplemain.png';
-import whyOneImg from '@/assets/grid_image/firsthome.png';
-import whyTwoImg from '@/assets/grid_image/nexthome.png';
-import whyThreeImg from '@/assets/grid_image/loans.png';
+import img1 from '@/assets/construction/second.webp';
+import img2 from '@/assets/construction/second2.webp';
+import supportImg from '@/assets/construction/construction.webp';
+import whyOneImg from '@/assets/construction/whyus.webp';
+import whyTwoImg from '@/assets/construction/whyus2.jpeg';
+import whyThreeImg from '@/assets/construction/whyus3.png';
 
 export const CONSTRUCTION_CONTENT = {
   hero: {

@@ -1,10 +1,10 @@
 import heroBg from '@/assets/grid_image/nexthome.png';
-import img1 from '@/assets/grid_image/firsthome.png';
-import img2 from '@/assets/grid_image/nexthome.png';
-import supportImg from '@/assets/simplemain.png';
-import whyOneImg from '@/assets/grid_image/firsthome.png';
-import whyTwoImg from '@/assets/grid_image/nexthome.png';
-import whyThreeImg from '@/assets/grid_image/loans.png';
+import img1 from '@/assets/next_home/second.webp';
+import img2 from '@/assets/next_home/second1.webp';
+import supportImg from '@/assets/next_home/description.webp';
+import whyOneImg from '@/assets/next_home/whyus.webp';
+import whyTwoImg from '@/assets/next_home/whyus2.webp';
+import whyThreeImg from '@/assets/next_home/whyus3.webp';
 
 export const NEXT_HOME_CONTENT = {
   hero: {

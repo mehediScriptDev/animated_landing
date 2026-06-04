@@ -1,10 +1,10 @@
 import heroBg from '@/assets/grid_image/refinancing.png';
-import img1 from '@/assets/grid_image/firsthome.png';
-import img2 from '@/assets/grid_image/nexthome.png';
-import supportImg from '@/assets/simplemain.png';
-import whyOneImg from '@/assets/grid_image/firsthome.png';
-import whyTwoImg from '@/assets/grid_image/construction.png';
-import whyThreeImg from '@/assets/grid_image/loans.png';
+import img1 from '@/assets/refinancing/second1.jpg';
+import img2 from '@/assets/refinancing/second2.webp';
+import supportImg from '@/assets/refinancing/description.jpg';
+import whyOneImg from '@/assets/refinancing/whyus.jpg';
+import whyTwoImg from '@/assets/refinancing/whyus2.webp';
+import whyThreeImg from '@/assets/refinancing/whyus3.webp';
 
 export const REFINANCING_CONTENT = {
   hero: {

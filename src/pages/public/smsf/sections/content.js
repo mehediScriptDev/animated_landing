@@ -1,10 +1,10 @@
 import heroBg from '@/assets/grid_image/loans.png';
 import img1 from '@/assets/grid_image/firsthome.png';
-import img2 from '@/assets/grid_image/nexthome.png';
-import supportImg from '@/assets/simplemain.png';
-import whyOneImg from '@/assets/grid_image/firsthome.png';
-import whyTwoImg from '@/assets/grid_image/construction.png';
-import whyThreeImg from '@/assets/grid_image/refinancing.png';
+import img2 from '@/assets/smsf/another.webp';
+import supportImg from '@/assets/smsf/description.webp';
+import whyOneImg from '@/assets/smsf/whyus.webp';
+import whyTwoImg from '@/assets/smsf/whyus2.webp';
+import whyThreeImg from '@/assets/smsf/whyus3.jpg';
 
 export const SMSF_CONTENT = {
   hero: {
