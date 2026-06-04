@@ -280,6 +280,17 @@ export default function ClientsGrid() {
     handleLeave();
   }, [handleLeave]);
 
+  const resetCardSelection = useCallback(() => {
+    if (touchPreviewTimeoutRef.current) {
+      window.clearTimeout(touchPreviewTimeoutRef.current);
+      touchPreviewTimeoutRef.current = null;
+    }
+
+    touchPreviewRef.current = null;
+    setActiveCardId(null);
+    handleLeave();
+  }, [handleLeave]);
+
   useEffect(
     () => () => {
       if (touchPreviewTimeoutRef.current) {
@@ -354,6 +365,7 @@ export default function ClientsGrid() {
             window.scrollTo(0, 0);
             document.documentElement.style.scrollBehavior = '';
           }
+          resetCardSelection();
           navigate(to);
           return;
         }
@@ -367,6 +379,7 @@ export default function ClientsGrid() {
             window.scrollTo(0, 0);
             document.documentElement.style.scrollBehavior = '';
           }
+          resetCardSelection();
           navigate(to);
           return;
         }
@@ -419,6 +432,7 @@ export default function ClientsGrid() {
         } else {
           window.scrollTo(0, 0);
         }
+        resetCardSelection();
         navigate(to);
 
         // Slide old snapshot out to the left, new page in from the right
