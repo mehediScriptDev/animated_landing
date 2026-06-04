@@ -104,7 +104,7 @@ export default function CalculatorContent({ activeTab }) {
       </div>
 
       {/* ── Call To Action Banner Card ── */}
-      <div className="bg-gradient-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 mb-16 shadow-lg">
+      <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 mb-16 shadow-lg">
         <div className="flex-1 text-center md:text-left">
           <h4 className="text-sm font-bold text-white tracking-wider uppercase mb-2">
             Get Personalised Mortgage Advice
@@ -148,7 +148,7 @@ export default function CalculatorContent({ activeTab }) {
                 </button>
                 <div
                   className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                    isOpen ? "max-h-[300px] border-t border-white/10" : "max-h-0"
+                    isOpen ? "max-h-75 border-t border-white/10" : "max-h-0"
                   }`}
                 >
                   <div className="px-6 py-5 text-sm text-neutral-300 leading-relaxed bg-white/5">

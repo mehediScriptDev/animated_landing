@@ -330,7 +330,7 @@ export default function RepaymentCalculator() {
           >
             −
           </button>
-          <div className="text-center min-w-[120px]">
+          <div className="text-center min-w-30">
             <div className="text-xl font-bold text-white">
               {rateOffset >= 0 ? "+" : ""}
               {(rateOffset * 0.25).toFixed(2)}%
@@ -383,7 +383,7 @@ export default function RepaymentCalculator() {
 
         <div
           className={`overflow-hidden transition-all duration-300 ${
-            showInfo ? "max-h-[600px] opacity-100 mt-4" : "max-h-0 opacity-0"
+            showInfo ? "max-h-150 opacity-100 mt-4" : "max-h-0 opacity-0"
           }`}
         >
           <div className="bg-white/10 border border-white/10 rounded-xl p-5 text-xs text-neutral-400 leading-relaxed space-y-2.5">

@@ -113,7 +113,7 @@ export default function Calculators() {
 
           {/* ── Header ── */}
           <div className="animate-fade-up mb-12">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-anton! text-transparent mb-3 tracking-tight bg-clip-text bg-linear-to-r from-white via-neutral-200 to-neutral-400">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-anton! mb-3 tracking-tight">
               {tab.title}
             </h1>
             <p className="text-sm md:text-base text-neutral-400 max-w-2xl leading-relaxed">

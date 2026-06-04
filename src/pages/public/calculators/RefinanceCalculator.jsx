@@ -287,7 +287,7 @@ export default function RefinanceCalculator() {
 
         <div
           className={`overflow-hidden transition-all duration-300 ${
-            showInfo ? "max-h-[600px] opacity-100 mt-4" : "max-h-0 opacity-0"
+            showInfo ? "max-h-150 opacity-100 mt-4" : "max-h-0 opacity-0"
           }`}
         >
           <div className="bg-white/10 border border-white/10 rounded-xl p-5 text-xs text-neutral-400 leading-relaxed space-y-2.5">
