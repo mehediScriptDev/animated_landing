@@ -533,7 +533,7 @@ export function CalculatorBanner() {
             }}
           />
 
-          <div className="relative flex flex-col md:flex-row items-center gap-6 md:gap-10 px-8 md:px-12 py-10 md:py-14">
+          <div className="relative flex flex-col lg:flex-row items-center gap-6 md:gap-10 px-8 md:px-12 py-10 md:py-14">
             {/* Icon */}
             <div
               className="calc-banner-animate shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center"
@@ -563,7 +563,7 @@ export function CalculatorBanner() {
             </div>
 
             {/* Text */}
-            <div className="calc-banner-animate flex-1 text-center md:text-left flex flex-col gap-y-1.5 md:gap-y-2">
+            <div className="calc-banner-animate flex-1 text-center lg:text-left flex flex-col gap-y-1.5 md:gap-y-2">
               <h3
                 className="font-anton! uppercase text-white leading-none tracking-tight"
                 style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)" }}
