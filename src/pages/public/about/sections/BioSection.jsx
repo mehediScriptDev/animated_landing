@@ -49,14 +49,13 @@ export default function BioSection({ isDark }) {
             <p
               className={`bio-animate font-sans text-sm md:text-base leading-[1.85] ${textColor}`}
             >
-              At Traikos Finance, we understand that securing a{" "}
-              <strong className={highlightClass}>MORTGAGE</strong> is one of the
-              most important financial decisions you'll ever make. Whether
-              you're buying your{" "}
-              <strong className={highlightClass}>FIRST HOME</strong>,
-              refinancing, or looking to invest, we're here to simplify the
-              process and provide you with fast, personalised solutions that fit
-              your unique needs.
+              At Traikos Finance, we believe obtaining finance should be
+              straightforward, transparent and tailored to your individual
+              circumstances. Whether you're purchasing your{" "}
+              <strong className={highlightClass}>FIRST HOME</strong>, upgrading
+              to your next property, refinancing an existing loan or building an
+              investment portfolio, we're here to guide you through the process
+              with confidence.
             </p>
           </div>
 
@@ -64,59 +63,55 @@ export default function BioSection({ isDark }) {
             <p
               className={`bio-animate font-sans text-sm md:text-base leading-[1.85] ${textColor}`}
             >
-              Michael Traikos, founder of Traikos Finance, brings nearly{" "}
-              <strong className={highlightClass}>TWO DECADES</strong> of
-              expertise in the real estate industry as both a fully licensed
-              estate agent and an experienced auctioneer. With a deep
-              understanding of the property market, Michael offers more than
-              just mortgage broking - he provides comprehensive guidance,
-              helping you navigate both the finance and property sides of your
-              transaction.
-            </p>
-
-            <p
-              className={`bio-animate font-sans text-sm md:text-base leading-[1.85] ${textColor}`}
-            >
-              At Traikos Finance, we do more than just connect you with the
-              right loan. We guide you through the{" "}
-              <strong className={highlightClass}>ENTIRE PROCESS</strong> - from
-              understanding the property market, negotiating the best rates, to
-              helping you make informed decisions that serve your long-term
-              goals. We provide a comprehensive,{" "}
-              <strong className={highlightClass}>CLIENT-FIRST</strong> approach
-              that's built on trust, transparency, and a deep commitment to your
-              financial wellbeing.
-            </p>
-
-            <p
-              className={`bio-animate font-sans text-sm md:text-base leading-[1.85] ${textColor}`}
-            >
-              Our aim is to take the stress out of mortgages by offering clear,
-              tailored advice every step of the way. Whether you're purchasing
-              your dream home or expanding your investment portfolio, we offer
-              the{" "}
+              Founded by Michael Traikos, Traikos Finance combines{" "}
               <strong className={highlightClass}>
-                KNOWLEDGE, SUPPORT, AND EFFICIENCY
+                NEARLY TWO DECADES OF REAL ESTATE EXPERIENCE
               </strong>{" "}
-              to get you there quickly. With Michael's extensive background in
-              real estate and his focus on fast, effective solutions, we know
-              how to streamline the process and make your mortgage journey
-              smooth.
+              with professional mortgage broking expertise. As a fully licensed
+              estate agent and experienced auctioneer, Michael has spent years
+              helping people buy, sell and invest in property. This unique
+              background provides clients with valuable insight into both the
+              property and finance sides of a transaction.
             </p>
 
             <p
               className={`bio-animate font-sans text-sm md:text-base leading-[1.85] ${textColor}`}
             >
-              We pride ourselves on being more than just a brokerage - we're
-              your partners in property success. Our client relationships are
-              built to last, and we are passionate about providing top-notch
-              service, giving you confidence in every decision you make. When
-              you work with Traikos Finance, you're not just another
-              transaction; you're part of a family that values{" "}
+              Understanding property is about more than securing a loan.
+              It's about knowing how the market works, understanding the buying
+              and selling process, recognising opportunities and making informed
+              financial decisions. By combining real estate knowledge with access
+              to a{" "}
+              <strong className={highlightClass}>BROAD RANGE OF LENDERS</strong>
+              , Traikos Finance helps clients navigate complex situations and
+              identify lending solutions aligned with their goals.
+            </p>
+
+            <p
+              className={`bio-animate font-sans text-sm md:text-base leading-[1.85] ${textColor}`}
+            >
+              Our approach is simple: provide{" "}
+              <strong className={highlightClass}>HONEST ADVICE</strong>,{" "}
               <strong className={highlightClass}>
-                TRUST, INTEGRITY, AND RESULTS
+                CLEAR COMMUNICATION AND ONGOING SUPPORT
               </strong>
-              .
+              . We take the time to understand your objectives, explain your
+              options and help you make informed decisions every step of the way.
+              Whether you're purchasing a family home, building, renovating,
+              refinancing or investing, our focus is on achieving the right
+              outcome for your circumstances.
+            </p>
+
+            <p
+              className={`bio-animate font-sans text-sm md:text-base leading-[1.85] ${textColor}`}
+            >
+              At Traikos Finance, you're never treated as just another
+              application number. We build{" "}
+              <strong className={highlightClass}>LONG-TERM RELATIONSHIPS</strong>{" "}
+              with our clients and remain available long after settlement to
+              provide guidance, reviews and support as your needs evolve. Our
+              commitment is to help you make confident property and finance
+              decisions today, while supporting your goals for the future.
             </p>
           </div>
         </div>

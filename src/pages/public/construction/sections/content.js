@@ -11,7 +11,7 @@ export const CONSTRUCTION_CONTENT = {
     background: heroBg,
     title: 'CONSTRUCTION & RENOVATION LOANS',
     body:
-      "Building your own home offers practical advantages, the most significant being complete creative control, allowing you to tailor the property to suit your exact needs. It's also one of the most cost-efficient ways to create your ideal living space, as finding an existing property that meets all your criteria can often be out of reach in terms of location or budget. Another popular approach is the classic renovation project—from breathing new life into a potential fixer-upper to a relatively low-investment way to make a property your own.",
+      "Building or renovating a home gives you the opportunity to create a space that truly suits your lifestyle, needs and future goals. Whether you're constructing a new home from the ground up, undertaking a major renovation or adding value to an existing property, having the right finance structure in place is essential. At Traikos Finance, we help simplify the process by guiding you through your lending options and supporting you from planning through to completion.",
     cta: 'Request a Call',
   },
   intro: {
@@ -23,25 +23,25 @@ export const CONSTRUCTION_CONTENT = {
     middleImage: img2,
     title: ['LAND AND CONSTRUCTION', 'LOANS IN AUSTRALIA'],
     body:
-      "You can often secure the finest block of land and have a builder construct your home, all through a single loan. At Traikos Finance, we'll help you navigate through options from our extensive network of 90 banks and lenders, ensuring you find the optimal financing solution for your land and construction package.",
+      "Financing a land purchase and construction project is different from a standard home loan. Construction loans are typically funded in stages as your build progresses, requiring careful planning and lender selection. At Traikos Finance, we help you understand the process, compare lending options and secure a loan structure that aligns with your budget, timeline and building plans. From vacant land purchases through to final completion, we're here to guide you every step of the way.",
   },
   secondary: {
     title: 'FINANCING A HOME RENOVATION',
     body:
-      "Looking for a great fixer-upper? We can simplify the process by offering financing options that cover both the property purchase and renovation costs, so you can start your project without delay.\n\nThere are plenty of factors to weigh, such as using your current home's equity or exploring various financing options. Our specialists are here to help you find the ideal approach for your needs.\n\nIf you already own a property, you've got several ways to fund your renovation—whether it's taking out a new loan, tapping into your home's equity, or refinancing your existing mortgage. Our team will guide you to the top option based on your unique situation and project size.",
+      "Whether you're updating a kitchen, extending your home, undertaking a major renovation or transforming a fixer-upper, choosing the right finance strategy can make a significant difference to the success of your project. Depending on your circumstances, you may be able to use existing equity, refinance your current loan or obtain additional funding to cover renovation costs. We take the time to understand your plans and recommend a solution tailored to your budget, timeline and long-term financial goals.",
   },
   support: {
     image: supportImg,
     title: ['TAILORED GUIDANCE', 'FROM CONCEPT TO COMPLETION'],
     body:
-      "At Traikos Finance, individuals and families rely on our building and renovation loan specialists to guide them through every stage of the financing and application process, allowing you to focus on what matters most. From property appraisals and pre-approval documentation to progress payments, we'll support you throughout every stage of your homebuilding or renovation journey, ensuring your project goes become a reality.",
+      "Construction and renovation finance can involve additional documentation, valuations, building contracts and progress payments, making the process more complex than a standard home loan. At Traikos Finance, we help manage these moving parts by working closely with you, your builder and your lender throughout the journey. From pre-approval and finance structuring through to progress payments and final completion, we provide ongoing support to help keep your project moving forward with confidence.",
   },
   whyChoose: {
     title: 'WHY CHOOSE US',
     cards: [
-      { image: whyOneImg, label: 'Trusted guidance from concept to completion.' },
-      { image: whyTwoImg, label: 'Build and save at the same time.' },
-      { image: whyThreeImg, label: 'The ideal loan for your home.' },
+      { image: whyOneImg, label: 'CONSTRUCTION FINANCE MADE SIMPLE' },
+      { image: whyTwoImg, label: 'SOLUTIONS DESIGNED AROUND YOUR BUILD OR RENOVATION GOALS.' },
+      { image: whyThreeImg, label: 'SUPPORT EVERY STEP OF THE WAY' },
     ],
   },
 };

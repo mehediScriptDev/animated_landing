@@ -9,39 +9,39 @@ import whyThreeImg from '@/assets/smsf/whyus3.jpg';
 export const SMSF_CONTENT = {
   hero: {
     background: heroBg,
-    title: 'SMSF LOANS',
+    title: 'SELF-MANAGED SUPER FUND PROPERTY LOANS',
     body:
-      "If you're a member of a self-managed super fund (SMSF) as an individual or corporate trustee, investing in property can be a powerful way to enhance your retirement savings and maximise distributions for members.",
+      "Purchasing property through a Self-Managed Super Fund (SMSF) can be an effective way to build long-term wealth and grow your retirement savings. Whether you're considering your first SMSF property purchase or expanding an existing portfolio, Traikos Finance can help you navigate the lending process and understand the finance options available to your fund.",
     cta: 'Request a Call',
   },
   intro: {
-    titleTop: 'YOUR TRUSTED SMSF PROPERTY',
-    titleBottom: 'LENDER AND BROKER',
+    titleTop: 'GUIDING YOU THROUGH SMSF',
+    titleBottom: 'PROPERTY FINANCE',
   },
   topSection: {
     leftImage: img1,
     middleImage: img2,
     title: ['LET TRAIKOS FINANCE HELP', 'YOU NAVIGATE THE', 'COMPLEXITIES'],
     body:
-      "While SMSF loans are a fantastic way to enhance your fund's returns, they also come with complexities that differ from standard loans, involving several layers of government regulations before you can get approval. There are specific limitations to be aware of, such as typically allowing up to 20% leverage affecting all fund members, and capping interest-only repayments at five years. Moreover, the minimum loan amount usually starts at $100,000, while the maximum permitted leverage is generally restricted to 80%.",
+      "SMSF lending is significantly different from traditional home and investment lending. It involves specialised loan structures, trust arrangements, lender requirements and regulatory considerations that require careful planning. At Traikos Finance, we work alongside your accountant, financial adviser and legal professionals where required to help ensure your finance structure aligns with your broader retirement and investment objectives. Our role is to simplify the lending process and help you understand your available options with confidence.",
   },
   secondary: {
     title: 'NOT ALL LENDERS PROVIDE SMSF MORTGAGE LOANS',
     body:
-      "It's important to note that not all banks and lending institutions are equipped to manage these types of loans, only a limited number do. At Traikos Finance, our specialists maintain strong relationships with a select group of SMSF lenders to maximise your chances of securing approval with optimal rates, fees, and terms. Contact our team today, and let us assist you in growing your super fund.",
+      "SMSF lending is a specialised area of finance and not all lenders offer SMSF loan products. Those that do often have different lending policies, documentation requirements and property criteria. With access to a range of SMSF lenders, Traikos Finance helps identify suitable lending solutions based on your fund structure, borrowing requirements and long-term objectives, helping streamline what can otherwise be a complex process.",
   },
   support: {
     image: supportImg,
     title: ['TAILORED SMSF', 'LOAN SOLUTIONS'],
     body:
-      "The constantly shifting landscape of investment property finance can be a challenge to manage. At Traikos Finance, we have the knowledge and expertise to manage and solve the complex issues that can arise when structuring SMSF loans. With our vast experience, we know the complexity of structures in these circumstances, helping you understand how changes impact your situation. Over the years, we have assisted numerous property investors in achieving their SMSF financial goals and finding competitive loans for their investment properties.",
+      "Every SMSF is different, which is why a tailored lending strategy is essential. We take the time to understand your fund structure, investment goals and financial position before recommending a lending solution. Whether you're purchasing residential or commercial property through your SMSF, refinancing an existing SMSF loan or exploring opportunities to grow your portfolio, we provide guidance and support throughout the process to help you make informed decisions.",
   },
   whyChoose: {
     title: 'WHY CHOOSE US',
     cards: [
-      { image: whyOneImg, label: 'With your investment property, peace of mind is insured.' },
-      { image: whyTwoImg, label: 'Straightforward lending guidance. We drive your investment goals forward.' },
-      { image: whyThreeImg, label: 'Special support for investment property loans.' },
+      { image: whyOneImg, label: 'CLEAR GUIDANCE THROUGH A COMPLEX LENDING PROCESS.' },
+      { image: whyTwoImg, label: 'HELPING YOU EXPLORE SUITABLE LENDING OPTIONS.' },
+      { image: whyThreeImg, label: 'SOLUTIONS ALIGNED WITH YOUR FUND\'S OBJECTIVES.' },
     ],
   },
 };
