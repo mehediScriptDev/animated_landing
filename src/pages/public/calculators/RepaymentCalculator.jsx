@@ -155,7 +155,7 @@ export default function RepaymentCalculator() {
               type="text"
               inputMode="decimal"
               className="w-full pl-4 pr-10 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
-              placeholder="6.49"
+              placeholder=""
               value={interestRate}
               onChange={handleRate}
             />

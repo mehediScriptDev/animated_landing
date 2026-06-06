@@ -90,6 +90,14 @@ export default function CalculatorContent({ activeTab }) {
 
   return (
     <div className="mt-16 border-t border-white/10 pt-16 animate-fade-up">
+      {/* ── Disclaimer ── */}
+      <div className="mb-16 pb-16 border-b border-white/10 flex justify-center">
+        <p className="text-xs text-neutral-400 leading-relaxed text-center max-w-2xl italic">
+          The results provided by this calculator are estimates only and do not constitute financial advice.
+          Actual repayments may vary depending on lender policies, fees, loan features and individual circumstances.
+        </p>
+      </div>
+
       {/* ── Educational Text Section ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
         <div>

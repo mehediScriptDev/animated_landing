@@ -41,7 +41,7 @@ export const NEXT_HOME_CONTENT = {
     cards: [
       { image: whyOneImg, label: 'Moving doesn\'t have to be a hassle.' },
       { image: whyTwoImg, label: 'Make the most of your equity.' },
-      { image: whyThreeImg, label: 'We have the ability to help you stay for sooner.' },
+      { image: whyThreeImg, label: 'We can help you achieve your goals sooner.' },
     ],
   },
 };

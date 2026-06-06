@@ -1,4 +1,6 @@
-import aboutImg from '@/assets/simplemain.png';
+import aboutImg from '@/assets/simplemain.png'; // TODO: Replace with new image when client provides it
+
+const highlightClass = 'font-sequel font-black italic text-white';
 
 export default function AboutSection() {
   return (
@@ -9,10 +11,11 @@ export default function AboutSection() {
       <div className="w-[90%] md:w-[75%] mx-auto flex flex-col lg:flex-row lg:items-stretch gap-10 ">
 
         {/* Left — image with top-right rounded corner */}
+        {/* TODO: Replace aboutImg with the new image once client provides it */}
         <div className="w-full lg:w-1/2 shrink-0 flex">
           <img
             src={aboutImg}
-            alt="Modern apartment building"
+            alt="Traikos Finance — solutions-driven finance brokerage"
             className="w-full h-80 sm:h-112.5 lg:h-full object-cover"
             style={{ borderRadius: '0 80px 0 0' }}
           />
@@ -21,24 +24,26 @@ export default function AboutSection() {
         {/* Right — text content */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center gap-6 text-white/85 text-sm lg:text-[0.95rem] leading-relaxed">
           <p>
-            We are Traikos Finance. A solutions-driven mortgage brokerage with access to
-            over 30 lenders, offering tailored financial services across various markets and
-            cultures. Our mission is to understand your unique journey and provide the
-            guidance needed to bring your property goals to life.
+            We are Traikos Finance, a solutions-driven finance brokerage with access to over 30 lenders,
+            providing tailored lending solutions to clients from all walks of life. Our mission is simple: to
+            understand your unique circumstances, provide clear advice, and help you achieve your property
+            and financial goals with confidence.
           </p>
           <p>
-            Drawing on nearly two decades of real estate experience, Traikos Finance offers
-            a wealth of knowledge in the property market. We specialise in navigating the
-            complexities of buying, selling, and investing, delivering tailored mortgage
-            solutions that align with your unique goals. Whether you&apos;re securing your first
-            home or expanding your property portfolio, we provide expert guidance every
-            step of the way.
+            Drawing on{' '}
+            <strong className={highlightClass}>NEARLY TWO DECADES OF REAL ESTATE EXPERIENCE</strong>
+            , Traikos Finance offers a unique perspective that extends beyond finance alone. Founded by Michael Traikos,
+            a fully licensed estate agent and experienced auctioneer, we understand both the property and finance sides of
+            a transaction. Whether you&apos;re purchasing your first home, upgrading, refinancing, investing, or building,
+            we provide practical guidance and tailored lending solutions every step of the way.
           </p>
           <p>
-            Curiosity, strategy, and discipline drive our approach at Traikos Finance, enabling
-            us to develop tailored financial solutions that combine optimal functionality with a
-            seamless client experience. Our goal is to build a financial foundation that
-            supports your long-term property and investment aspirations.
+            At Traikos Finance, we believe successful outcomes are built on honest advice, clear communication
+            and ongoing support. We take the time to understand your goals, explain your options and structure
+            finance solutions aligned with your long-term objectives. Our focus is not just on securing a loan
+            today, but on building{' '}
+            <strong className={highlightClass}>LONG-TERM RELATIONSHIPS</strong>
+            {' '}that support your property journey for years to come.
           </p>
         </div>
 
