@@ -15,33 +15,33 @@ export const NEXT_HOME_CONTENT = {
     cta: 'Request a call',
   },
   intro: {
-    titleTop: 'MAKE YOUR NEXT MOVE',
-    titleBottom: 'YOUR SMART MOVE.',
+    titleTop: 'MAKE YOUR NEXT',
+    titleBottom: 'MOVE WITH CONFIDENCE',
   },
   topSection: {
     leftImage: img1,
     middleImage: img2,
     title: ['SECURE A BETTER HOME', 'LOAN FOR YOUR NEXT', 'PURCHASE.'],
     body:
-      "This should be one of the most thrilling periods of your life, and the team at Traikos Finance is dedicated to streamlining the financing process, eliminating any complications and frustrations. Whether you're looking to design and build your own home, purchase off the plan, or move into an existing property, we've got all your financing needs taken care of.",
+      "Moving to your next home often involves more than simply applying for a new loan. Whether you're upsizing, downsizing, relocating or purchasing your forever home, it's important to have a finance strategy that aligns with your goals. At Traikos Finance, we help you understand your borrowing capacity, assess your available equity and structure your finance correctly so you can make your next move with confidence. From pre-approval through to settlement, we're with you every step of the way. ",
   },
   secondary: {
     title: "CONCERNED ABOUT NOT HAVING ENOUGH DEPOSIT FOR YOUR NEXT PURCHASE?",
     body:
-      "If you don't have an extra 20% available for a deposit but have substantial equity in your home, we can use that equity to ensure you have the necessary funds ready for auction day. During your first consultation, we'll outline the financial requirements for accessing your equity, enabling you to bid confidently and secure your next home.",
+      "One of the biggest concerns for next home buyers is accessing enough funds for a deposit before their current property is sold. The good news is that you may not need cash sitting in the bank. If you've built equity in your existing home, we may be able to use that equity towards the deposit and purchasing costs of your next property. During your initial consultation, we'll assess your position and explain the available options, helping you understand exactly how much you can borrow and whether you're in a position to buy before you sell",
   },
   support: {
     image: supportImg,
     title: ['FINANCING YOUR', 'HOME RELOCATION'],
     body:
-      'Buying your next home involves navigating a myriad of complexities. Beyond the mortgage, you encounter various fees, rates, terms, and conditions, not to mention stamp duty and other legal costs throughout the process. Our knowledgeable team is dedicated to securing the most favourable rates on these expenses and ensuring you access all available discounts and concessions, making your relocation as seamless and advantageous as possible.',
+      'Purchasing your next home often involves balancing the sale of your current property with the purchase of your new one, while managing finance approvals, timing considerations and moving costs. Our team will help you understand your borrowing options, available equity and loan structures, ensuring your finance is set up correctly from the outset. With clear guidance and personalised support throughout the process, we help make your transition into your next home as smooth and stress-free as possible. ',
   },
   whyChoose: {
     title: 'WHY CHOOSE US',
     cards: [
       { image: whyOneImg, label: 'Moving doesn\'t have to be a hassle.' },
       { image: whyTwoImg, label: 'Make the most of your equity.' },
-      { image: whyThreeImg, label: 'We can help you achieve your goals sooner.' },
+      { image: whyThreeImg, label: 'BUY BEFORE YOU SELL WITH CONFIDENCE' },
     ],
   },
 };
