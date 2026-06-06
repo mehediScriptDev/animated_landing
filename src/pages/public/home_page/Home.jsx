@@ -21,8 +21,8 @@ export default function Home() {
       <main id="main-content" tabIndex={-1} className="flex-1">
         <HeroBanner isDark={isDark} />
         <ClientsGrid />
-        <LendersCarousel />
         <AboutSection />
+        <LendersCarousel />
         <ReviewsSection />
         <CtaSection/>
       </main>
