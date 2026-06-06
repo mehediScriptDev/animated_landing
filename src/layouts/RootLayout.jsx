@@ -7,6 +7,7 @@ import PageWipeOverlay, {
   lenisRef,
 } from "../components/PageWipeOverlay";
 import { useScrolled } from "../hooks/useScrolled";
+import { FloatingButtons } from "../pages/public/shared/LoanPageSections";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -129,6 +130,8 @@ export default function RootLayout() {
         <Outlet />
         <Footer scrolled={scrolled} />
       </div>
+      {/* Global floating buttons — visible on all pages after scrolling */}
+      <FloatingButtons />
     </>
   );
 }
