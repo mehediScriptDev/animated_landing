@@ -10,9 +10,9 @@ export default function AboutSection() {
     >
       <div className="w-[90%] md:w-[75%] mx-auto flex flex-col lg:flex-row lg:items-stretch gap-10 ">
 
-        {/* Left — image with top-right rounded corner */}
+        {/* Left — image with top-right rounded corner (shown second on mobile, first on lg) */}
         {/* TODO: Replace aboutImg with the new image once client provides it */}
-        <div className="w-full lg:w-1/2 shrink-0 flex">
+        <div className="w-full lg:w-1/2 shrink-0 flex order-2 lg:order-1">
           <img
             src={aboutImg}
             alt="Traikos Finance — solutions-driven finance brokerage"
@@ -21,8 +21,8 @@ export default function AboutSection() {
           />
         </div>
 
-        {/* Right — text content */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center gap-6 text-white/85 text-sm lg:text-[0.95rem] leading-relaxed">
+        {/* Right — text content (shown first on mobile, second on lg) */}
+        <div className="w-full lg:w-1/2 flex flex-col justify-center gap-6 text-white/85 text-sm lg:text-[0.95rem] leading-relaxed order-1 lg:order-2">
           <p>
             We are Traikos Finance, a solutions-driven finance brokerage with access to over 30 lenders,
             providing tailored lending solutions to clients from all walks of life. Our mission is simple: to
