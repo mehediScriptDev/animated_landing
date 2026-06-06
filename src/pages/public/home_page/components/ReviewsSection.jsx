@@ -1,5 +1,4 @@
-import { useRef, useState, useCallback } from "react";
-import logoImg from "@/assets/logo_dark_1.png";
+import { useRef, useState, useCallback, useEffect } from "react";
 
 // ─── Hardcoded Google reviews ────────────────────────────────────────────────
 // To add/update reviews: copy the text from your Google Business Profile page.
@@ -13,9 +12,11 @@ const REVIEWS = [
   {
     id: 0,
     name: "P Yaz",
-    ago: "3 months ago",
+    ago: "2 months ago",
     color: "#e05a2b",
-    text: "Michael has been great to deal with during refinancing my home loan. He has been informative and helped find the best option for my loan…",
+    avatar:
+      "https://lh3.googleusercontent.com/a/ACg8ocI3fdFtMcZ757r-UxqfhO87Ba8B3tBqbkFZj1hKD1CWBrez3A=w36-h36-p-rp-mo-br100",
+    text: "Michael has been great to deal with during refinancing my home loan. He has been informative and helped find the best option for my loan since my bank refused to help me. I really appreciated him touching base everyday to give me updates and answer any questions I may had. Many thanks Michael!",
   },
   {
     id: 1,
@@ -23,36 +24,80 @@ const REVIEWS = [
     ago: "4 months ago",
     color: "#5b9e6e",
     avatar:
-      "https://ui-avatars.com/api/?name=Annmarie+Pendleton&background=5b9e6e&color=fff&size=40",
-    text: "Michael was recommended by my Estate Agent. He was brilliant from the start helping me understand the processes in Australia, which are…",
+      "https://lh3.googleusercontent.com/a-/ALV-UjXvuVMaJPc12MjTcfRyR_elleAn5mI3Ra0heVESEKCPm2t4Xs4=w36-h36-p-rp-mo-br100",
+    text: "Michael was recommended by my Estate Agent. He was brilliant from the start helping me understand the processes in Australia, which are very different from the UK. Michael made the process super simple and quick. Micheal with his background ...",
   },
   {
     id: 2,
     name: "Anthony Pittas",
     ago: "5 months ago",
     color: "#2e7d9e",
-    text: "Michael really knows his stuff! He was so quick, and he actually got me a better deal than another broker I was talking to. He was…",
+    avatar:
+      "https://lh3.googleusercontent.com/a/ACg8ocJ_qSyU3I2VaYxyNiQIKlbR1tiQuZgc7X1OoOxn5D_tFLAnHw=w36-h36-p-rp-mo-br100",
+    text: "Michael really knows his stuff! He was so quick, and he actually got me a better deal than another broker I was talking to. He was responsive, and really understood my needs. I would recommend Michael to anyone.",
   },
   {
     id: 3,
-    name: "Ben Bartram",
-    ago: "5 months ago",
+    name: "Danny Iglesias",
+    ago: "6 months ago",
     color: "#7b5ea7",
-    text: "Absolute legend super helpful and super efficient! Highly recommend",
+    avatar:
+      "https://lh3.googleusercontent.com/a/ACg8ocL0lqw0ErbXMygNOl9h_IZN9eYUQARZs_41KwWGojCu5cGLaCQ=w36-h36-p-rp-mo-br100",
+    text: "5/5 stars! Michael is a GAME CHANGER! His unparalleled expertise, unwavering dedication, and unrelenting passion for delivering exceptional results are truly inspiring. He transformed my mortgage experience from stressful to ...",
   },
   {
     id: 4,
-    name: "Sarah Mitchell",
-    ago: "6 months ago",
+    name: "Jane Johnston",
+    ago: "5 months ago",
     color: "#c0392b",
-    text: "Fantastic service from start to finish. Michael made the whole process seamless and stress-free. Would highly recommend to anyone…",
+    avatar:
+      "https://lh3.googleusercontent.com/a/ACg8ocLPzJUpTr5_or1SE7AoEksvcA3gHbOoGJqTOo7fQRBC1T17aMY=w36-h36-p-rp-mo-ba2-br100",
+    text: "Thanks Michael. Taikos finance were extremely professional and came to the rescue when due to pressure, timing and doc requirements, financing this new mortgage seemed impossible. Very grateful for all the hard work and effort to make this happen. We are loving our new abode. Thanks to Traikos finance.",
   },
   {
     id: 5,
-    name: "James Nguyen",
-    ago: "7 months ago",
+    name: "Amir Foroodi",
+    ago: "11 months ago",
     color: "#1a6e3c",
-    text: "Very professional and knowledgeable. Michael guided us through every step of securing our first home loan. Couldn't be happier…",
+    avatar:
+      "https://lh3.googleusercontent.com/a/ACg8ocI0sjdnc84DHC5b9h5_xiJ2hdMk9BBhG5cBkseDzC1qWSaxJg=w36-h36-p-rp-mo-ba2-br100",
+    text: "I had a fantastic experience working with Michael. He was incredibly patient and worked closely with me every step of the way. Michael demonstrated great transparency in providing options to refinance my current loan and even helped secure ...",
+  },
+  {
+    id: 6,
+    name: "Eloise",
+    ago: "a year ago",
+    color: "#36659a",
+    avatar:
+      "https://lh3.googleusercontent.com/a/ACg8ocLhYctxzL8Qr4enhYKa61modYk0Q4CWnlm5TiiHc1E0zclxNQ=w36-h36-p-rp-mo-br100",
+    text: "Michael was amazing through the whole refinancing process. He was constantly in communication with us, patient with all our questions and made sure we understood every detail. I would recommend to anyone, especially first time byers who are afraid of asking questions, and want a friendly and approachable broker.",
+  },
+  {
+    id: 7,
+    name: "Hilz K",
+    ago: "9 months ago",
+    color: "#7b5e3f",
+    avatar:
+      "https://lh3.googleusercontent.com/a/ACg8ocJwBuvnf76UloPNhwTn_yZ7V_zX7hIVgvv3imRFer2Y8-6FlQ=w36-h36-p-rp-mo-br100",
+    text: "We engaged micheal to finish off getting our loan after my old broker stuffed everything up. This was a hard one to cross the line as the house we wanted was unlivible and ...",
+  },
+  {
+    id: 8,
+    name: "Ting-Yen Chou",
+    ago: "10 months ago",
+    color: "#9a6d2f",
+    avatar:
+      "https://lh3.googleusercontent.com/a/ACg8ocIJRaEjRO15s8gMzNdN9vlbhDDVDq6gf_D_rOoah8SYeY_1uw=w36-h36-p-rp-mo-br100",
+    text: "I would like to express my sincere gratitude to Michael for his assistance in securing a loan that is well-suited to my financial needs. Throughout the entire process, he demonstrated professionalism, expertise, and a genuine commitment to ...",
+  },
+  {
+    id: 9,
+    name: "Dalbir Singh Bijral",
+    ago: "a year ago",
+    color: "#435b7d",
+    avatar:
+      "https://lh3.googleusercontent.com/a/ACg8ocKJX5tpg1Qgbh0JdqIH8yOxUs_PPTzGj1Pe1Krss6KYSxW2Hg=w36-h36-p-rp-mo-br100",
+    text: "I had the pleasure of working with Michael for my recent home purchase, and I couldn't be more pleased with the experience! From the very first meeting, Michael was professional, knowledgeable, and genuinely interested in helping me find ...",
   },
 ];
 
@@ -100,9 +145,23 @@ function Stars() {
   );
 }
 
-function ReviewCard({ review }) {
-  const [expanded, setExpanded] = useState(false);
+function getReviewPreview(text, maxChars = 145) {
+  const normalized = text.trim().replace(/\s+/g, " ");
+  if (normalized.length <= maxChars) {
+    return { preview: normalized, isTruncated: false };
+  }
+
+  const trimmed = normalized.slice(0, maxChars);
+  const lastSpace = trimmed.lastIndexOf(" ");
+  const cutoff = lastSpace > maxChars - 30 ? lastSpace : maxChars;
+  const preview = trimmed.slice(0, cutoff).replace(/[.\s…]+$/, "");
+
+  return { preview: `${preview}...`, isTruncated: true };
+}
+
+function ReviewCard({ review, onReadMore }) {
   const initial = review.name.charAt(0).toUpperCase();
+  const { preview, isTruncated } = getReviewPreview(review.text);
 
   return (
     <div
@@ -156,17 +215,17 @@ function ReviewCard({ review }) {
 
       {/* Review text */}
       <p className="text-white/70 text-xs leading-relaxed flex-1 mb-3">
-        {expanded ? review.text.replace("…", "") : review.text}
+        {preview}
       </p>
 
       {/* Read more / Google quote */}
       <div className="flex items-end justify-between">
-        {review.text.includes("…") && (
+        {isTruncated && (
           <button
-            onClick={() => setExpanded(!expanded)}
+            onClick={() => onReadMore(review)}
             className="text-white/40 text-[0.65rem] hover:text-white/70 transition-colors"
           >
-            {expanded ? "Show less" : "Read more"}
+            Read more
           </button>
         )}
         <span
@@ -181,9 +240,9 @@ function ReviewCard({ review }) {
 }
 
 // ─── Desktop-only scrollable card ───────────────────────────────────────────
-function DesktopReviewCard({ review }) {
-  const [expanded, setExpanded] = useState(false);
+function DesktopReviewCard({ review, onReadMore }) {
   const initial = review.name.charAt(0).toUpperCase();
+  const { preview, isTruncated } = getReviewPreview(review.text);
 
   return (
     <div
@@ -217,12 +276,12 @@ function DesktopReviewCard({ review }) {
         </svg>
       </div>
       <p className="text-white/70 text-xs leading-relaxed flex-1 mb-3">
-        {expanded ? review.text.replace("…", "") : review.text}
+        {preview}
       </p>
       <div className="flex items-end justify-between">
-        {review.text.includes("…") && (
-          <button onClick={() => setExpanded(!expanded)} className="text-white/40 text-[0.65rem] hover:text-white/70 transition-colors">
-            {expanded ? "Show less" : "Read more"}
+        {isTruncated && (
+          <button onClick={() => onReadMore(review)} className="text-white/40 text-[0.65rem] hover:text-white/70 transition-colors">
+            Read more
           </button>
         )}
         <span className="text-[#c9a84c] text-2xl leading-none ml-auto" aria-hidden="true">"</span>
@@ -231,46 +290,82 @@ function DesktopReviewCard({ review }) {
   );
 }
 
+function ReviewModal({ review, onClose }) {
+  if (!review) return null;
+
+  return (
+    <div className="fixed inset-0 z-200 flex items-center justify-center p-4">
+      <button
+        aria-label="Close full review"
+        className="absolute inset-0 bg-black/75"
+        onClick={onClose}
+      />
+
+      <div className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-[#c9a84c55] bg-[#151515] p-6 md:p-8">
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute right-4 top-4 h-8 w-8 rounded-full border border-white/25 text-white/80 hover:text-white hover:border-white/50 transition-colors"
+        >
+          ×
+        </button>
+
+        <div className="mb-4">
+          <p className="text-white text-lg font-semibold leading-tight">{review.name}</p>
+          <p className="text-white/40 text-xs mt-1">{review.ago}</p>
+        </div>
+
+        <div className="mb-4">
+          <Stars />
+        </div>
+
+        <p className="text-white/80 text-sm leading-7 whitespace-pre-line">
+          {review.text}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function ReviewsSection() {
   const [mobileIdx, setMobileIdx] = useState(0);
+  const [activeReview, setActiveReview] = useState(null);
   const trackRef = useRef(null);
   const total = REVIEWS.length;
+
+  useEffect(() => {
+    if (!activeReview) return;
+
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = prevBodyOverflow;
+      document.documentElement.style.overflow = prevHtmlOverflow;
+    };
+  }, [activeReview]);
 
   const scrollDesktop = useCallback((dir) => {
     if (!trackRef.current) return;
     trackRef.current.scrollBy({ left: dir * 276, behavior: "smooth" });
   }, []);
 
-  const Branding = (
-    <div className="shrink-0 flex flex-col items-start gap-4 md:w-48">
-      <div className="bg-white rounded-xl p-3 w-14 h-14 flex items-center justify-center">
-        <img src={logoImg} alt="Traikos Finance" className="w-full h-full object-contain" />
-      </div>
-      <div>
-        <p className="text-white font-semibold text-sm">Traikos Finance</p>
-        <Stars />
-        <p className="text-white/50 text-xs mt-1">18 Google reviews</p>
-      </div>
-      <a
-        href={GOOGLE_REVIEW_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-white text-xs font-medium border border-white/30 rounded-full px-4 py-2 hover:bg-white hover:text-black transition-colors duration-200"
-      >
-        Write a review
-      </a>
-    </div>
-  );
+  
 
   return (
-    <section aria-label="Google reviews" className="bg-black py-16 px-6 md:px-12">
+    <section aria-label="Google reviews" className="bg-black py-16 px-4">
+        <ReviewModal review={activeReview} onClose={() => setActiveReview(null)} />
+
       {/* ── Mobile layout ── */}
+
       <div className="flex flex-col gap-8 md:hidden">
-        {Branding}
 
         {/* Single card + arrows */}
         <div className="relative">
-          <ReviewCard review={REVIEWS[mobileIdx]} />
+          <ReviewCard review={REVIEWS[mobileIdx]} onReadMore={setActiveReview} />
           {/* Prev */}
           <button
             onClick={() => setMobileIdx((i) => Math.max(0, i - 1))}
@@ -305,9 +400,7 @@ export default function ReviewsSection() {
       </div>
 
       {/* ── Desktop layout ── */}
-      <div className="hidden md:flex w-[75%] mx-auto flex-row gap-12 items-start">
-        {Branding}
-
+      <div className="hidden md:flex w-[75%] mx-auto items-start">
         <div className="relative flex-1 min-w-0">
           {/* Prev */}
           <button
@@ -325,7 +418,7 @@ export default function ReviewsSection() {
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {REVIEWS.map((review) => (
-              <DesktopReviewCard key={review.id} review={review} />
+              <DesktopReviewCard key={review.id} review={review} onReadMore={setActiveReview} />
             ))}
           </div>
 

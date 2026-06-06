@@ -1,10 +1,23 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGsapFadeIn } from '../../../../hooks/useGsapFadeIn';
 
-export default function HeroBanner() {
+export default function HeroBanner({ isDark = false }) {
   const textRef = useGsapFadeIn({ duration: 1 });
   const lineRef = useRef(null);
+  const [strokeWidth, setStrokeWidth] = useState(
+    () => (typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches ? 3 : 1)
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const updateStroke = (event) => setStrokeWidth(event.matches ? 3 : 1);
+
+    setStrokeWidth(mediaQuery.matches ? 3 : 1);
+    mediaQuery.addEventListener('change', updateStroke);
+
+    return () => mediaQuery.removeEventListener('change', updateStroke);
+  }, []);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -23,18 +36,28 @@ export default function HeroBanner() {
     return () => ctx.revert();
   }, []);
 
+  const useDarkThemeForHeading = isDark;
+
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative z-10 w-full h-[95vh] flex flex-col justify-center pl-8 md:pl-10 lg:pl-24 xl:pl-24 2xl:pl-48 pr-6"
+      className="relative z-10 w-full h-[95vh] flex flex-col justify-center"
     >
       <h1
         id="hero-heading"
         ref={textRef}
-        className="hero-text uppercase transition-colors duration-200 max-w-6xl"
+        className="-mt-3 uppercase transition-colors tracking-widest sm:tracking-normal duration-200 w-[90%] md:w-[75%] mx-auto font-anton! lg:text-[90px]! xl:text-[100px]!"
+        style={{
+          fontWeight: 900,
+          fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)',
+          lineHeight: 1,
+          letterSpacing: '0.00em',
+          color: useDarkThemeForHeading ? '#fff' : '#000',
+          WebkitTextStroke: `${strokeWidth}px ${useDarkThemeForHeading ? '#fff' : '#000'}`,
+        }}
       >
-        Making Cents Real Estate and Sense of Your<br />
-        Finance.
+        MAKING CENTS OF REAL ESTATE
+AND SENSE OF YOUR FINANCE.
       </h1>
 
       {/* Animated vertical scroll indicator */}
