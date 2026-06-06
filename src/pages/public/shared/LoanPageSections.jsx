@@ -7,6 +7,7 @@
  * Each component accepts a `content` prop instead of reading from a fixed import.
  */
 import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TransitionLink from "../../../components/TransitionLink";
@@ -608,73 +609,131 @@ export function CalculatorBanner() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   FloatingCalculatorButton
-   Small fixed pill button at bottom-right that appears after
-   scrolling. Links to /calculators.
+   FloatingCalculatorButton  (kept for backward-compat, renders nothing)
+   The global FloatingButtons in RootLayout replaces this.
 ───────────────────────────────────────────────────────────── */
 export function FloatingCalculatorButton() {
+  return null;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FloatingButtons
+   Two stacked fixed pill buttons at bottom-right.
+   Primary: "LETS TALK" → /contact
+   Secondary: "CALCULATOR" → /calculators
+   Appears after scrolling 400 px.
+───────────────────────────────────────────────────────────── */
+export function FloatingButtons() {
   const [visible, setVisible] = useState(false);
+  const { pathname } = useLocation();
+  const isContact = pathname === "/contact";
 
   useEffect(() => {
-    const onScroll = () => {
-      setVisible(window.scrollY > 400);
-    };
-
+    const onScroll = () => setVisible(window.scrollY > 400);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const wrapStyle = {
+    position: "fixed",
+    bottom: 28,
+    right: 28,
+    zIndex: 90,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    gap: 10,
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(24px)",
+    transition: "opacity 0.4s ease, transform 0.4s ease",
+    pointerEvents: visible ? "auto" : "none",
+  };
+
+  const baseBtn = {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    padding: "12px 22px",
+    borderRadius: 50,
+    fontSize: "0.68rem",
+    fontWeight: 700,
+    letterSpacing: "0.13em",
+    textTransform: "uppercase",
+    textDecoration: "none",
+    backdropFilter: "blur(14px)",
+    WebkitBackdropFilter: "blur(14px)",
+    boxShadow: "0 8px 28px rgba(0,0,0,0.35)",
+    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+    cursor: "pointer",
+  };
+
+  const primaryBtn = {
+    ...baseBtn,
+    background: "#ffffff",
+    color: "#000000",
+    border: "1px solid rgba(255,255,255,0.6)",
+  };
+
+  const secondaryBtn = {
+    ...baseBtn,
+    background: "rgba(10,10,10,0.88)",
+    color: "#ffffff",
+    border: "1px solid rgba(201,168,76,0.28)",
+  };
+
   return (
-    <TransitionLink
-      to="/calculators"
-      aria-label="Open calculators"
-      className="no-underline"
-      style={{
-        position: "fixed",
-        bottom: 28,
-        right: 28,
-        zIndex: 90,
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "12px 20px",
-        background: "rgba(10, 10, 10, 0.92)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        border: "1px solid rgba(201, 168, 76, 0.25)",
-        borderRadius: 50,
-        color: "#ffffff",
-        fontSize: "0.7rem",
-        fontWeight: 700,
-        letterSpacing: "0.12em",
-        textTransform: "uppercase",
-        textDecoration: "none",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(20px)",
-        transition: "opacity 0.4s ease, transform 0.4s ease",
-        pointerEvents: visible ? "auto" : "none",
-      }}
-    >
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+    <div style={wrapStyle}>
+      {/* Primary — LETS TALK (hidden on contact page) */}
+      {!isContact && (
+        <TransitionLink
+          to="/contact"
+          aria-label="Contact us"
+          className="no-underline"
+          style={primaryBtn}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-2px)";
+            e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.25)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,0.35)";
+          }}
+        >
+          {/* Chat bubble icon */}
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          Let&apos;s Talk
+        </TransitionLink>
+      )}
+
+      {/* Secondary — CALCULATOR */}
+      <TransitionLink
+        to="/calculators"
+        aria-label="Open calculators"
+        className="no-underline"
+        style={secondaryBtn}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.5)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,0.35)";
+        }}
       >
-        <rect x="4" y="2" width="16" height="20" rx="2" />
-        <line x1="8" y1="6" x2="16" y2="6" />
-        <line x1="8" y1="10" x2="10" y2="10" />
-        <line x1="14" y1="10" x2="16" y2="10" />
-        <line x1="8" y1="14" x2="10" y2="14" />
-        <line x1="14" y1="14" x2="16" y2="14" />
-        <line x1="8" y1="18" x2="16" y2="18" />
-      </svg>
-      Calculator
-    </TransitionLink>
+        {/* Calculator icon */}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <line x1="8" y1="6" x2="16" y2="6" />
+          <line x1="8" y1="10" x2="10" y2="10" />
+          <line x1="14" y1="10" x2="16" y2="10" />
+          <line x1="8" y1="14" x2="10" y2="14" />
+          <line x1="14" y1="14" x2="16" y2="14" />
+          <line x1="8" y1="18" x2="16" y2="18" />
+        </svg>
+        Calculator
+      </TransitionLink>
+    </div>
   );
 }
