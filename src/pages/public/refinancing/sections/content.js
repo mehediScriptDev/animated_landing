@@ -9,32 +9,34 @@ import whyThreeImg from '@/assets/refinancing/whyus3.webp';
 export const REFINANCING_CONTENT = {
   hero: {
     background: heroBg,
-    title: 'REFINANCING HOME LOANS AND MORTGAGES',
+    title: 'HOME LOAN REFINANCING',
     body:
-      "Are you concerned that you might be overpaying on your home loan or uncertain if your current rate is still competitive? Refinancing your mortgage to secure a better rate with more flexible terms in annual interest and reduces your monthly repayments. Plus, you might even be eligible for a cashback from your new lender. At Traikos Finance, we're committed to finding customised options that suit your needs and managing all the details to ensure a seamless experience.",
+      "Are you paying more than you need to on your current home loan? With lenders regularly changing rates, policies and cashback offers, many borrowers find their loan is no longer as competitive as it once was. Refinancing may help you reduce your repayments, access equity, consolidate debt or secure features better suited to your needs. At Traikos Finance, we compare a wide range of lenders and manage the process from start to finish, making refinancing simple and stress-free.",
     cta: 'Request a Call',
   },
   intro: {
-    titleTop: 'SECURE A BETTER RATE BY',
-    titleBottom: 'REFINANCING TODAY',
+    titleTop: 'IS YOUR HOME LOAN STILL ',
+    
+
+    titleBottom: 'COMPETITIVE?',
   },
   topSection: {
     leftImage: img1,
     middleImage: img2,
     title: ['DISCOVER YOUR', 'POTENTIAL SAVINGS'],
     body:
-      "Many lenders and brokers often make exclusive offers to attract customers. At Traikos Finance, we prioritise building genuine, long-term relationships over one-time transactions. We work together to seamlessly identify the most competitive rates based on your best interests and provide you with a comprehensive breakdown of costs and possible savings.",
+      "Refinancing isn't just about chasing a lower interest rate. Depending on your circumstances, it may provide an opportunity to reduce repayments, access equity for future plans, consolidate debts or secure loan features better suited to your goals. We take the time to review your current position, compare available options and provide a clear breakdown of the costs, benefits and potential savings before you make a decision.",
   },
   secondary: {
     title: "REFINANCE WITH CONFIDENCE. WE'LL GUIDE YOU THROUGH THE PROCESS WITHOUT THE CONFUSION.",
     body:
-      "Since every situation of refinancing at Traikos Finance is unique, it can be challenging to know where to begin. Before we dive into our lender panel's offerings, we'll discuss your current circumstances, review some tailored options based on your input, and then arrange a comprehensive client valuation if necessary. Following that, we usually reach out to your current lenders, allowing them a chance to keep your business by providing a better interest rate before we submit refinancing. Ultimately, refinancing should only be considered if it's something that genuinely benefits you. We're open.",
+      "Every borrower has different financial goals, which is why there is no one-size-fits-all refinancing solution. Before recommending any lender, we take the time to understand your current loan, financial position and future plans. We then compare suitable lending options and, where appropriate, may negotiate with your existing lender to see if a better outcome can be achieved without the need to refinance. If refinancing is likely to provide a genuine benefit, we'll guide you through the process from application through to settlement, ensuring you understand your options every step of the way.",
   },
   support: {
     image: supportImg,
     title: ['ONGOING SUPPORT TO', 'HELP YOU PAY OFF YOUR LOAN'],
     body:
-      "Once your refinance is in place at Traikos Finance, it's not the beginning, but the start. We leverage advanced fintech software to assess your loan annually, ensuring it stays competitive in the market. Within each plan, you receive a call from us letting you know that we've reviewed, compared, and potentially improved your interest rate—all without any effort from your end. You're unlikely to receive this level of service if you went directly through a bank or broker.",
+      "Securing a competitive loan today is only part of the equation. Interest rates, lender policies and your personal circumstances can change over time, which is why ongoing reviews are so important. At Traikos Finance, we stay in touch after settlement and regularly assess whether your loan remains competitive. Our goal is to help ensure your lending continues to align with your needs long after the refinance process has been completed.",
   },
   whyChoose: {
     title: 'WHY CHOOSE US',

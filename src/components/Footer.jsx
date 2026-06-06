@@ -136,12 +136,7 @@ export default function Footer() {
           <h3 className="text-white font-bold tracking-[0.2em] uppercase text-xs mb-5">
             Social Media
           </h3>
-          <ul className="flex flex-col gap-2 text-sm text-white/60 mb-6">
-            <li>ACL: 389328</li>
-            <li>CRN: 563333</li>
-            <li>ABN: 70 394 109 592</li>
-          </ul>
-          <div className="flex gap-4">
+          <div className="flex gap-4 mb-6">
             <a
               href="https://www.instagram.com/traikos_finance"
               target="_blank"
@@ -161,6 +156,11 @@ export default function Footer() {
               <IconLinkedIn />
             </a>
           </div>
+          <ul className="flex flex-col gap-2 text-sm text-white/60">
+            <li>ACL: 389328</li>
+            <li>CRN: 563333</li>
+            <li>ABN: 70 394 109 592</li>
+          </ul>
         </div>
       </div>
 
