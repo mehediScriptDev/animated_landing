@@ -54,13 +54,16 @@ export default function RepaymentCalculator() {
   /* ── State ─────────────────────────────────────────────────────── */
   const [loanAmount, setLoanAmount] = useState("");
   const [interestRate, setInterestRate] = useState("");
+  const [newInterestRate, setNewInterestRate] = useState(""); // For the "What if" panel
   const [frequency, setFrequency] = useState("monthly");
   const [loanTerm, setLoanTerm] = useState("30");
   const [interestOnly, setInterestOnly] = useState(false);
   const [ioTerm, setIoTerm] = useState("5");
   const [showInfo, setShowInfo] = useState(false);
   const [animKey, setAnimKey] = useState(0);
+  const [animKey2, setAnimKey2] = useState(0);
   const prevRepayRef = useRef(0);
+  const prevNewRepayRef = useRef(0);
 
   /* ── Derived calculations ──────────────────────────────────────── */
   const P = parseNum(loanAmount);
@@ -78,6 +81,19 @@ export default function RepaymentCalculator() {
   const monthlyAfterIO = interestOnly ? calcPI(P, R, T - IO_T) : 0;
   const afterIORepayment = toFrequency(monthlyAfterIO, frequency);
 
+  // New rate calculations
+  const NR = parseFloat(newInterestRate) || 0;
+  const newMonthlyPI = NR > 0 ? calcPI(P, NR, T) : 0;
+  const newMonthlyIO = NR > 0 ? calcIO(P, NR) : 0;
+  const newCurrentMonthly = interestOnly ? newMonthlyIO : newMonthlyPI;
+  const newCurrentRepayment = toFrequency(newCurrentMonthly, frequency);
+  const repaymentDifference = newCurrentRepayment - currentRepayment;
+
+  // P&I repayment after IO period with new rate
+  const newMonthlyAfterIO = interestOnly && NR > 0 ? calcPI(P, NR, T - IO_T) : 0;
+  const newAfterIORepayment = toFrequency(newMonthlyAfterIO, frequency);
+  const afterIODifference = newAfterIORepayment - afterIORepayment;
+
   // Animate on repayment change
   useEffect(() => {
     if (currentRepayment !== prevRepayRef.current) {
@@ -85,6 +101,13 @@ export default function RepaymentCalculator() {
       prevRepayRef.current = currentRepayment;
     }
   }, [currentRepayment]);
+
+  useEffect(() => {
+    if (newCurrentRepayment !== prevNewRepayRef.current) {
+      setAnimKey2((k) => k + 1);
+      prevNewRepayRef.current = newCurrentRepayment;
+    }
+  }, [newCurrentRepayment]);
 
   /* ── Handlers ──────────────────────────────────────────────────── */
   const handleLoanAmount = useCallback((e) => {
@@ -105,6 +128,11 @@ export default function RepaymentCalculator() {
   const handleIoTerm = useCallback((e) => {
     const val = e.target.value.replace(/[^0-9]/g, "");
     setIoTerm(val);
+  }, []);
+
+  const handleNewRate = useCallback((e) => {
+    const val = e.target.value.replace(/[^0-9.]/g, "");
+    setNewInterestRate(val);
   }, []);
 
   return (
@@ -311,15 +339,81 @@ export default function RepaymentCalculator() {
           What if my rate changes?
         </h2>
 
-        <div className="my-6 h-16" aria-hidden="true" />
+        {/* New interest rate input */}
+        <div className="mb-6">
+          <label
+            className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+            htmlFor="repay-new-rate"
+          >
+            New interest rate
+          </label>
+          <div className="relative flex items-center">
+            <input
+              id="repay-new-rate"
+              type="text"
+              inputMode="decimal"
+              className="w-full pl-4 pr-10 py-3.5 bg-white/10 border border-white/10 rounded-xl text-white font-semibold placeholder-white/40 focus:outline-hidden focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-white/5 transition-all duration-200"
+              placeholder="6.29"
+              value={newInterestRate}
+              onChange={handleNewRate}
+            />
+            <span className="absolute right-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+              %
+            </span>
+          </div>
+        </div>
 
         {/* Changed repayment result */}
-        <div className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15">
-          <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
-            Leave blank under interest rates
-          </div>
-          <div className="h-10" />
+        <div 
+          className="bg-linear-to-br from-neutral-950 via-slate-900 to-neutral-900 border border-white/20 rounded-2xl p-6 text-center shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-neutral-950/15"
+          key={animKey2}
+        >
+          {NR > 0 && P > 0 ? (
+            <>
+              <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
+                Estimated repayment
+              </div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight transition-all duration-300 animate-value-pop">
+                {fmt(newCurrentRepayment)}
+              </div>
+              <div className="text-[11px] text-neutral-400 mt-1">
+                {freqLabel(frequency)}
+              </div>
+              {repaymentDifference !== 0 && (
+                <div className={`mt-3 text-xs font-semibold ${
+                  repaymentDifference > 0 ? 'text-red-400' : 'text-green-400'
+                }`}>
+                  {repaymentDifference > 0 ? '+' : ''}{fmt(Math.abs(repaymentDifference))} {repaymentDifference > 0 ? 'increase' : 'decrease'} from current
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
+                Enter new interest rate above
+              </div>
+              <div className="h-10" />
+            </>
+          )}
         </div>
+
+        {interestOnly && NR > 0 && P > 0 && (
+          <div className="mt-3 text-[11px] text-neutral-400 text-center leading-normal">
+            After {IO_T} year{IO_T !== 1 ? "s" : ""} interest-only, P&I
+            repayments will be{" "}
+            <strong className="text-white font-bold">
+              {fmt(newAfterIORepayment)}
+            </strong>{" "}
+            {freqLabel(frequency)}
+            {afterIODifference !== 0 && (
+              <span className={`ml-1 font-semibold ${
+                afterIODifference > 0 ? 'text-red-400' : 'text-green-400'
+              }`}>
+                ({afterIODifference > 0 ? '+' : ''}{fmt(Math.abs(afterIODifference))})
+              </span>
+            )}
+          </div>
+        )}
 
         {/* How do we calculate this? */}
         <button
