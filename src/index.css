@@ -182,7 +182,7 @@ a,
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
+  color-scheme: dark;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -195,7 +195,8 @@ a,
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* Force dark mode regardless of user browser preference */
+@media all {
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
@@ -214,6 +215,7 @@ a,
     filter: invert(1) brightness(2);
   }
 }
+
 
 body {
   margin: 0;
