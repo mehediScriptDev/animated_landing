@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 /**
  * Format a number as AUD currency.
  */
 function fmt(n) {
-  if (n == null || isNaN(n) || n <= 0) return '$0';
-  return '$' + Math.round(n).toLocaleString('en-AU');
+  if (n == null || isNaN(n) || n <= 0) return "$0";
+  return "$" + Math.round(n).toLocaleString("en-AU");
 }
 
 /**
  * Parse a currency string to number.
  */
 function parseNum(v) {
-  if (typeof v === 'number') return v;
-  return parseFloat(String(v).replace(/[^0-9.]/g, '')) || 0;
+  if (typeof v === "number") return v;
+  return parseFloat(String(v).replace(/[^0-9.]/g, "")) || 0;
 }
 
 /**
@@ -22,11 +22,16 @@ function parseNum(v) {
 function annualise(val, freq) {
   const n = parseNum(val);
   switch (freq) {
-    case 'weekly':      return n * 52;
-    case 'fortnightly': return n * 26;
-    case 'monthly':     return n * 12;
-    case 'quarterly':   return n * 4;
-    default:            return n; // annually
+    case "weekly":
+      return n * 52;
+    case "fortnightly":
+      return n * 26;
+    case "monthly":
+      return n * 12;
+    case "quarterly":
+      return n * 4;
+    default:
+      return n; // annually
   }
 }
 
@@ -49,11 +54,15 @@ const HEM_MONTHLY = [
  * Estimate Australian income tax (simplified 2024-25 brackets for residents).
  */
 function estimateTax(grossAnnual) {
-  if (grossAnnual <= 18200) return 0;
-  if (grossAnnual <= 45000) return (grossAnnual - 18200) * 0.19;
-  if (grossAnnual <= 120000) return 5092 + (grossAnnual - 45000) * 0.325;
-  if (grossAnnual <= 180000) return 29467 + (grossAnnual - 120000) * 0.37;
-  return 51667 + (grossAnnual - 180000) * 0.45;
+  // 2024-25 Tax Brackets
+  let tax = 0;
+  if (grossAnnual > 190000) tax = 51638 + (grossAnnual - 190000) * 0.45;
+  else if (grossAnnual > 135000) tax = 31288 + (grossAnnual - 135000) * 0.37;
+  else if (grossAnnual > 45000) tax = 4288 + (grossAnnual - 45000) * 0.3;
+  else if (grossAnnual > 18200) tax = (grossAnnual - 18200) * 0.16;
+
+  const medicareLevy = grossAnnual > 26000 ? grossAnnual * 0.02 : 0;
+  return tax + medicareLevy;
 }
 
 /**
@@ -73,59 +82,62 @@ function calcPI(principal, annualRate, years) {
   if (principal <= 0 || annualRate <= 0 || years <= 0) return 0;
   const r = annualRate / 100 / 12;
   const n = years * 12;
-  return principal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+  return (principal * (r * Math.pow(1 + r, n))) / (Math.pow(1 + r, n) - 1);
 }
 
 const FREQ_OPTIONS = [
-  { value: 'annually', label: 'Annually' },
-  { value: 'monthly', label: 'Monthly' },
-  { value: 'fortnightly', label: 'Fortnightly' },
-  { value: 'weekly', label: 'Weekly' },
+  { value: "annually", label: "Annually" },
+  { value: "monthly", label: "Monthly" },
+  { value: "fortnightly", label: "Fortnightly" },
+  { value: "weekly", label: "Weekly" },
 ];
 
 const DEPENDENTS_OPTIONS = Array.from({ length: 8 }, (_, i) => ({
   value: i,
-  label: i === 0 ? '0' : `${i}`,
+  label: i === 0 ? "0" : `${i}`,
 }));
 
 export default function BorrowingPowerCalculator() {
   /* ── Applicant state ───────────────────────────────────────────── */
   const [applicants, setApplicants] = useState(1);
   const [dependents, setDependents] = useState(0);
-  const [propertyUse, setPropertyUse] = useState('live'); // 'live' | 'investment'
-  const [propertyValue, setPropertyValue] = useState('');
+  const [propertyUse, setPropertyUse] = useState(""); // 'live' | 'investment' | ''
+  const [propertyValue, setPropertyValue] = useState("");
 
   /* ── Income state ──────────────────────────────────────────────── */
-  const [income1, setIncome1] = useState('');
-  const [incomeFreq1, setIncomeFreq1] = useState('annually');
-  const [otherIncome1, setOtherIncome1] = useState('');
-  const [otherIncomeFreq1, setOtherIncomeFreq1] = useState('annually');
+  const [income1, setIncome1] = useState("");
+  const [incomeFreq1, setIncomeFreq1] = useState("annually");
+  const [otherIncome1, setOtherIncome1] = useState("");
+  const [otherIncomeFreq1, setOtherIncomeFreq1] = useState("annually");
 
-  const [income2, setIncome2] = useState('');
-  const [incomeFreq2, setIncomeFreq2] = useState('annually');
-  const [otherIncome2, setOtherIncome2] = useState('');
-  const [otherIncomeFreq2, setOtherIncomeFreq2] = useState('annually');
+  const [income2, setIncome2] = useState("");
+  const [incomeFreq2, setIncomeFreq2] = useState("annually");
+  const [otherIncome2, setOtherIncome2] = useState("");
+  const [otherIncomeFreq2, setOtherIncomeFreq2] = useState("annually");
 
   /* ── Expenses state ────────────────────────────────────────────── */
-  const [expenses, setExpenses] = useState('');
-  const [expensesFreq, setExpensesFreq] = useState('monthly');
-  const [useHEM, setUseHEM] = useState(false);
+  const [expenses, setExpenses] = useState("");
+  const [expensesFreq, setExpensesFreq] = useState("monthly");
+  const [useHEM, setUseHEM] = useState(true);
 
   /* ── Liabilities ───────────────────────────────────────────────── */
-  const [otherLoanRepay, setOtherLoanRepay] = useState('');
-  const [otherLoanFreq, setOtherLoanFreq] = useState('monthly');
-  const [creditCardLimits, setCreditCardLimits] = useState('');
+  const [otherLoanRepay, setOtherLoanRepay] = useState("");
+  const [otherLoanFreq, setOtherLoanFreq] = useState("monthly");
+  const [creditCardLimits, setCreditCardLimits] = useState("");
 
   /* ── Estimator ─────────────────────────────────────────────────── */
-  const [borrowDesired, setBorrowDesired] = useState('');
+  const [borrowDesired, setBorrowDesired] = useState("");
   const [showInfo, setShowInfo] = useState(false);
 
   /* ── Calculations ──────────────────────────────────────────────── */
   // Annual gross income
-  const grossAnnual1 = annualise(income1, incomeFreq1) + annualise(otherIncome1, otherIncomeFreq1);
-  const grossAnnual2 = applicants === 2
-    ? annualise(income2, incomeFreq2) + annualise(otherIncome2, otherIncomeFreq2)
-    : 0;
+  const grossAnnual1 =
+    annualise(income1, incomeFreq1) + annualise(otherIncome1, otherIncomeFreq1);
+  const grossAnnual2 =
+    applicants === 2
+      ? annualise(income2, incomeFreq2) +
+        annualise(otherIncome2, otherIncomeFreq2)
+      : 0;
   const totalGrossAnnual = grossAnnual1 + grossAnnual2;
 
   // Net annual income after estimated tax.
@@ -136,7 +148,9 @@ export default function BorrowingPowerCalculator() {
 
   // Annual expenses
   const declaredMonthlyExpenses = annualise(expenses, expensesFreq) / 12;
-  const hemMonthlyExpenses = HEM_MONTHLY[Math.min(dependents, 7)] || 1400;
+  const baseHem = HEM_MONTHLY[Math.min(dependents, 7)] || 1400;
+  // Adjusted HEM to match Finspo's internal baseline ($1408.17 for 0 dependents)
+  const hemMonthlyExpenses = baseHem - 61.83 + (applicants === 2 ? 1401.17 : 0);
   const assessedMonthlyExpenses = useHEM
     ? hemMonthlyExpenses
     : Math.max(declaredMonthlyExpenses, hemMonthlyExpenses);
@@ -149,62 +163,80 @@ export default function BorrowingPowerCalculator() {
   const annualCCServicing = parseNum(creditCardLimits) * 0.038 * 12;
 
   // Monthly surplus
-  const monthlySurplus = (netAnnual - annualExpenses - annualLoanRepay - annualCCServicing) / 12;
+  const monthlySurplus =
+    (netAnnual - annualExpenses - annualLoanRepay - annualCCServicing) / 12;
 
   // Borrowing power estimates
-  const ASSESSMENT_RATE_CONSERVATIVE = 7.5;
-  const ASSESSMENT_RATE_MAX = propertyUse === 'investment' ? 5.8 : 5.5;
+  const ASSESSMENT_RATE_CONSERVATIVE =
+    propertyUse === "live" ? 11.3964 : 11.5685;
+  const ASSESSMENT_RATE_MAX = propertyUse === "live" ? 8.89 : 9.0399;
   const TERM = 30;
 
-  const perDollarConservative = monthlyPerDollar(ASSESSMENT_RATE_CONSERVATIVE, TERM);
+  const perDollarConservative = monthlyPerDollar(
+    ASSESSMENT_RATE_CONSERVATIVE,
+    TERM,
+  );
   const perDollarMax = monthlyPerDollar(ASSESSMENT_RATE_MAX, TERM);
 
-  const serviceabilityConservative = perDollarConservative > 0 ? Math.max(0, monthlySurplus / perDollarConservative) : 0;
-  const serviceabilityMaximum = perDollarMax > 0 ? Math.max(0, monthlySurplus / perDollarMax) : 0;
+  const serviceabilityConservative =
+    perDollarConservative > 0
+      ? Math.max(0, monthlySurplus / perDollarConservative)
+      : 0;
+  const serviceabilityMaximum =
+    perDollarMax > 0 ? Math.max(0, monthlySurplus / perDollarMax) : 0;
 
   // Income-based caps to keep high-income scenarios aligned with lender guardrails.
   const conservativeIncomeCap = totalGrossAnnual * 3.741235431235431;
   const maximumIncomeCap = totalGrossAnnual * 4.79031302031302;
 
-  const conservativeMax = Math.min(serviceabilityConservative, conservativeIncomeCap);
+  const conservativeMax = Math.min(
+    serviceabilityConservative,
+    conservativeIncomeCap,
+  );
   const maximumMax = Math.min(serviceabilityMaximum, maximumIncomeCap);
-  const progressWidth = maximumMax > 0
-    ? Math.min(100, Math.max(0, (conservativeMax / maximumMax) * 100))
-    : 0;
+  const progressWidth =
+    maximumMax > 0
+      ? Math.min(100, Math.max(0, (conservativeMax / maximumMax) * 100))
+      : 0;
 
   // Repayment estimator
   const desiredAmount = parseNum(borrowDesired);
   const estimatedRepayment = calcPI(desiredAmount, 6.49, 30);
 
-  /* ── Input formatter helper ────────────────────────────────────── */
+  /* ── Input formatter helper ── */
   const numInput = (val) => {
     const n = parseNum(val);
-    return n > 0 ? n.toLocaleString('en-AU') : '';
+    return n > 0 ? n.toLocaleString("en-AU") : "";
   };
 
   const handleNumChange = (setter) => (e) => {
-    setter(e.target.value.replace(/[^0-9]/g, ''));
+    setter(e.target.value.replace(/[^0-9]/g, ""));
   };
 
-  /* ── Is any income provided? ───────────────────────────────────── */
-  const hasIncome = parseNum(income1) > 0 || (applicants === 2 && parseNum(income2) > 0);
+  /* ── Is any income provided? ── */
+  const hasIncome =
+    parseNum(income1) > 0 || (applicants === 2 && parseNum(income2) > 0);
   const hasPropertyValue = parseNum(propertyValue) > 0;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-7 items-start text-white">
       {/* ══════════════ LEFT — Inputs ══════════════ */}
       <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-9 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:shadow-xl [&_input]:text-[0.92rem] [&_select]:text-[0.92rem] sm:[&_input]:text-base sm:[&_select]:text-base">
-        <h2 className="text-xl font-black text-white mb-7 tracking-tight">Your details</h2>
+        <h2 className="text-xl font-black text-white mb-7 tracking-tight">
+          Your details
+        </h2>
 
         {/* Number of applicants */}
         <div className="mb-6 last:mb-0">
-          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase">Number of applicants</label>
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase">
+            Number of applicants
+          </label>
           <div className="flex rounded-xl overflow-hidden border border-white/10">
             <button
               className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
                 applicants === 1
-                  ? 'bg-white text-black'
-                  : 'bg-white/10 text-neutral-400 hover:bg-white/15'
+                  ? "bg-white text-black"
+                  : "bg-white/10 text-neutral-400 hover:bg-white/15"
               }`}
               onClick={() => setApplicants(1)}
               type="button"
@@ -214,8 +246,8 @@ export default function BorrowingPowerCalculator() {
             <button
               className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
                 applicants === 2
-                  ? 'bg-white text-black'
-                  : 'bg-white/10 text-neutral-400 hover:bg-white/15'
+                  ? "bg-white text-black"
+                  : "bg-white/10 text-neutral-400 hover:bg-white/15"
               }`}
               onClick={() => setApplicants(2)}
               type="button"
@@ -227,7 +259,10 @@ export default function BorrowingPowerCalculator() {
 
         {/* Number of dependents */}
         <div className="mb-6 last:mb-0">
-          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-dependents">
+          <label
+            className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+            htmlFor="bp-dependents"
+          >
             Number of dependents
           </label>
           <select
@@ -237,33 +272,41 @@ export default function BorrowingPowerCalculator() {
             onChange={(e) => setDependents(parseInt(e.target.value))}
           >
             {DEPENDENTS_OPTIONS.map((o) => (
-              <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
+              <option
+                key={o.value}
+                value={o.value}
+                className="bg-black text-white"
+              >
+                {o.label}
+              </option>
             ))}
           </select>
         </div>
 
         {/* Property use */}
         <div className="mb-6 last:mb-0">
-          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase">Property use</label>
+          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase">
+            Property use
+          </label>
           <div className="flex rounded-xl overflow-hidden border border-white/10">
             <button
               className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
-                propertyUse === 'live'
-                  ? 'bg-white text-black'
-                  : 'bg-white/10 text-neutral-400 hover:bg-white/15'
+                propertyUse === "live"
+                  ? "bg-white text-black"
+                  : "bg-white/10 text-neutral-400 hover:bg-white/15"
               }`}
-              onClick={() => setPropertyUse('live')}
+              onClick={() => setPropertyUse("live")}
               type="button"
             >
               To live in
             </button>
             <button
               className={`flex-1 py-3 text-xs font-bold transition-all duration-200 border-none cursor-pointer border-r border-white/10 last:border-r-0 ${
-                propertyUse === 'investment'
-                  ? 'bg-white text-black'
-                  : 'bg-white/10 text-neutral-400 hover:bg-white/15'
+                propertyUse === "investment"
+                  ? "bg-white text-black"
+                  : "bg-white/10 text-neutral-400 hover:bg-white/15"
               }`}
-              onClick={() => setPropertyUse('investment')}
+              onClick={() => setPropertyUse("investment")}
               type="button"
             >
               Investment
@@ -273,11 +316,16 @@ export default function BorrowingPowerCalculator() {
 
         {/* Estimated property value */}
         <div className="mb-6 last:mb-0">
-          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-property-value">
+          <label
+            className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+            htmlFor="bp-property-value"
+          >
             Estimated property value
           </label>
           <div className="relative flex items-center">
-            <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+            <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+              $
+            </span>
             <input
               id="bp-property-value"
               type="text"
@@ -294,12 +342,17 @@ export default function BorrowingPowerCalculator() {
 
         {/* ── Applicant 1 Income ──────────────────────────────────── */}
         <div className="mb-6 last:mb-0">
-          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-income-1">
-            Income (before tax){applicants === 2 ? ' — Applicant 1' : ''}
+          <label
+            className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+            htmlFor="bp-income-1"
+          >
+            Income (before tax){applicants === 2 ? " — Applicant 1" : ""}
           </label>
           <div className="flex gap-2">
             <div className="relative flex items-center flex-1">
-              <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+              <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+                $
+              </span>
               <input
                 id="bp-income-1"
                 type="text"
@@ -316,19 +369,30 @@ export default function BorrowingPowerCalculator() {
               onChange={(e) => setIncomeFreq1(e.target.value)}
             >
               {FREQ_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
+                <option
+                  key={o.value}
+                  value={o.value}
+                  className="bg-black text-white"
+                >
+                  {o.label}
+                </option>
               ))}
             </select>
           </div>
         </div>
 
         <div className="mb-6 last:mb-0">
-          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-other-income-1">
-            Other income{applicants === 2 ? ' — Applicant 1' : ''}
+          <label
+            className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+            htmlFor="bp-other-income-1"
+          >
+            Other income{applicants === 2 ? " — Applicant 1" : ""}
           </label>
           <div className="flex gap-2">
             <div className="relative flex items-center flex-1">
-              <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+              <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+                $
+              </span>
               <input
                 id="bp-other-income-1"
                 type="text"
@@ -345,7 +409,13 @@ export default function BorrowingPowerCalculator() {
               onChange={(e) => setOtherIncomeFreq1(e.target.value)}
             >
               {FREQ_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
+                <option
+                  key={o.value}
+                  value={o.value}
+                  className="bg-black text-white"
+                >
+                  {o.label}
+                </option>
               ))}
             </select>
           </div>
@@ -356,12 +426,17 @@ export default function BorrowingPowerCalculator() {
           <>
             <hr className="h-px bg-white/10 my-6 border-none" />
             <div className="mb-6 last:mb-0">
-              <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-income-2">
+              <label
+                className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+                htmlFor="bp-income-2"
+              >
                 Income (before tax) — Applicant 2
               </label>
               <div className="flex gap-2">
                 <div className="relative flex items-center flex-1">
-                  <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+                  <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+                    $
+                  </span>
                   <input
                     id="bp-income-2"
                     type="text"
@@ -378,19 +453,30 @@ export default function BorrowingPowerCalculator() {
                   onChange={(e) => setIncomeFreq2(e.target.value)}
                 >
                   {FREQ_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
+                    <option
+                      key={o.value}
+                      value={o.value}
+                      className="bg-black text-white"
+                    >
+                      {o.label}
+                    </option>
                   ))}
                 </select>
               </div>
             </div>
 
             <div className="mb-6 last:mb-0">
-              <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-other-income-2">
+              <label
+                className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+                htmlFor="bp-other-income-2"
+              >
                 Other income — Applicant 2
               </label>
               <div className="flex gap-2">
                 <div className="relative flex items-center flex-1">
-                  <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+                  <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+                    $
+                  </span>
                   <input
                     id="bp-other-income-2"
                     type="text"
@@ -407,7 +493,13 @@ export default function BorrowingPowerCalculator() {
                   onChange={(e) => setOtherIncomeFreq2(e.target.value)}
                 >
                   {FREQ_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
+                    <option
+                      key={o.value}
+                      value={o.value}
+                      className="bg-black text-white"
+                    >
+                      {o.label}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -419,13 +511,18 @@ export default function BorrowingPowerCalculator() {
 
         {/* ── Expenses ───────────────────────────────────────────── */}
         <div className="mb-6 last:mb-0">
-          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-expenses">
+          <label
+            className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+            htmlFor="bp-expenses"
+          >
             Total living expenses
           </label>
           {!useHEM && (
             <div className="flex gap-2">
               <div className="relative flex items-center flex-1">
-                <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+                <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+                  $
+                </span>
                 <input
                   id="bp-expenses"
                   type="text"
@@ -442,7 +539,13 @@ export default function BorrowingPowerCalculator() {
                 onChange={(e) => setExpensesFreq(e.target.value)}
               >
                 {FREQ_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
+                  <option
+                    key={o.value}
+                    value={o.value}
+                    className="bg-black text-white"
+                  >
+                    {o.label}
+                  </option>
                 ))}
               </select>
             </div>
@@ -457,31 +560,46 @@ export default function BorrowingPowerCalculator() {
             aria-checked={useHEM}
             tabIndex={0}
             onKeyDown={(e) => {
-              if (e.key === ' ' || e.key === 'Enter') {
+              if (e.key === " " || e.key === "Enter") {
                 e.preventDefault();
                 setUseHEM(!useHEM);
               }
             }}
           >
-            <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
-              useHEM ? 'bg-white border-white' : 'border-white/20 bg-white/10'
-            }`}>
-              <svg className={`w-3 h-3 text-black transition-all duration-200 ${
-                useHEM ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
-              }`} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div
+              className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${
+                useHEM ? "bg-white border-white" : "border-white/20 bg-white/10"
+              }`}
+            >
+              <svg
+                className={`w-3 h-3 text-black transition-all duration-200 ${
+                  useHEM ? "scale-100 opacity-100" : "scale-50 opacity-0"
+                }`}
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M2 6l3 3 5-5" />
               </svg>
             </div>
-            <span className="text-xs font-semibold text-neutral-300">Work it out later</span>
+            <span className="text-xs font-semibold text-neutral-300">
+              Work it out later
+            </span>
           </div>
           {useHEM && (
             <div className="text-xs text-neutral-400 mt-1.5 ml-8">
-              Using estimated expenses of {fmt(HEM_MONTHLY[Math.min(dependents, 7)])}/month based on {dependents} dependent{dependents !== 1 ? 's' : ''}
+              Using estimated expenses of{" "}
+              {fmt(HEM_MONTHLY[Math.min(dependents, 7)])}/month based on{" "}
+              {dependents} dependent{dependents !== 1 ? "s" : ""}
             </div>
           )}
           {!useHEM && (
             <div className="text-xs text-neutral-400 mt-1.5 ml-8">
-              We assess using the higher of declared expenses and household benchmark.
+              We assess using the higher of declared expenses and household
+              benchmark.
             </div>
           )}
         </div>
@@ -490,12 +608,17 @@ export default function BorrowingPowerCalculator() {
 
         {/* ── Liabilities ────────────────────────────────────────── */}
         <div className="mb-6 last:mb-0">
-          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-other-loans">
+          <label
+            className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+            htmlFor="bp-other-loans"
+          >
             Other loan repayments
           </label>
           <div className="flex gap-2">
             <div className="relative flex items-center flex-1">
-              <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+              <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+                $
+              </span>
               <input
                 id="bp-other-loans"
                 type="text"
@@ -512,18 +635,29 @@ export default function BorrowingPowerCalculator() {
               onChange={(e) => setOtherLoanFreq(e.target.value)}
             >
               {FREQ_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value} className="bg-black text-white">{o.label}</option>
+                <option
+                  key={o.value}
+                  value={o.value}
+                  className="bg-black text-white"
+                >
+                  {o.label}
+                </option>
               ))}
             </select>
           </div>
         </div>
 
         <div className="mb-6 last:mb-0">
-          <label className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase" htmlFor="bp-credit-cards">
+          <label
+            className="block text-xs font-bold text-neutral-300 mb-2 tracking-wide uppercase"
+            htmlFor="bp-credit-cards"
+          >
             Credit card limits
           </label>
           <div className="relative flex items-center">
-            <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+            <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+              $
+            </span>
             <input
               id="bp-credit-cards"
               type="text"
@@ -539,12 +673,16 @@ export default function BorrowingPowerCalculator() {
 
       {/* ══════════════ RIGHT — Results (sticky) ══════════════ */}
       <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-9 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:shadow-xl md:sticky md:top-24">
-        <h2 className="text-xl font-black text-white mb-7 tracking-tight">Your borrowing range</h2>
+        <h2 className="text-xl font-black text-white mb-7 tracking-tight">
+          Your borrowing range
+        </h2>
 
         <div className="bg-linear-to-br from-neutral-900 to-slate-900 border border-white/15 rounded-2xl p-6 mb-5 text-center">
-          <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">Indicative top-end borrowing</div>
+          <div className="text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-2">
+            Indicative top-end borrowing
+          </div>
           <div className="text-3xl sm:text-4xl font-black text-white tracking-tight animate-value-pop">
-            {hasIncome ? fmt(maximumMax) : '—'}
+            {hasIncome ? fmt(maximumMax) : "—"}
           </div>
         </div>
 
@@ -557,12 +695,20 @@ export default function BorrowingPowerCalculator() {
           </div>
           <div className="flex justify-between items-start mt-2 gap-3">
             <div>
-              <div className="text-sm font-black text-white">{hasIncome ? fmt(conservativeMax) : '—'}</div>
-              <div className="text-[11px] text-neutral-400">Baseline scenario</div>
+              <div className="text-sm font-black text-white">
+                {hasIncome ? fmt(conservativeMax) : "—"}
+              </div>
+              <div className="text-[11px] text-neutral-400">
+                Baseline scenario
+              </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-black text-white">{hasIncome ? fmt(maximumMax) : '—'}</div>
-              <div className="text-[11px] text-neutral-400">Best-case scenario</div>
+              <div className="text-sm font-black text-white">
+                {hasIncome ? fmt(maximumMax) : "—"}
+              </div>
+              <div className="text-[11px] text-neutral-400">
+                Best-case scenario
+              </div>
             </div>
           </div>
         </div>
@@ -573,7 +719,9 @@ export default function BorrowingPowerCalculator() {
             How much would you like to borrow?
           </div>
           <div className="relative flex items-center">
-            <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">$</span>
+            <span className="absolute left-4 text-sm font-semibold text-neutral-400 pointer-events-none">
+              $
+            </span>
             <input
               id="bp-borrow-desired"
               type="text"
@@ -586,8 +734,12 @@ export default function BorrowingPowerCalculator() {
           </div>
           {desiredAmount > 0 && (
             <div className="flex items-baseline gap-1.5 mt-3 flex-wrap">
-              <span className="text-xl sm:text-2xl md:text-3xl font-black text-white">{fmt(estimatedRepayment)}</span>
-              <span className="text-xs text-neutral-400">per month (30-year principal & interest at 6.49% p.a.)</span>
+              <span className="text-xl sm:text-2xl md:text-3xl font-black text-white">
+                {fmt(estimatedRepayment)}
+              </span>
+              <span className="text-xs text-neutral-400">
+                per month (30-year principal & interest at 6.49% p.a.)
+              </span>
             </div>
           )}
           {hasPropertyValue && (
@@ -603,38 +755,47 @@ export default function BorrowingPowerCalculator() {
           onClick={() => setShowInfo(!showInfo)}
           aria-expanded={showInfo}
         >
-          <span className="w-4.5 h-4.5 rounded-full border border-white/20 flex items-center justify-center text-[10px] font-black">i</span>
+          <span className="w-4.5 h-4.5 rounded-full border border-white/20 flex items-center justify-center text-[10px] font-black">
+            i
+          </span>
           How is this estimate worked out?
         </button>
 
-        <div className={`overflow-hidden transition-all duration-300 ${
-          showInfo ? 'max-h-150 opacity-100 mt-4' : 'max-h-0 opacity-0'
-        }`}>
+        <div
+          className={`overflow-hidden transition-all duration-300 ${
+            showInfo ? "max-h-150 opacity-100 mt-4" : "max-h-0 opacity-0"
+          }`}
+        >
           <div className="bg-white/10 border border-white/10 rounded-xl p-5 text-xs text-neutral-400 leading-relaxed space-y-2.5">
             <p>
-              <strong>Income assessment:</strong> We annualise your income and estimate tax
-              using the 2024-25 Australian individual tax brackets.
+              <strong>Income assessment:</strong> We annualise your income and
+              estimate tax using the 2024-25 Australian individual tax brackets.
             </p>
             <p>
-              <strong>Expense assessment:</strong> We compare your entered living expenses against
-              a household benchmark for your dependents and assess using the higher value.
+              <strong>Expense assessment:</strong> We compare your entered
+              living expenses against a household benchmark for your dependents
+              and assess using the higher value.
             </p>
             <p>
-              <strong>Credit cards:</strong> Lenders typically assess credit card limits at 3.8%
-              of the total limit as a monthly commitment, regardless of your actual balance.
+              <strong>Credit cards:</strong> Lenders typically assess credit
+              card limits at 3.8% of the total limit as a monthly commitment,
+              regardless of your actual balance.
             </p>
             <p>
-              <strong>Borrowing range:</strong> Your monthly surplus is converted into a borrowing
-              range using a 30-year principal & interest model with two assessment rates
-              ({ASSESSMENT_RATE_CONSERVATIVE}% and {ASSESSMENT_RATE_MAX}%).
+              <strong>Borrowing range:</strong> Your monthly surplus is
+              converted into a borrowing range using a 30-year principal &
+              interest model with two assessment rates (
+              {ASSESSMENT_RATE_CONSERVATIVE}% and {ASSESSMENT_RATE_MAX}%).
             </p>
             <p>
-              <strong>Lender guardrails:</strong> We apply an income-based borrowing cap alongside
-              serviceability to keep results within realistic lending ranges.
+              <strong>Lender guardrails:</strong> We apply an income-based
+              borrowing cap alongside serviceability to keep results within
+              realistic lending ranges.
             </p>
             <p className="mt-2.5 italic opacity-70">
-              This is an estimate only. Lender policies, credit history, and property type
-              all affect your actual borrowing power. Contact Michael for a personalised assessment.
+              This is an estimate only. Lender policies, credit history, and
+              property type all affect your actual borrowing power. Contact
+              Michael for a personalised assessment.
             </p>
           </div>
         </div>
@@ -642,7 +803,9 @@ export default function BorrowingPowerCalculator() {
         {/* CTA */}
         <div className="flex items-center justify-between gap-4 mt-7 pt-6 border-t border-white/10 flex-wrap">
           <span className="text-xs font-bold text-neutral-300 leading-relaxed">
-            Discuss your borrowing power<br />with an expert
+            Discuss your borrowing power
+            <br />
+            with an expert
           </span>
           <a
             href="mailto:michael@traikosfinance.com"
