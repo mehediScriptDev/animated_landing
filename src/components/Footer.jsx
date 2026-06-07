@@ -53,6 +53,7 @@ const QUICK_LINKS = [
   { label: "Calculators", to: "/calculators" },
   { label: "About Us", to: "/about" },
   { label: "Contact", to: "/contact" },
+  { label: "FAQ", to: "/faq" },
 ];
 
 export default function Footer() {
