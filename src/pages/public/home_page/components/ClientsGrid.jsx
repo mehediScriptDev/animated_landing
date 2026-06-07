@@ -296,6 +296,13 @@ export default function ClientsGrid() {
       if (touchPreviewTimeoutRef.current) {
         window.clearTimeout(touchPreviewTimeoutRef.current);
       }
+
+      // Ensure the global page overlay never leaks into other routes.
+      const overlay = document.getElementById("page-overlay");
+      if (overlay) {
+        gsap.killTweensOf(overlay);
+        gsap.set(overlay, { backgroundColor: "rgba(0,0,0,0)" });
+      }
     },
     [],
   );

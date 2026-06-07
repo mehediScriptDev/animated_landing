@@ -18,7 +18,7 @@ export default function Construction() {
   return (
     <>
       <SEO
-        title="Construction & Renovation Loans | Traikos Finance"
+        title="Construction & Renovation Loans | Mortgage Broker"
         description="Build or renovate your dream home with construction and renovation loans from Traikos Finance. Expert guidance from concept to completion."
         canonical="https://example.com/construction"
       />

@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Traikos Finance | Real Estate Insight to Financial Foresight"
+        title="Traikos Finance | Mortgage Broker"
         description="Making cents of real estate and sense of your finance."
         canonical="https://example.com/"
       />

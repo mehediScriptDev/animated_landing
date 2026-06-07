@@ -15,7 +15,8 @@ export default function SEO({
   ogImage = 'https://example.com/og-image.jpg',
 }) {
   const siteName = 'Traikos Finance';
-  const fullTitle = title !== siteName ? `${title} | ${siteName}` : title;
+  const titleHasSiteName = title.toLowerCase().includes(siteName.toLowerCase());
+  const fullTitle = titleHasSiteName ? title : `${title} | ${siteName}`;
 
   // Update <title>
   document.title = fullTitle;
