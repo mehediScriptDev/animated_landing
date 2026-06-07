@@ -325,7 +325,7 @@ export default function ClientsGrid() {
       handleEnter(color);
       touchPreviewTimeoutRef.current = window.setTimeout(() => {
         clearTouchPreview();
-      }, 3000);
+      }, 2000);
 
       if (!element) return;
 
