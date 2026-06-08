@@ -15,6 +15,7 @@ import Smsf from '../pages/public/smsf/Smsf';
 import Refinancing from '../pages/public/refinancing/Refinancing';
 import Calculators from '../pages/public/calculators/Calculators';
 import FaqPage from '../pages/public/faq_page/FaqPage';
+import SeoFaqPage from '../pages/public/seo_faq_page/SeoFaqPage';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       { path: 'compliments', element: <ComplimentsPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
+  },
+  {
+    path: '/seo-faq',
+    element: <SeoFaqPage />,
   },
 ]);
 
