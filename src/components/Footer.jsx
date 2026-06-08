@@ -104,7 +104,7 @@ export default function Footer() {
         {/* Col 3 — Information */}
         <div>
           <h3 className="text-white font-bold tracking-[0.2em] uppercase text-xs mb-5">
-            Informations
+            Information
           </h3>
           <ul className="flex flex-col gap-4 text-sm text-white/60">
             <li className="flex items-center gap-3">

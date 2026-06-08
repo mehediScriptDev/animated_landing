@@ -1,5 +1,5 @@
 import heroBg from '@/assets/grid_image/loans.png';
-import img1 from '@/assets/grid_image/firsthome.png';
+import img1 from '@/assets/smsf/smsf.png';
 import img2 from '@/assets/smsf/another.webp';
 import supportImg from '@/assets/smsf/description.webp';
 import whyOneImg from '@/assets/smsf/whyus.webp';
