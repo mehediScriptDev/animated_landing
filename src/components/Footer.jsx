@@ -1,5 +1,6 @@
 import TransitionLink from "./TransitionLink";
 import logoImg from "@/assets/logo_dark_1.png";
+import { lenisRef } from './PageWipeOverlay';
 
 // Instagram icon
 function IconInstagram() {
@@ -49,12 +50,20 @@ function IconChevronUp() {
 const QUICK_LINKS = [
   { label: "Home", to: "/" },
   { label: "Refinancing", to: "/refinancing" },
+  { label: "Calculators", to: "/calculators" },
   { label: "About Us", to: "/about" },
   { label: "Contact", to: "/contact" },
+  { label: "FAQ", to: "/faq" },
 ];
 
 export default function Footer() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = () => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <footer className="bg-black text-white relative z-2" role="contentinfo">
@@ -95,7 +104,7 @@ export default function Footer() {
         {/* Col 3 — Information */}
         <div>
           <h3 className="text-white font-bold tracking-[0.2em] uppercase text-xs mb-5">
-            Informations
+            Information
           </h3>
           <ul className="flex flex-col gap-4 text-sm text-white/60">
             <li className="flex items-center gap-3">
@@ -128,12 +137,7 @@ export default function Footer() {
           <h3 className="text-white font-bold tracking-[0.2em] uppercase text-xs mb-5">
             Social Media
           </h3>
-          <ul className="flex flex-col gap-2 text-sm text-white/60 mb-6">
-            <li>ACL: 389328</li>
-            <li>CRN: 563333</li>
-            <li>ABN: 70 394 109 592</li>
-          </ul>
-          <div className="flex gap-4">
+          <div className="flex gap-4 mb-6">
             <a
               href="https://www.instagram.com/traikos_finance"
               target="_blank"
@@ -153,6 +157,11 @@ export default function Footer() {
               <IconLinkedIn />
             </a>
           </div>
+          <ul className="flex flex-col gap-2 text-sm text-white/60">
+            <li>ACL: 389328</li>
+            <li>CRN: 563333</li>
+            <li>ABN: 70 394 109 592</li>
+          </ul>
         </div>
       </div>
 

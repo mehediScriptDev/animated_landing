@@ -3,9 +3,6 @@ import SEO from "../../../components/SEO";
 import { useScrolled } from "../../../hooks/useScrolled";
 import bgImage from "../../../assets/about/About-me.jpg";
 import BioSection from "./sections/BioSection";
-import ExpertiseSection from "./sections/ExpertiseSection";
-import ClientsSection from "./sections/ClientsSection";
-import AwardsSection from "./sections/AwardsSection";
 import CtaSection from "./sections/CtaSection";
 import HeroSection from "./sections/HeroSection";
 

@@ -20,6 +20,7 @@
 
 export const overlayRef = { current: null };
 export const pageRef   = { current: null };
+export const lenisRef  = { current: null };
 
 export default function PageWipeOverlay() {
   return (

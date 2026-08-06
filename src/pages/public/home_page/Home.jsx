@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Traikos Finance | Real Estate Insight to Financial Foresight"
+        title="Traikos Finance | Mortgage Broker"
         description="Making cents of real estate and sense of your finance."
         canonical="https://example.com/"
       />
@@ -21,8 +21,8 @@ export default function Home() {
       <main id="main-content" tabIndex={-1} className="flex-1">
         <HeroBanner isDark={isDark} />
         <ClientsGrid />
-        <LendersCarousel />
         <AboutSection />
+        <LendersCarousel />
         <ReviewsSection />
         <CtaSection/>
       </main>

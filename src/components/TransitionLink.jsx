@@ -39,7 +39,7 @@
 //  */
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
-import { pageRef, overlayRef } from './PageWipeOverlay';
+import { pageRef, overlayRef, lenisRef } from './PageWipeOverlay';
 
 export default function TransitionLink({
   to,
@@ -55,6 +55,13 @@ export default function TransitionLink({
     onClick?.();
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      } else {
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo(0, 0);
+        document.documentElement.style.scrollBehavior = '';
+      }
       navigate(to);
       return;
     }
@@ -106,9 +113,10 @@ export default function TransitionLink({
     snapshot.appendChild(dimmer);
     document.body.appendChild(snapshot);
 
-    // Prevent horizontal scroll bar during slide
+    // Prevent horizontal scroll bar and smooth scrolling during slide
     document.documentElement.style.overflowX = 'hidden';
     document.body.style.overflowX = 'hidden';
+    document.documentElement.style.scrollBehavior = 'auto';
 
     // ── Step 2: Move real page wrapper off-screen RIGHT immediately ───────
     // New content will render here (invisible to user until animation brings it in)
@@ -117,7 +125,11 @@ export default function TransitionLink({
     // ── Step 3: Navigate — React renders new route content inside `page` ──
     // Since `page` is at x: vw, new content is off-screen. User sees snapshot.
     // Scroll to top so the new page always starts from the beginning.
-    window.scrollTo(0, 0);
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
     navigate(to);
 
     // ── Step 4: Animate both simultaneously ───────────────────────────────
@@ -146,6 +158,8 @@ export default function TransitionLink({
         gsap.set(page, { clearProps: 'transform' });
         document.documentElement.style.overflowX = '';
         document.body.style.overflowX = '';
+        document.documentElement.style.scrollBehavior = '';
+        lenisRef.current?.resize();
         if (overlay) overlay.style.pointerEvents = 'none';
       },
     });

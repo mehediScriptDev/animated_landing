@@ -1,4 +1,5 @@
 import SEO from '../../../components/SEO';
+import CtaSection from '../about/sections/CtaSection';
 import { REFINANCING_CONTENT } from './sections/content';
 import {
   HeroSection,
@@ -7,6 +8,8 @@ import {
   PurchaseSection,
   SupportSection,
   WhyChooseSection,
+  CalculatorBanner,
+  FloatingCalculatorButton,
 } from '../shared/LoanPageSections';
 
 const c = REFINANCING_CONTENT;
@@ -27,7 +30,13 @@ export default function Refinancing() {
         <PurchaseSection   content={c.secondary} />
         <SupportSection    content={c.support} />
         <WhyChooseSection  content={c.whyChoose} />
+        <CalculatorBanner />
+        <div className='bg-black'>
+                 <CtaSection />
+               </div>
       </main>
+
+      <FloatingCalculatorButton />
     </>
   );
 }

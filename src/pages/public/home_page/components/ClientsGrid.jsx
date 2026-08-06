@@ -1,7 +1,7 @@
 import { useRef, useEffect, useCallback, useState } from "react";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
-import { pageRef } from "../../../../components/PageWipeOverlay";
+import { pageRef, lenisRef } from "../../../../components/PageWipeOverlay";
 import motivImg from "@/assets/grid_image/firsthome.png";
 import acImg from "@/assets/simple.png";
 import nesteaImg from "@/assets/grid_image/refinancing.png";
@@ -88,7 +88,7 @@ const CLIENTS = [
   },
 ];
 
-function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
+function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle, onTouchPreview }) {
   const textRef = useRef(null);
   const imgRef = useRef(null);
   const loopRef = useRef(null);
@@ -190,6 +190,10 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
     onToggle(client.id, client.pageColor);
   }, [onToggle, client.id, client.pageColor]);
 
+  const handleTouchStart = useCallback(() => {
+    onTouchPreview(client.id, client.pageColor, articleRef.current);
+  }, [onTouchPreview, client.id, client.pageColor]);
+
   const hasRoute = CARD_ROUTES[client.id] != null;
 
   return (
@@ -197,6 +201,7 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
       ref={articleRef}
       onPointerEnter={handleEnter}
       onPointerLeave={handleLeave}
+      onTouchStart={handleTouchStart}
       onClick={handleClick}
       aria-label={client.sub ? `${client.name} ${client.sub}` : client.name}
       className={`relative overflow-hidden client-card cursor-pointer select-none${index > 0 ? " client-card-reveal" : ""}`}
@@ -213,7 +218,7 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
         ref={textRef}
         className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-3 px-5 sm:px-8 md:px-10"
       >
-        <span className="text-white font-light tracking-[0.14em] sm:tracking-[0.22em] uppercase text-center whitespace-nowrap leading-none text-[clamp(0.52rem,1.25vw,1.6rem)] max-w-full">
+        <span className="text-white font-light tracking-[0.14em] sm:tracking-[0.22em] uppercase text-center whitespace-nowrap leading-none text-[0.7rem] sm:text-[clamp(0.52rem,1.25vw,1.6rem)] max-w-full">
           {client.name.split("").map((char, i) => (
             <span key={i} className="char inline-block">
               {char === " " ? "\u00A0" : char}
@@ -221,7 +226,7 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
           ))}
         </span>
         {client.sub && (
-          <span className="mt-1 text-white/40 tracking-[0.18em] sm:tracking-[0.25em] uppercase whitespace-nowrap leading-none text-[clamp(0.38rem,0.85vw,0.82rem)] max-w-full">
+          <span className="mt-1 text-white/40 tracking-[0.18em] sm:tracking-[0.25em] uppercase whitespace-nowrap leading-none text-[0.5rem] sm:text-[clamp(0.38rem,0.85vw,0.82rem)] max-w-full">
             {client.sub.split("").map((char, i) => (
               <span key={i} className="char inline-block">
                 {char === " " ? "\u00A0" : char}
@@ -240,6 +245,13 @@ function ClientCard({ client, index, onEnter, onLeave, isActive, onToggle }) {
 export default function ClientsGrid() {
   const [activeCardId, setActiveCardId] = useState(null);
   const navigate = useNavigate();
+  const touchPreviewRef = useRef(null);
+  const touchPreviewTimeoutRef = useRef(null);
+
+  const isTouchPreviewViewport = useCallback(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px) and (hover: none) and (pointer: coarse)').matches,
+    [],
+  );
 
   const handleEnter = useCallback((color) => {
     gsap.to(document.getElementById("page-overlay"), {
@@ -257,21 +269,124 @@ export default function ClientsGrid() {
     });
   }, []);
 
+  const clearTouchPreview = useCallback(() => {
+    if (touchPreviewTimeoutRef.current) {
+      window.clearTimeout(touchPreviewTimeoutRef.current);
+      touchPreviewTimeoutRef.current = null;
+    }
+
+    touchPreviewRef.current = null;
+    setActiveCardId(null);
+    handleLeave();
+  }, [handleLeave]);
+
+  const resetCardSelection = useCallback(() => {
+    if (touchPreviewTimeoutRef.current) {
+      window.clearTimeout(touchPreviewTimeoutRef.current);
+      touchPreviewTimeoutRef.current = null;
+    }
+
+    touchPreviewRef.current = null;
+    setActiveCardId(null);
+    handleLeave();
+  }, [handleLeave]);
+
+  useEffect(
+    () => () => {
+      if (touchPreviewTimeoutRef.current) {
+        window.clearTimeout(touchPreviewTimeoutRef.current);
+      }
+
+      // Ensure the global page overlay never leaks into other routes.
+      const overlay = document.getElementById("page-overlay");
+      if (overlay) {
+        gsap.killTweensOf(overlay);
+        gsap.set(overlay, { backgroundColor: "rgba(0,0,0,0)" });
+      }
+    },
+    [],
+  );
+
+  const handleTouchPreview = useCallback(
+    (id, color, element) => {
+      if (!isTouchPreviewViewport()) return;
+
+      if (touchPreviewRef.current === id) {
+        // Keep the current preview visible until timeout or navigation.
+        return;
+      }
+
+      if (touchPreviewTimeoutRef.current) {
+        window.clearTimeout(touchPreviewTimeoutRef.current);
+      }
+
+      touchPreviewRef.current = id;
+      setActiveCardId(id);
+      handleEnter(color);
+      touchPreviewTimeoutRef.current = window.setTimeout(() => {
+        clearTouchPreview();
+      }, 2000);
+
+      if (!element) return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const rect = element.getBoundingClientRect();
+      const topInset = 96;
+      const bottomInset = 32;
+      const isAboveViewport = rect.top < topInset;
+      const isBelowViewport = rect.bottom > window.innerHeight - bottomInset;
+
+      if (!isAboveViewport && !isBelowViewport) return;
+
+      const nextScrollY = window.scrollY + (isAboveViewport
+        ? rect.top - topInset
+        : rect.bottom - window.innerHeight + bottomInset);
+
+      window.scrollTo({
+        top: Math.max(0, nextScrollY),
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
+    },
+    [clearTouchPreview, handleEnter, isTouchPreviewViewport],
+  );
+
   const handleToggle = useCallback(
     (id, color) => {
+      if (touchPreviewRef.current === id) {
+        if (touchPreviewTimeoutRef.current) {
+          window.clearTimeout(touchPreviewTimeoutRef.current);
+          touchPreviewTimeoutRef.current = null;
+        }
+        touchPreviewRef.current = null;
+      }
+
       // If this card has a dedicated page, use a smooth slide transition
       if (CARD_ROUTES[id]) {
         const to = CARD_ROUTES[id];
 
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          window.scrollTo(0, 0);
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true });
+          } else {
+            document.documentElement.style.scrollBehavior = 'auto';
+            window.scrollTo(0, 0);
+            document.documentElement.style.scrollBehavior = '';
+          }
+          resetCardSelection();
           navigate(to);
           return;
         }
 
         const page = pageRef.current;
         if (!page) {
-          window.scrollTo(0, 0);
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true });
+          } else {
+            document.documentElement.style.scrollBehavior = 'auto';
+            window.scrollTo(0, 0);
+            document.documentElement.style.scrollBehavior = '';
+          }
+          resetCardSelection();
           navigate(to);
           return;
         }
@@ -313,12 +428,18 @@ export default function ClientsGrid() {
 
         document.documentElement.style.overflowX = 'hidden';
         document.body.style.overflowX = 'hidden';
+        document.documentElement.style.scrollBehavior = 'auto';
 
         // Push the real page wrapper off-screen to the right
         gsap.set(page, { x: vw });
 
         // Navigate and scroll to top (hidden under snapshot)
-        window.scrollTo(0, 0);
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(0, { immediate: true });
+        } else {
+          window.scrollTo(0, 0);
+        }
+        resetCardSelection();
         navigate(to);
 
         // Slide old snapshot out to the left, new page in from the right
@@ -344,6 +465,8 @@ export default function ClientsGrid() {
             gsap.set(page, { clearProps: 'transform' });
             document.documentElement.style.overflowX = '';
             document.body.style.overflowX = '';
+            document.documentElement.style.scrollBehavior = '';
+            lenisRef.current?.resize();
           },
         });
 
@@ -380,6 +503,7 @@ export default function ClientsGrid() {
             onLeave={handleLeave}
             isActive={activeCardId === client.id}
             onToggle={handleToggle}
+            onTouchPreview={handleTouchPreview}
           />
         ))}
       </div>
