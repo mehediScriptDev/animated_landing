@@ -129,7 +129,6 @@ export default function BorrowingPowerCalculator() {
   const [borrowDesired, setBorrowDesired] = useState("");
   const [showInfo, setShowInfo] = useState(false);
 
-
   /* ── Calculations ──────────────────────────────────────────────── */
   // Annual gross income
   const grossAnnual1 =
@@ -208,8 +207,10 @@ export default function BorrowingPowerCalculator() {
 
   /* ── Input formatter helper ── */
   const numInput = (val) => {
-    // Return raw value for editing, no formatting
-    return val || "";
+    if (!val) return "";
+    const num = parseInt(val, 10);
+    if (isNaN(num)) return "";
+    return num.toLocaleString("en-AU");
   };
 
   const handleNumChange = (setter) => (e) => {
@@ -716,8 +717,6 @@ export default function BorrowingPowerCalculator() {
             </div>
           </div>
         </div>
-
-        
 
         {/* Repayment estimator */}
         <div className="bg-white/10 border border-white/10 rounded-xl p-5 mt-5">
