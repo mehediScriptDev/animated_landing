@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import SEO from "../../../components/SEO";
+import TransitionLink from "../../../components/TransitionLink";
 
 // ─── Accordion data ───────────────────────────────────────────────────────────
 const ACCORDION_ITEMS = [
@@ -323,12 +323,12 @@ export default function PrivacyPage() {
             <p className="text-black text-sm leading-relaxed">
               Are you interested to book a free consultation or have any other inquiries?
             </p>
-            <Link
+            <TransitionLink
               to="/contact"
               className="shrink-0 bg-black text-white text-xs font-bold tracking-[0.18em] uppercase px-7 py-3 hover:bg-black/80 transition-colors"
             >
               CONTACT US
-            </Link>
+            </TransitionLink>
           </div>
         </div>
       </main>

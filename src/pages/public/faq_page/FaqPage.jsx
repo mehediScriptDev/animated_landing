@@ -264,6 +264,264 @@ The best way to find out what rate may be available to you is to contact us for 
   }
 ];
 
+const ADDITIONAL_FAQ_DATA = [
+  {
+    id: "s2-1",
+    question: "How much can I borrow?",
+    answer: `Your borrowing capacity depends on a range of factors including your income, employment type, living expenses, existing debts, credit history, number of dependants, loan term, and the lender's assessment criteria. Every lender assesses applications differently, which means your maximum borrowing capacity can vary significantly from one lender to another.
+
+For example, two borrowers earning the same income may receive very different borrowing outcomes depending on whether they have HECS debt, personal loans, car finance, credit card limits, child dependants, overtime income, bonus income, or investment property commitments.
+
+Borrowing capacity is also affected by the type of loan you are applying for. Owner-occupier loans, investment loans, principal and interest repayments, interest-only repayments, and self-employed income can all be assessed differently depending on the lender.
+
+At Traikos Finance, we review your full financial position and compare lending options across a wide panel of lenders. This helps you understand how much you may be able to borrow before you begin making offers or bidding at auction.`
+  },
+  {
+    id: "s2-2",
+    question: "What is Lenders Mortgage Insurance (LMI)?",
+    answer: `Lenders Mortgage Insurance, commonly known as LMI, is an insurance premium that may apply when you borrow more than 80% of a property's value. It is important to understand that LMI protects the lender, not the borrower, if the loan falls into default and the lender suffers a loss.
+
+The cost of LMI can vary depending on the loan amount, property value, deposit size, and lender. In many cases, LMI can be capitalised, meaning it is added to the home loan rather than paid upfront. This can reduce the amount of cash required at settlement, although it also means you may pay interest on the LMI amount over the life of the loan.
+
+Some borrowers may be able to avoid paying LMI through government initiatives, professional occupation waivers, family guarantee structures, or by contributing a larger deposit.
+
+At Traikos Finance, we can help you understand whether LMI may apply, how much it could cost, and whether there are strategies or lender options that may reduce or avoid it.`
+  },
+  {
+    id: "s2-3",
+    question: "How much deposit do I need to buy a home?",
+    answer: `A 20% deposit is often considered ideal because it may allow you to avoid Lenders Mortgage Insurance. However, many borrowers purchase property with less than a 20% deposit, depending on their circumstances and the lender's requirements.
+
+In addition to the deposit, buyers also need to consider stamp duty, government charges, conveyancing costs, building and pest inspections, lender fees, moving costs, and any required cash buffer. First home buyers may also be eligible for grants, concessions, or government schemes that reduce the amount required upfront.
+
+For some eligible first home buyers, purchasing with a 5% deposit may be possible through the First Home Guarantee Scheme. Other borrowers may choose to purchase with a 10% or 15% deposit and pay LMI if it allows them to enter the market sooner.
+
+At Traikos Finance, we can help calculate the deposit and total funds required for your purchase so you know exactly what you need before making an offer.`
+  },
+  {
+    id: "s2-4",
+    question: "Can I buy a property with a 5% deposit?",
+    answer: `Yes, some borrowers may be able to buy a property with as little as a 5% deposit, subject to lender approval and eligibility criteria. This is most commonly available to eligible first home buyers through government-backed initiatives such as the First Home Guarantee Scheme.
+
+A 5% deposit can help buyers enter the property market sooner, particularly in areas where property prices are rising faster than savings. However, it is important to consider other purchase costs such as stamp duty, legal fees, government charges, and lender requirements.
+
+Borrowers using a small deposit must still demonstrate that they can service the loan, have genuine savings where required, and meet the lender's credit and policy criteria. Property price caps and eligibility rules may also apply under government schemes.
+
+At Traikos Finance, we can assess whether a 5% deposit purchase may be available to you and compare suitable lenders based on your circumstances.`
+  },
+  {
+    id: "s2-5",
+    question: "What is the First Home Guarantee Scheme?",
+    answer: `The First Home Guarantee Scheme is a government initiative designed to help eligible first home buyers purchase a property sooner. Under the scheme, eligible buyers may be able to purchase with as little as a 5% deposit without paying Lenders Mortgage Insurance.
+
+This can make a significant difference because LMI can be a major upfront or capitalised cost for borrowers purchasing with a smaller deposit. The scheme effectively allows eligible borrowers to access a loan with a lower deposit while the government provides a limited guarantee to the participating lender.
+
+Eligibility criteria, income limits, property price caps, citizenship or residency requirements, and available places can apply. These rules can change, so it is important to check the current requirements before relying on the scheme.
+
+At Traikos Finance, we can help first home buyers understand whether they may be eligible, which lenders participate, and how the scheme fits into their overall purchase strategy.`
+  },
+  {
+    id: "s2-6",
+    question: "What grants are available for first home buyers in Victoria?",
+    answer: `First home buyer grants and concessions can vary depending on the property type, purchase price, location, and government policy at the time of purchase. In Victoria, first home buyers may be eligible for stamp duty concessions or exemptions depending on the purchase price and their circumstances.
+
+Government assistance can make a meaningful difference to the amount of money required to purchase a property. However, the rules can be detailed and may change over time, so it is important to confirm eligibility before signing a contract.
+
+At Traikos Finance, we can help you understand the types of government assistance that may be relevant to your purchase and work alongside your conveyancer or solicitor to ensure the right questions are asked before settlement.`
+  },
+  {
+    id: "s2-7",
+    question: "Should I choose a fixed or variable interest rate?",
+    answer: `Choosing between a fixed and variable interest rate depends on your financial goals, risk tolerance, cash flow needs, and preference for certainty or flexibility.
+
+A fixed rate can provide repayment certainty for a set period, which may help with budgeting and peace of mind. However, fixed loans can have restrictions on extra repayments, redraw access, offset accounts, and may involve break costs if you repay or refinance during the fixed period.
+
+A variable rate generally offers more flexibility, including the ability to make additional repayments, access redraw, use offset accounts, and refinance more easily. However, repayments can increase if interest rates rise.
+
+Some borrowers choose a split loan, where part of the loan is fixed and part remains variable. This can provide a balance between certainty and flexibility.
+
+At Traikos Finance, we can explain the advantages and limitations of each option and help structure a loan that suits your goals.`
+  },
+  {
+    id: "s2-8",
+    question: "What is the difference between an offset account and redraw?",
+    answer: `An offset account and redraw facility can both help reduce interest costs, but they work differently.
+
+An offset account is a separate transaction account linked to your home loan. The balance in the offset account reduces the amount of the loan used to calculate interest. For example, if your home loan is $700,000 and you have $50,000 in offset, interest may only be calculated on $650,000.
+
+A redraw facility allows you to access extra repayments you have made directly into your loan. For example, if you have paid an additional $20,000 into your loan, your lender may allow you to redraw some or all of those funds later.
+
+The right option can depend on your loan purpose, tax considerations, flexibility needs, and savings habits. For investment loans, it is especially important to obtain tax advice before relying on redraw or offset strategies.
+
+At Traikos Finance, we can compare loan products with offset and redraw features and help you understand which may be suitable for your situation.`
+  },
+  {
+    id: "s2-9",
+    question: "How long does home loan approval take?",
+    answer: `Home loan approval timeframes vary depending on the lender, application complexity, property type, valuation requirements, and how quickly supporting documents are provided.
+
+A pre-approval may be obtained within a few days with some lenders, while formal approval can take anywhere from several days to several weeks. More complex applications, such as self-employed loans, trust structures, construction loans, SMSF lending, or applications requiring detailed income verification, may take longer.
+
+Formal approval usually requires the lender to assess your financial position, verify documents, complete a credit assessment, review the property, and obtain a satisfactory valuation.
+
+At Traikos Finance, we help prepare your application properly from the outset, follow up with the lender, and keep you informed throughout the process to reduce delays wherever possible.`
+  },
+  {
+    id: "s2-10",
+    question: "How much can I save by refinancing?",
+    answer: `The amount you can save by refinancing depends on your current interest rate, loan balance, remaining loan term, fees, and the new loan option available to you.
+
+Even a small reduction in interest rate can result in meaningful savings over time, particularly on larger home loans. Refinancing may also help reduce repayments, improve loan features, consolidate debts, access equity, or restructure your loan to better suit your circumstances.
+
+However, refinancing is not always the right decision. Costs such as discharge fees, government fees, settlement costs, application fees, and fixed-rate break costs need to be considered.
+
+At Traikos Finance, we complete a detailed comparison before recommending a refinance so you can understand the potential savings, costs, and benefits before proceeding.`
+  },
+  {
+    id: "s2-11",
+    question: "How long does refinancing take?",
+    answer: `Most refinances take between two and six weeks from application to settlement, although timeframes can vary depending on the lender, valuation requirements, discharge process, and application complexity.
+
+A straightforward refinance for a PAYG borrower with clear income documents and a standard property may be completed faster than a more complex refinance involving cash-out, self-employed income, company or trust structures, or multiple properties.
+
+The process generally involves reviewing your current loan, comparing lender options, submitting an application, completing a valuation, obtaining approval, signing loan documents, and arranging settlement with your existing lender.
+
+At Traikos Finance, we manage the refinance process from start to finish and keep you updated throughout each stage.`
+  },
+  {
+    id: "s2-12",
+    question: "Will refinancing affect my credit score?",
+    answer: `Refinancing can involve a credit enquiry when a lender assesses your application. A single credit enquiry is generally a normal part of applying for finance, but multiple applications across different lenders in a short period may have a greater impact.
+
+Your overall credit profile is influenced by factors such as repayment history, existing debts, credit limits, credit enquiries, and whether accounts are paid on time.
+
+Working with a mortgage broker can help reduce the risk of unnecessary applications because your scenario can be assessed against lender policy before submission.
+
+At Traikos Finance, we aim to identify suitable lender options before applying so your application is positioned appropriately from the outset.`
+  },
+  {
+    id: "s2-13",
+    question: "Can I refinance if my property value has fallen?",
+    answer: `It may still be possible to refinance if your property value has fallen, but your options may be more limited. A lower valuation can increase your Loan to Value Ratio, which may affect your interest rate, lender options, and whether Lenders Mortgage Insurance applies.
+
+For example, if your loan balance remains the same but your property value decreases, your equity position may reduce. This can make it harder to refinance to certain lenders or access sharper interest rates.
+
+At Traikos Finance, we can review your current loan, estimate your equity position, arrange valuations where appropriate, and compare lenders to determine whether refinancing remains viable.`
+  },
+  {
+    id: "s2-14",
+    question: "Does HECS debt affect borrowing capacity?",
+    answer: `Yes. HECS or HELP debt can affect borrowing capacity because lenders take compulsory repayment obligations into account when assessing your income and expenses.
+
+Having HECS debt does not prevent you from getting a home loan, but it may reduce the amount you can borrow. The impact will depend on your income, loan amount, lender policy, and overall financial position.
+
+In some cases, paying down or clearing HECS may improve borrowing capacity, but this is not always the best use of funds. It is important to compare the impact before making a decision.
+
+At Traikos Finance, we can model borrowing capacity with and without HECS so you can understand the potential difference.`
+  },
+  {
+    id: "s2-15",
+    question: "Do credit cards reduce borrowing capacity?",
+    answer: `Yes. Credit card limits can reduce borrowing capacity even if you pay the card off in full each month. Lenders usually assess the approved credit limit, not just the current balance.
+
+For example, a $20,000 credit card limit may reduce borrowing capacity because the lender assumes you could draw the card up to its limit and need to make repayments.
+
+Reducing or closing unused credit cards can sometimes improve borrowing capacity, but this should be considered as part of your broader loan strategy.
+
+At Traikos Finance, we can review your existing commitments and identify whether credit card limits are affecting your borrowing power.`
+  },
+  {
+    id: "s2-16",
+    question: "Can I use equity to buy an investment property?",
+    answer: `Yes. Many investors use equity in an existing property to help fund the deposit and purchase costs for an investment property.
+
+For example, if your home has increased in value and your loan balance has reduced, you may be able to access usable equity and use those funds towards another property purchase. This can reduce the need to save a separate cash deposit.
+
+Lenders will still assess your ability to repay the new debt, including the existing loan, the equity release loan, and the proposed investment loan. Rental income, existing commitments, living expenses, and loan structure will all be considered.
+
+At Traikos Finance, we can help calculate available equity, assess borrowing capacity, and structure the lending to support your investment goals.`
+  },
+  {
+    id: "s2-17",
+    question: "Should I choose principal and interest or interest-only repayments for an investment loan?",
+    answer: `The choice between principal and interest repayments and interest-only repayments depends on your cash flow, investment strategy, tax position, and long-term goals.
+
+Principal and interest repayments reduce the loan balance over time, which can help build equity and reduce total interest paid. Interest-only repayments may provide lower monthly repayments during the interest-only period, which can assist with cash flow and investment planning.
+
+Interest-only loans may cost more over the long term because the principal is not reducing during the interest-only period. Lenders may also assess interest-only loans differently when calculating borrowing capacity.
+
+Because there can be tax implications, investors should speak with their accountant or financial adviser before deciding on the most appropriate repayment structure.
+
+At Traikos Finance, we can explain the lending implications and compare loan options that align with your broader investment strategy.`
+  },
+  {
+    id: "s2-18",
+    question: "How many investment properties can I own?",
+    answer: `There is no fixed number of investment properties a person can own. The practical limit usually depends on borrowing capacity, equity, cash flow, lender policy, rental income, and overall risk profile.
+
+As your portfolio grows, lenders may apply more detailed assessment methods, including shading rental income, applying higher assessment rates, and reviewing total debt exposure. Some lenders may be more suitable for portfolio investors than others.
+
+The structure of your loans can also become increasingly important as your portfolio grows. Interest-only periods, offset accounts, equity access, lender diversification, and ownership structures can all influence future borrowing capacity.
+
+At Traikos Finance, we can help investors review their portfolio lending position and identify strategies to support future growth.`
+  },
+  {
+    id: "s2-19",
+    question: "Can I buy an investment property through a trust?",
+    answer: `Yes, it may be possible to purchase an investment property through a trust, depending on the lender and the trust structure. Common structures include discretionary trusts, family trusts and unit trusts.
+
+Buying through a trust can have legal, tax, asset protection and estate planning implications, so it is important to obtain advice from a qualified accountant, solicitor or financial adviser before proceeding.
+
+Not all lenders accept all trust structures, and those that do may have different documentation requirements, servicing policies and loan conditions.
+
+At Traikos Finance, we can work alongside your professional advisers to identify lenders that may support your chosen structure from a lending perspective.`
+  },
+  {
+    id: "s2-20",
+    question: "Can I get a home loan with only one year of ABN history?",
+    answer: `Potentially. Some lenders may consider self-employed borrowers with as little as 12 months of ABN or trading history, provided the overall application is strong and the income can be verified.
+
+Other lenders may require two full years of tax returns and financial statements. The right lender will depend on your business type, income consistency, industry, credit history, deposit size, and loan purpose.
+
+Alternative documentation options may be available, including BAS statements, accountant letters, business bank statements, Notices of Assessment or draft financials, depending on the lender.
+
+At Traikos Finance, we help self-employed borrowers identify lenders whose policies align with their business history and income documentation.`
+  },
+  {
+    id: "s2-21",
+    question: "Can I get a home loan if my taxable income is low?",
+    answer: `It may be possible, but it depends on the reason your taxable income is low and how the lender assesses your financial position.
+
+Many self-employed borrowers have deductions, depreciation, one-off expenses, or business structures that reduce taxable income. Some lenders may add back certain expenses or assess income using alternative verification methods, while others may rely heavily on taxable income shown in tax returns.
+
+Low taxable income can reduce borrowing capacity, so it is important to choose a lender that understands your business structure and income profile.
+
+At Traikos Finance, we can review your financials and work with your accountant where appropriate to determine which lenders may consider your circumstances.`
+  },
+  {
+    id: "s2-22",
+    question: "What documents do self-employed borrowers need?",
+    answer: `Self-employed borrowers may need to provide different documents depending on the lender and loan type. Common requirements include personal tax returns, business tax returns, financial statements, Notices of Assessment, BAS statements, business bank statements, trust deeds, company financials, and accountant contact details.
+
+Some lenders may accept alternative documentation, such as BAS statements or accountant declarations, while others require full financials and tax returns.
+
+The documentation required will depend on your business structure, trading history, income type, and whether you are applying for a full-doc or alt-doc loan.
+
+At Traikos Finance, we provide a tailored document checklist so you know exactly what is required for your application.`
+  },
+  {
+    id: "s2-23",
+    question: "Can I split my home loan between fixed and variable rates?",
+    answer: `Yes. Many lenders allow borrowers to split their home loan between fixed and variable interest rates.
+
+A split loan can provide a balance between repayment certainty and flexibility. The fixed portion can help protect against rate movements during the fixed term, while the variable portion may allow access to features such as offset accounts, redraw, and additional repayments.
+
+The right split will depend on your financial goals, cash flow, risk tolerance, and need for flexibility.
+
+At Traikos Finance, we can compare split loan options and help structure your loan in a way that suits your circumstances.`
+  }
+];
+
 function FaqItem({ faq, isOpen, onToggle }) {
   return (
     <div className="border border-gray-200 px-4 mb-2">
@@ -301,6 +559,7 @@ function FaqItem({ faq, isOpen, onToggle }) {
 export default function FaqPage() {
   useDocumentTitle("Frequently Asked Questions - Traikos Finance");
   const [openIds, setOpenIds] = useState([]);
+  const allFaqs = [...FAQ_DATA, ...ADDITIONAL_FAQ_DATA];
 
   const toggleFaq = (id) => {
     setOpenIds(prev => 
@@ -311,9 +570,9 @@ export default function FaqPage() {
   };
 
   // Split FAQs into two columns for desktop
-  const midpoint = Math.ceil(FAQ_DATA.length / 2);
-  const leftColumnFaqs = FAQ_DATA.slice(0, midpoint);
-  const rightColumnFaqs = FAQ_DATA.slice(midpoint);
+  const midpoint = Math.ceil(allFaqs.length / 2);
+  const leftColumnFaqs = allFaqs.slice(0, midpoint);
+  const rightColumnFaqs = allFaqs.slice(midpoint);
 
   return (
     <>
@@ -334,7 +593,7 @@ export default function FaqPage() {
           {/* Mobile Layout - Single Column */}
           <div className="md:hidden">
             <div className="bg-white">
-              {FAQ_DATA.map((faq) => (
+              {allFaqs.map((faq) => (
                 <FaqItem
                   key={faq.id}
                   faq={faq}

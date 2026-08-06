@@ -249,7 +249,7 @@ export default function ClientsGrid() {
   const touchPreviewTimeoutRef = useRef(null);
 
   const isTouchPreviewViewport = useCallback(
-    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px) and (hover: none) and (pointer: coarse)').matches,
+    () => typeof window !== 'undefined' && window.matchMedia('(hover: none) and (pointer: coarse)').matches,
     [],
   );
 

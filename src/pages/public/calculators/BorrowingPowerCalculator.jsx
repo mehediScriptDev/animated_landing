@@ -185,9 +185,11 @@ export default function BorrowingPowerCalculator() {
   const serviceabilityMaximum =
     perDollarMax > 0 ? Math.max(0, monthlySurplus / perDollarMax) : 0;
 
-  // Income-based caps to keep high-income scenarios aligned with lender guardrails.
-  const conservativeIncomeCap = totalGrossAnnual * 3.741235431235431;
-  const maximumIncomeCap = totalGrossAnnual * 4.79031302031302;
+  // Income-based caps — based on net income after CC & loan servicing
+  // so that any change in credit card limits or loans is reflected in the result.
+  const effectiveAnnualNet = netAnnual - annualCCServicing - annualLoanRepay;
+  const conservativeIncomeCap = effectiveAnnualNet * 5.586;
+  const maximumIncomeCap = effectiveAnnualNet * 7.0175;
 
   const conservativeMax = Math.min(
     serviceabilityConservative,
@@ -205,12 +207,15 @@ export default function BorrowingPowerCalculator() {
 
   /* ── Input formatter helper ── */
   const numInput = (val) => {
-    const n = parseNum(val);
-    return n > 0 ? n.toLocaleString("en-AU") : "";
+    if (!val) return "";
+    const num = parseInt(val, 10);
+    if (isNaN(num)) return "";
+    return num.toLocaleString("en-AU");
   };
 
   const handleNumChange = (setter) => (e) => {
-    setter(e.target.value.replace(/[^0-9]/g, ""));
+    const newValue = e.target.value.replace(/[^0-9]/g, "");
+    setter(newValue);
   };
 
   /* ── Is any income provided? ── */

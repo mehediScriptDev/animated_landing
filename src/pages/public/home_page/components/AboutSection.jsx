@@ -6,22 +6,22 @@ export default function AboutSection() {
   return (
     <section
       aria-label="About Traikos Finance"
-      className="relative z-10 py-12 md:py-16 lg:py-24"
+      className="relative z-10 py-12 md:py-16 xl:py-24"
     >
-      <div className="w-[90%] md:w-[75%] mx-auto flex flex-col lg:flex-row lg:items-stretch gap-10 ">
-        {/* Left — image with top-right rounded corner (shown second on mobile, first on lg) */}
+      <div className="w-[90%] md:w-[75%] mx-auto flex flex-col xl:flex-row xl:items-stretch gap-10 ">
+        {/* Left — image with top-right rounded corner (shown second on mobile, first on xl) */}
         {/* TODO: Replace aboutImg with the new image once client provides it */}
-        <div className="w-full lg:w-1/2 shrink-0 flex order-2 lg:order-1">
+        <div className="w-full xl:w-1/2 shrink-0 flex order-2 xl:order-1">
           <img
             src={aboutImg}
             alt="Traikos Finance — solutions-driven finance brokerage"
-            className="w-full h-80 sm:h-112.5 lg:h-full object-cover"
+            className="w-full h-80 sm:h-112.5 xl:h-full object-cover"
             style={{ borderRadius: "0 80px 0 0" }}
           />
         </div>
 
-        {/* Right — text content (shown first on mobile, second on lg) */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center gap-6 text-white/85 text-sm lg:text-[0.95rem] leading-relaxed order-1 lg:order-2">
+        {/* Right — text content (shown first on mobile, second on xl) */}
+        <div className="w-full xl:w-1/2 flex flex-col justify-center gap-6 text-white/85 text-sm xl:text-[0.95rem] leading-relaxed order-1 xl:order-2">
           <p>
             We are <strong className="text-white">Traikos Finance</strong>, a
             solutions-driven finance brokerage with access to over 30 lenders,

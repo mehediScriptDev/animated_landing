@@ -131,12 +131,14 @@ a,
   transition: background-color 0.35s ease;
 }
 /* When grid has a hovered card — all cards get subtle dark tint (card shapes visible over overlay) */
-.clients-grid:has(.client-card:hover) .client-card {
-  background-color: rgba(0, 0, 0, 0.18);
-}
-/* The specifically hovered card — transparent so GSAP image shows */
-.clients-grid .client-card:hover {
-  background-color: transparent;
+@media (hover: hover) {
+  .clients-grid:has(.client-card:hover) .client-card {
+    background-color: rgba(0, 0, 0, 0.18);
+  }
+  /* The specifically hovered card — transparent so GSAP image shows */
+  .clients-grid .client-card:hover {
+    background-color: transparent;
+  }
 }
 
 /* ClientsGrid section background — slow fade to black on dark-theme, fast reset on light */

@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import SEO from '../../../components/SEO';
+import TransitionLink from '../../../components/TransitionLink';
 
 const SECTIONS = [
   {
@@ -165,12 +165,12 @@ export default function ComplimentsPage() {
             <p className="text-black text-sm leading-relaxed">
               Are you interested to book a free consultation or have any other inquiries?
             </p>
-            <Link
+            <TransitionLink
               to="/contact"
               className="shrink-0 bg-black text-white text-xs font-bold tracking-[0.18em] uppercase px-7 py-3 transition-colors hover:bg-black/80"
             >
               CONTACT US
-            </Link>
+            </TransitionLink>
           </div>
         </div>
 
